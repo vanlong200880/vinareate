@@ -1,0 +1,98 @@
+//clearfix
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+// set border radius
+@mixin border-radius($radius)
+{
+	border-radius: $radius;
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-o-border-radius: $radius;
+	-ms-border-radius: $radius;
+}
+@mixin border-top-left-radius($radius)
+{
+    border-top-left-radius: $radius;
+    -moz-border-top-left-radius: $radius;
+    -webkit-border-top-left-radius: $radius;
+    -ms-border-top-left-radius: $radius;
+    -o-border-top-left-radius: $radius;
+}
+@mixin border-top-right-radius($radius)
+{
+    border-top-right-radius: $radius;
+    -moz-border-top-right-radius: $radius;
+    -webkit-border-top-right-radius: $radius;
+    -ms-border-top-right-radius: $radius;
+    -o-border-top-right-radius: $radius;
+}
+@mixin border-bottom-left-radius($radius)
+{
+    border-bottom-left-radius: $radius;
+    -moz-border-bottom-left-radius: $radius;
+    -webkit-border-bottom-left-radius: $radius;
+    -ms-border-bottom-left-radius: $radius;
+    -o-border-bottom-left-radius: $radius;
+}
+@mixin border-bottom-right-radius($radius)
+{
+    border-bottom-right-radius: $radius;
+    -moz-border-bottom-right-radius: $radius;
+    -webkit-border-bottom-right-radius: $radius;
+    -ms-border-bottom-right-radius: $radius;
+    -o-border-bottom-right-radius: $radius;
+}
+// set boxshow
+@mixin box-shadow( $shadow){
+	box-shadow: $shadow;
+	-moz-box-shadow: $shadow;
+	-webkit-box-shadow: $shadow;
+	-ms-box-shadow: $shadow;
+	-o-box-shadow: $shadow;
+}
+
+// set text 
+@mixin text-shadow( $shadow){
+	text-shadow: $shadow;
+	-moz-text-shadow: $shadow;
+	-webkit-text-shadow: $shadow;
+	-ms-text-shadow: $shadow;
+	-o-text-shadow: $shadow;
+}
+
+// set transition
+@mixin transition($transition){
+	transition: $transition;
+	-moz-transition: $transition;
+	-webkit-transition: $transition;
+	-ms-transition: $transition;
+	-o-transition: $transition;
+}
+
+// set transform
+@mixin transform-skewY($deg){
+	transform: skewY($deg);
+	-moz-transform: skewY($deg);
+	-webkit-transform: skewY($deg);
+	-ms-transform: skewY($deg);
+	-o-transform: skewY($deg);
+}
+@mixin transform-rotate($deg){
+	transform: rotate($deg);
+	-moz-transform: rotate($deg);
+	-webkit-transform: rotate($deg);
+	-ms-transform: rotate($deg);
+	-o-transform: rotate($deg);
+}
+@mixin scale($ratio) {
+  -webkit-transform: scale($ratio);
+      -ms-transform: scale($ratio); // IE9 only
+       -o-transform: scale($ratio);
+          transform: scale($ratio);
+}
+

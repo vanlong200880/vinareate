@@ -1,0 +1,128 @@
+#footer{
+	font-size:13px;
+	background: $color-bg-footer;
+	.title-footer{
+		padding: 10px 0 10px;
+		h3{
+			font-size: 16px;
+			font-weight: normal;
+			color: #fff;
+			position: relative;
+			padding-bottom: 10px;
+			margin-bottom: 10px;
+			border-bottom: 1px solid $color-line-bottom;
+			&:before{
+				position: absolute;
+				content: " ";
+				width: 70px;
+				height: 5px;
+				background: $color-line-footer;
+				left: 0;
+				bottom:-3px;
+			}
+		}
+	}
+	.title-footer.linkweb, .infomation{
+		ul{
+			li{
+				margin-bottom: 5px;
+				a{
+					color: $color-text-footer;
+					span.fa{
+						color: #757e8b;
+						margin-right: 5px;
+					}
+					&:hover{
+						color: $color-hover;
+					}
+				}
+			}
+		}
+	}
+	.title-footer.about-footer{
+		h5{
+			font-size: 13px;
+			color: #fff;
+		}
+		p{
+			color: $color-text-footer;
+			margin-bottom: 2px;
+		}
+		.plugin-social{
+			margin: 10px 0 0;
+		}
+	}
+	.title-footer.infomation{
+		ul{
+			li{
+				width: 50%;
+				display: inline-block;
+				float:left;
+			}
+		}
+	}
+	.title-footer.support{
+		.wrap-chat{
+			p{
+				margin-bottom: 5px;
+				span{
+					color: $color-text-footer;
+				}
+				span.fa{
+					font-size: 20px;
+					color: #757e8b;
+					margin-right: 5px;
+				}
+				span.fa.fa-mobile{
+					font-size: 30px;
+				}
+				a{
+					color: $color-text-footer;
+					&:hover{
+						color: $color-hover;
+					}
+				}
+				span.fa.fa-skype{
+					color: #0088c1;
+				}
+			}
+		}
+	}
+	.coppyright{
+		border-top: 1px solid $color-line-bottom;
+		padding-bottom: 5px;
+		.text-left{
+			color: $color-text-footer;
+			padding-top:10px;
+		}
+		.text-right{
+			a.backtop{
+				@include transition(all ease-out .3s);
+				position: relative;
+				display: block;
+				float: right;
+			    width: 0px;
+			    height: 0px;
+			    border-right: 15px solid $color-text-footer;
+			    border-top: 25px solid $color-text-footer;
+			    border-left: 15px solid $color-text-footer;
+			    border-bottom: 5px solid transparent;
+			    span.fa{
+			    	color:#fff;
+			    	font-size: 14px;
+			    	position: absolute;
+			    	top: -20px;
+			    	right: -6px;
+			    	z-index: 999;
+			    }
+			    &:hover{
+			    	@include transition(all ease-out .3s);
+            border-right: 15px solid $color-hover;
+            border-top: 25px solid $color-hover;
+            border-left: 15px solid $color-hover;
+            border-bottom: 5px solid transparent;
+			    }
+			}
+		}
+	}
+}

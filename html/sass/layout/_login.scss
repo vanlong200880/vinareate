@@ -1,0 +1,83 @@
+.login-form{
+    input{
+        box-sizing: border-box;
+    }
+    .modal-header{
+        padding: 5px 15px;
+        background: $color-line-footer;
+        @include border-top-left-radius(3px);
+        @include border-top-right-radius(3px);
+        border-bottom-color: #a86016;
+        color: #FFF;
+        font-weight: bold;
+        h4{
+            color:#fff;
+        }
+    }
+    .btn-primary{
+        background: #353535;
+        margin-right: 15px;
+        border: none;
+        @include transition(all ease-out .3s);
+        &:hover{
+            background: $color-base;
+            @include transition(all ease-out .3s);
+
+        }
+    }
+    .login-line{
+        height: 1px;
+        background: #d0d0d0;
+    }
+    a{
+        color: #418bca;
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    p{
+        padding-top: 15px;
+        span{
+            margin-right: 5px;
+        }
+    }
+    p.error{
+      padding-top: 5px;
+      color: red;
+      font-size: 12px;
+    }
+    .close{
+        @include border-radius(50%);
+        background: #FFF;
+        width: 20px;
+        height: 20px;
+		text-align: center;
+		line-height: 20px;
+        opacity: 1;
+        margin-top: 2px;
+        outline: none;
+        padding: 0;
+		span{
+			display: block;
+		}
+    }
+    .validation{
+        color: red;
+    }
+		div.login-error{
+			p.error{
+				padding-bottom: 10px;
+				 font-size: 14px;
+			}
+		}
+}
+/* register form */
+#register-form{
+    .form-group{
+        margin-bottom: 10px;
+    }
+    .modal-body{
+        padding-right: 50px;
+    }
+}

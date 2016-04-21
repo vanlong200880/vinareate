@@ -1,0 +1,144 @@
+.details{
+	margin-bottom: 20px;
+	.content-details{
+		.info-top-details{
+			margin-bottom: 20px;
+			background: $color-grey;
+			.show-info-dt{
+				padding:15px 30px 15px 15px;
+				h5{
+					font-size: 18px;
+					margin-bottom: 3px;
+				}
+				p{
+					margin-bottom: 5px;
+					span{
+						font-style: italic;
+						font-size: 12px;
+						color: $color-dark-grey;
+					}
+					span.fa{
+						font-size: 14px;
+						font-style: normal;
+					}
+					&:first-of-type{
+						margin-bottom: 10px;
+					}
+				}
+				p.vote-details{
+					padding:5px 0;
+					margin: 5px 0 10px;
+					border-top:1px solid #d5d5d5;
+					border-bottom:1px solid #d5d5d5;
+				}
+				.share-voted{
+					ul{
+						li{
+							&:last-child{
+								a{
+									position: relative;
+									top: 10px;
+									background-color: $color-base;
+									color: #fff;
+									cursor:pointer;
+									padding: 5px 6px;
+									@include border-radius(4px);
+									&:hover{
+										background-color: #2A255C;
+										-wekit-transition:all ease-out .3s;
+										-moz-transition:all ease-out .3s;
+										-o-transition:all ease-out .3s;
+										transition:all ease-out .3s;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		.tab-content{
+			padding: 15px 30px;
+			.show-dt-editor{
+				p{
+					padding-bottom: 10px;
+					line-height: 20px;
+				}
+				img{
+					text-align: center;
+				}
+				ul, ol{
+					list-style: inherit;
+					margin: 0 0 10px;
+	   				padding: 0 0 0 45px;
+
+				}	
+			}
+			.load-map{
+
+			}
+			.other-location{
+				.page-header{
+					margin: 20px 0 10px;
+					padding-bottom: 0;
+					h2{
+						font-size: 18px;
+					}
+				}
+				.more-location{
+					li{
+						span.fa{
+							color: $color-map;
+						}
+						a{
+							color:#000;
+							font-size: 12px;
+							&:hover{
+								color: $color-base;
+							}
+						}
+					}
+				}
+			}
+			.vote-top{
+				border:1px solid #d5d5d5;
+				margin-bottom: 30px;
+				h5{
+					border-bottom:1px solid #d5d5d5;
+					padding: 5px 10px;
+					margin-bottom: 0;
+					
+					background: $color-grey;
+				}
+				.ct-vote{
+					padding: 10px;
+					background:#fff;
+					height: 55px;
+				}
+			}	
+		}
+	}
+	.title-details{
+		h2{
+			font-size: 16px;
+			background: $color-dark-grey;
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			color: #fff;
+			padding-left: 10px;
+		}
+	}
+	.adv-details{
+		img{
+			width: 100%;
+			height: 227px;
+		}
+	}
+	.main-page{
+		p{
+			line-height: 20px;
+			margin-bottom: 5px;
+		}
+	}
+}

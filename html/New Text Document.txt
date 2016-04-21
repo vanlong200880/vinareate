@@ -1,0 +1,2 @@
+checkout back to master, push back to
+(remote, branch) => (origin, master)

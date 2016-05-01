@@ -1032,9 +1032,71 @@
 </section>
 <script>
     (function($){
-        $("#" + "btnSubmitStep0").on("click", function(){
-            $("#" + "tabStep0").css({display: 'none'});
-            $("#" + "rowSteps").css({display: 'block'});
+//        $("#" + "btnSubmitStep0").on("click", function(){
+//            $("#" + "tabStep0").css({display: 'none'});
+//            $("#" + "rowSteps").css({display: 'block'});
+//        });
+//
+//        /**
+//         * simple version of btn-next
+//         * @type {number}
+//         */
+//        var count = 1;
+//        $(".btn-next").on("click", function(){
+//            /**
+//             * find out current selected
+//             */
+//            count++;
+//            $("[aria-controls='step-" + count + "']").click();
+//        });
+        $(document).ready(function(){
+            /**
+             * PostTab helps handle data from user,
+             * move to next step, collect it
+             * event when user click, move around
+             * need stored in closed object (global variable is dangerous)
+             * collect info from input/select/radio is different
+             * but they are common, just INPUT/SELECT/CHECK/RADIO
+             * tell how to collect info from these thing, give the id of DIV
+             * then DONE
+             * btn-next
+             *     1. collect info from user
+             *     2. go next
+             * at the end, we can apply checked on "missing-step"
+             * roll back use to that step
+             *     1. btn-next help to store which step is done
+             *     2. btn-next check "validation"
+             * closed object
+             *     1. ul tablist, store {current, actived}
+             *     2. validate rule
+             *     3. event on btn-next
+             * to inform user from INPUT mistaked
+             * >>> a div with (message + input) come together
+             * store {messsage, info, input}
+             */
+            window.PostTab = function(){
+                /**
+                 * each step entered by user store in "data"
+                 * @type {{}}
+                 */
+                this.data = {};
+
+            };
+            PostTab.prototype = {};
+            var idCollection = {
+                data: {
+
+                },
+                render: {
+
+                },
+                event: {
+
+                }
+            };
+            var postTab = new PostTab();
+            postTab.bindEventHandler();
         });
+
     })(jQuery);
 </script>

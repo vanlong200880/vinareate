@@ -1,0 +1,31 @@
+
+@media (max-width: 1025px){
+	@import "responsive/pc_1025";
+}
+@media screen and (min-width: 768px) and (max-width: 1024px){
+	@import "responsive/tablet_768_1024";
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait){
+	@import "responsive/tablet_768_1024_Portrait";
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+	@import "responsive/tablet_768_1024_Landscape";
+}
+@media  (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape){
+	@import "responsive/tablet_1024_Landscape";
+}
+@media (max-width:767px){
+	@import "responsive/tablet_767";
+}
+/*@media (min-width:640px) and (max-width: 767px){
+	@import "responsive/tablet_640_767";
+}*/
+@media (min-width:481px) and (max-width: 767px){
+	@import "responsive/mobile_481_767";
+}
+@media (max-width:480px){
+	@import "responsive/mobile_480";
+}
+@media (max-width:320px){
+	@import "responsive/mobile_320";
+}

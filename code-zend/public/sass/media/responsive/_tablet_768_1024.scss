@@ -1,0 +1,141 @@
+.wrap-new-adv{
+	.top-sub-adv{
+		.show-adv{
+			margin-bottom: 8px;
+			figure{
+				a{
+					float: none;
+					width: 100%;
+					margin-right: 0;
+				}
+				figcaption{
+					width: 100%;
+					float: none;
+					p, span{
+						font-size: 12px;
+						color: $color-address;
+					}
+					p{
+						a{
+							font-size: 12px;
+							color: #000;
+							font-weight: bold;
+							display: block;
+							overflow: hidden;
+							height: 20px;
+							line-height: 20px;
+							width: 100%;
+							margin-bottom: 5px;
+							&:hover{
+								color: $color-base;
+							}
+						}
+					}
+					p.address{
+						margin-bottom: 5px;
+						display: inline-block;
+					}
+				}
+			}
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+	}
+	.category-menu-left{
+		margin-bottom: 10px;
+		ul{
+			height: 285px;
+			li{
+				height: 32px;
+				line-height: 32px;
+				a{
+					&:hover{
+						color: #000;
+						span.icon-icon-health-9, .icon-icon-health-5, .icon-icon-health-4, .icon-icon-health-8, .icon-icon-health-6, .icon-icon-health-7{
+							color: #000;
+						}
+					}
+                    &:after{
+                      height: 32px !important;
+                    }
+				}
+			}
+			li.color-item-9, .color-item-5, .color-item-4, .color-item-8, .color-item-6, .color-item-7{
+				&:hover{
+					a{
+						&:after{
+							width: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+    
+	.big-new-adv{
+		.owl-theme{
+			.owl-controls{
+				top: 0;
+				position: absolute;
+				right: 0;
+				margin-top: 0;
+			}
+		}
+	}
+}
+.login-form{
+	.close{
+		span{
+			position: relative;
+			top: -2px;
+		}
+	}
+}
+#header{
+	.topbar{
+		.wrap-user{
+			ul{
+				li{
+					ul.dropdown-menu{
+						top: 28px;
+						li{
+							a{
+								font-size: 13px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+.all-article{
+	.show-article-details{
+		figure{
+			figcaption{
+				p{
+					img{
+						width: 10px;
+					}
+				}
+			}
+		}
+	}
+} 
+
+.user .all-content-user .content-user {
+    padding: 10px;
+}
+#menu-top_menu > li > a{
+  padding: 15px 5px;
+}
+.wrap-new-adv {
+  ul.menu-left {
+    li {
+      ul{
+        left: 238px;
+      }
+    }
+  }
+}

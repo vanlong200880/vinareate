@@ -46,20 +46,88 @@
 </section>
 <section id="step_tab">
     <div class="container">
-        <div class="row">
+        <div role="tabpanel" class="tab-pane active" id="tabStep0">
+            <div class="content-tab-step">
+                <img src="images/banner-step.png">
+                <div class="content-step">
+                    <div class="content-step-1">
+                        <h1>Đăng tin hoàn toàn miễn phí</h1>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control" placeholder="Nhập số nhà">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" placeholder="Tên đường">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" class="form-control zip" placeholder="Zip">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <select class="form-control">
+                                            <option>-- Tỉnh/thành phố --</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option>-- Quận/huyện --</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control">
+                                                    <option>-- phường/xã --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="submit" value="Đi tiếp" class="btn btn-default"
+                                               id="btnSubmitStep0">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="rowSteps" style="display: none">
             <div class="col-md-3">
                 <ul class="nav nav-tabs tab-step-list" role="tablist">
-                    <li role="presentation" class="active"><a href="#step-1" aria-controls="step-1" role="tab" data-toggle="tab"><span>1</span> Vị trí nhà</a></li>
-                    <li role="presentation"><a href="#step-2" aria-controls="step-2" role="tab" data-toggle="tab"><span>2</span>Thông tin liên hệ</a></li>
-                    <li role="presentation"><a href="#step-3" aria-controls="step-3" role="tab" data-toggle="tab"><span>3</span>Thông tin nhà đất</a></li>
-                    <li role="presentation"><a href="#step-4" aria-controls="step-4" role="tab" data-toggle="tab"><span>4</span>Hình và Video</a></li>
-                    <li role="presentation"><a href="#step-5" aria-controls="step-5" role="tab" data-toggle="tab"><span>5</span>Mô tả</a></li>
-                    <li role="presentation"><a href="#step-6" aria-controls="step-6" role="tab" data-toggle="tab"><span>6</span>Xem trước</a></li>
+                    <li role="presentation" class="active">
+                        <a href="#step-1" aria-controls="step-1" role="tab" data-toggle="tab"
+                           id="tabStep1"><span>1</span> Vị trí nhà</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#step-2" aria-controls="step-2" role="tab" data-toggle="tab"><span>2</span>Thông tin
+                            liên hệ</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#step-3" aria-controls="step-3" role="tab" data-toggle="tab"><span>3</span>Thông tin
+                            nhà đất</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#step-4" aria-controls="step-4" role="tab" data-toggle="tab"><span>4</span>Hình và
+                            Video</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#step-5" aria-controls="step-5" role="tab" data-toggle="tab"><span>5</span>Mô tả</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#step-6" aria-controls="step-6" role="tab" data-toggle="tab"><span>6</span>Xem
+                            trước</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-md-9">
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane" id="step-1">
+                    <div role="tabpanel" class="tab-pane active" id="step-1">
                         <div class="content-tab-step">
                             <div class="row">
                                 <div class="col-md-6">
@@ -126,11 +194,11 @@
                                         <div class="list-radio">
                                             <ul>
                                                 <li>
-                                                    <input type="radio" id="shipadd2" name="address" />
+                                                    <input type="radio" id="shipadd2" name="address"/>
                                                     <label for="shipadd2">Nhà đất bán</label>
                                                 </li>
                                                 <li>
-                                                    <input type="radio" id="shipadd" name="address" />
+                                                    <input type="radio" id="shipadd" name="address"/>
                                                     <label for="shipadd">Nhà đất cho thuê</label>
                                                 </li>
                                             </ul>
@@ -294,7 +362,6 @@
                                 </div>
 
 
-
                                 <div class="col-md-12"><h2>Thông tin chi tiết</h2></div>
 
                                 <div class="col-md-12 step-3-detail">
@@ -419,7 +486,10 @@
                         <div class="content-tab-step step-2 step-3 step-4">
                             <div class="row">
                                 <div class="col-md-12"><h2>Thông tin mô tả</h2></div>
-                                <div class="col-md-12"><p>Bạn có thể tải lên một số lượng không giới hạn các bức ảnh cho danh sách nhà của bạn. Chọn các tập tin hình ảnh mà bạn muốn bằng cách nhấp vào nút bên dưới. Nếu bạn thích, bạn cũng có thể kéo các bức ảnh của bạn vào vùng thả dưới đây.</p></div>
+                                <div class="col-md-12"><p>Bạn có thể tải lên một số lượng không giới hạn các bức ảnh cho
+                                        danh sách nhà của bạn. Chọn các tập tin hình ảnh mà bạn muốn bằng cách nhấp vào
+                                        nút bên dưới. Nếu bạn thích, bạn cũng có thể kéo các bức ảnh của bạn vào vùng
+                                        thả dưới đây.</p></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="uploads">
@@ -433,7 +503,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Embedded Video</label>
-                                        <textarea class="form-control" rows="4" placeholder="<iframe></iframe>"></textarea>
+                                        <textarea class="form-control" rows="4"
+                                                  placeholder="<iframe></iframe>"></textarea>
                                     </div>
                                 </div>
 
@@ -446,7 +517,7 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane active" id="step-5">
+                    <div role="tabpanel" class="tab-pane" id="step-5">
                         <div class="content-tab-step step-2 step-3 step-4 step-5">
                             <div class="row">
                                 <div class="col-md-12"><h2>Thông tin mô tả</h2></div>
@@ -467,7 +538,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="number-address">Nội dung</label>
-                                                <textarea class="form-control" rows="4" ></textarea>
+                                                <textarea class="form-control" rows="4"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
@@ -534,7 +605,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
 
 
                                         <div class="row">
@@ -803,7 +873,6 @@
                                         </div>
 
 
-
                                         <div class="row">
                                             <div class="col-md-12"><h3><span>Communal Parking</span></h3></div>
                                             <div class="col-md-12">
@@ -900,7 +969,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Shared pool  </label>
+                                                        <label for="web-bar"> Shared pool </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -961,3 +1030,11 @@
         </div>
     </div>
 </section>
+<script>
+    (function($){
+        $("#" + "btnSubmitStep0").on("click", function(){
+            $("#" + "tabStep0").css({display: 'none'});
+            $("#" + "rowSteps").css({display: 'block'});
+        });
+    })(jQuery);
+</script>

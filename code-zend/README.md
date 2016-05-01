@@ -1,17 +1,13 @@
 ### Load dependent modules
 
-    composer update
-
-### PHP CLI server
+    composer self-update
+    composer install
+### Run project, open browser at localhost:8080
 
     php -S 0.0.0.0:8080 -t public public/index.php
-
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
-
 **Note:** The built-in CLI server is *for development only*.
 
 ### Database
-
-    in /data/{module}{database}.sql folder, run SQL command to create table in your database 
+    
+    in /data/{module}/{table}.sql, run SQL command to create table in database 
     in /config/autoload/local.php, provide {username}, {password} to access mysql

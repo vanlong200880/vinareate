@@ -12,17 +12,11 @@
  */
 
 return array(
-//    'db' => array(
-//		//default mysql-connection
-//		'driver'         => 'Pdo',
-//        'dsn'            => 'mysql:dbname=zend_skeleton;host=localhost',
-//        'driver_options' => array(
-//            \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-//    	),
-//		'adapters' => array(
-//			//config for multiple database
-//			'databaseX' => array(),
-//			'databaseY' => array(),
-//		)
-//	)
+    'db' => array(
+        //default mysql-connection
+        'driver' => 'Pdo',
+        'driver_options' => array(
+            \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+        ),
+    )
 );

@@ -3,7 +3,9 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'FrontEnd\Controller\Index' => 'FrontEnd\Controller\IndexController',
-            'FrontEnd\Controller\Post' => 'FrontEnd\Controller\PostController',
+        ),
+        'factories' => array(
+            'FrontEnd\Controller\Post' => 'FrontEnd\Factory\PostControllerFactory',
         ),
     ),
     'router' => array(
@@ -76,6 +78,15 @@ return array(
             // register JSON renderer strategy
             'ViewFeedStrategy',
             // register Feed renderer strategy
+        ),
+    ),
+    'service_manager' => array(
+        'factories' => array(
+            'adapter' => function($sm){
+                /** @var \Zend\ServiceManager\ServiceManager $sm */
+                $config = $sm->get('config');
+                return new \Zend\Db\Adapter\Adapter($config['db']);
+            }
         ),
     ),
 );

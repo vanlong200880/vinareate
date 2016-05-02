@@ -50,37 +50,45 @@
             <div class="content-tab-step">
                 <img src="images/banner-step.png">
                 <div class="content-step">
-                    <div class="content-step-1">
+                    <div class="content-step-0">
                         <h1>Đăng tin hoàn toàn miễn phí</h1>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control" placeholder="Nhập số nhà">
+                                        <input id="inputHouseNumber" type="text" class="form-control"
+                                               placeholder="Nhập số nhà">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Tên đường">
+                                        <input id="inputStreetName" type="text" class="form-control"
+                                               placeholder="Tên đường">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="text" class="form-control zip" placeholder="Zip">
+                                        <input id="inputZipCode" type="text" class="form-control zip" placeholder="Zip">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <select class="form-control">
-                                            <option>-- Tỉnh/thành phố --</option>
+                                        <select class="form-control selectpicker">
+                                            <option selected disabled hidden style="display: none"
+                                                    data-live-search="true">-- Tỉnh/thành phố --
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <select class="form-control">
-                                                    <option>-- Quận/huyện --</option>
+                                                <select class="form-control selectpicker">
+                                                    <option selected disabled hidden style="display: none"
+                                                            data-live-search="true">-- Quận/huyện --
+                                                    </option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <select class="form-control">
-                                                    <option>-- phường/xã --</option>
+                                                <select class="form-control selectpicker" data-live-search="true">
+                                                    <option selected disabled hidden style="display: none">-- phường/xã
+                                                        --
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -100,7 +108,7 @@
         <div class="row" id="rowSteps" style="display: none">
             <div class="col-md-3">
                 <ul class="nav nav-tabs tab-step-list" role="tablist">
-                    <li role="presentation" class="active">
+                    <li role="presentation">
                         <a href="#step-1" aria-controls="step-1" role="tab" data-toggle="tab"
                            id="tabStep1"><span>1</span> Vị trí nhà</a>
                     </li>
@@ -127,7 +135,7 @@
             </div>
             <div class="col-md-9">
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="step-1">
+                    <div role="tabpanel" class="tab-pane" id="step-1">
                         <div class="content-tab-step">
                             <div class="row">
                                 <div class="col-md-6">
@@ -1030,73 +1038,27 @@
         </div>
     </div>
 </section>
+<input type="hidden" id="provincesData" value='<?php echo json_encode($this->provinces); ?>'>
 <script>
     (function($){
-//        $("#" + "btnSubmitStep0").on("click", function(){
-//            $("#" + "tabStep0").css({display: 'none'});
-//            $("#" + "rowSteps").css({display: 'block'});
-//        });
-//
-//        /**
-//         * simple version of btn-next
-//         * @type {number}
-//         */
-//        var count = 1;
-//        $(".btn-next").on("click", function(){
-//            /**
-//             * find out current selected
-//             */
-//            count++;
-//            $("[aria-controls='step-" + count + "']").click();
-//        });
         $(document).ready(function(){
+            $("#" + "btnSubmitStep0").on("click", function(){
+                $("#" + "tabStep0").css({display: 'none'});
+                $("#" + "rowSteps").css({display: 'block'});
+                $("a[aria-controls='step-1']").click();
+            });
             /**
-             * PostTab helps handle data from user,
-             * move to next step, collect it
-             * event when user click, move around
-             * need stored in closed object (global variable is dangerous)
-             * collect info from input/select/radio is different
-             * but they are common, just INPUT/SELECT/CHECK/RADIO
-             * tell how to collect info from these thing, give the id of DIV
-             * then DONE
-             * btn-next
-             *     1. collect info from user
-             *     2. go next
-             * at the end, we can apply checked on "missing-step"
-             * roll back use to that step
-             *     1. btn-next help to store which step is done
-             *     2. btn-next check "validation"
-             * closed object
-             *     1. ul tablist, store {current, actived}
-             *     2. validate rule
-             *     3. event on btn-next
-             * to inform user from INPUT mistaked
-             * >>> a div with (message + input) come together
-             * store {messsage, info, input}
+             * simple version of btn-next
+             * @type {number}
              */
-            window.PostTab = function(){
+            var count = 0;
+            $(".btn-next").on("click", function(){
                 /**
-                 * each step entered by user store in "data"
-                 * @type {{}}
+                 * find out current selected
                  */
-                this.data = {};
-
-            };
-            PostTab.prototype = {};
-            var idCollection = {
-                data: {
-
-                },
-                render: {
-
-                },
-                event: {
-
-                }
-            };
-            var postTab = new PostTab();
-            postTab.bindEventHandler();
+                count++;
+                $("[aria-controls='step-" + count + "']").click();
+            });
         });
-
     })(jQuery);
 </script>

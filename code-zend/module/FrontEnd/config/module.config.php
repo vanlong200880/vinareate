@@ -40,6 +40,26 @@ return array(
                     )
                 ),
             ),
+            'post-tab-district' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/post-tab/district',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Post',
+                        'action' => 'district',
+                    )
+                ),
+            ),
+            'post-tab-ward' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/post-tab/ward',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Post',
+                        'action' => 'ward',
+                    )
+                ),
+            ),
         ),
     ),
     // ViewManager configuration

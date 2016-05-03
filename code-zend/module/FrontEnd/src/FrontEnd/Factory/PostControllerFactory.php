@@ -1,6 +1,5 @@
-﻿<?php
+<?php
 namespace FrontEnd\Factory;
-
 use FrontEnd\Controller\PostController;
 use Zend\Mvc\Controller\ControllerManager;
 use Zend\ServiceManager\FactoryInterface;
@@ -17,10 +16,10 @@ class PostControllerFactory implements FactoryInterface{
      */
     public function createService(ServiceLocatorInterface $serviceLocator){
         /**
-         * get real service manager
-         * @var ServiceManager $serviceManger
+         * get real ServiceManager
          */
-        $serviceManger = $serviceLocator->getServiceLocator();
-        return new PostController($serviceManger);
+        /** @var ServiceManager $sm */
+        $sm = $serviceLocator->getServiceLocator();
+        return new PostController($sm);
     }
 }

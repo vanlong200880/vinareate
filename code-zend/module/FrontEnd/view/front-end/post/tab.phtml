@@ -46,11 +46,11 @@
 </section>
 <section id="step_tab">
     <div class="container">
-        <div role="tabpanel" class="tab-pane active" id="tabStep0">
+        <div id="tabStep0">
             <div class="content-tab-step">
                 <img src="images/banner-step.png">
                 <div class="content-step">
-                    <div class="content-step-0">
+                    <div class="content-step-1">
                         <h1>Đăng tin hoàn toàn miễn phí</h1>
                         <div class="row">
                             <div class="col-md-8">
@@ -67,25 +67,22 @@
                                         <input id="inputZipCode" type="text" class="form-control zip" placeholder="Zip">
                                     </div>
                                 </div>
+
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <select class="form-control selectpicker">
-                                            <option selected disabled hidden style="display: none"
-                                                    data-live-search="true">-- Tỉnh/thành phố --
-                                            </option>
-                                        </select>
+                                    <div class="col-md-3" id="provincesDiv">
+                                        <select id="provincesSelect" class="form-control selectpicker"></select>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <select class="form-control selectpicker">
-                                                    <option selected disabled hidden style="display: none"
-                                                            data-live-search="true">-- Quận/huyện --
+                                            <div id="districtsDiv" class="col-md-6">
+                                                <select id="districtsSelect" class="form-control">
+                                                    <option selected disabled hidden style="display: none">-- Quận/Huyện
+                                                        --
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <select class="form-control selectpicker" data-live-search="true">
+                                            <div id="wardsDiv" class="col-md-6">
+                                                <select id="wardsSelect" class="form-control">
                                                     <option selected disabled hidden style="display: none">-- phường/xã
                                                         --
                                                     </option>
@@ -1043,7 +1040,9 @@
     (function($){
         $(document).ready(function(){
             $("#" + "btnSubmitStep0").on("click", function(){
+                //hide step-0
                 $("#" + "tabStep0").css({display: 'none'});
+                //display tab-list, tab-content
                 $("#" + "rowSteps").css({display: 'block'});
                 $("a[aria-controls='step-1']").click();
             });
@@ -1059,6 +1058,124 @@
                 count++;
                 $("[aria-controls='step-" + count + "']").click();
             });
+            var provincesData = JSON.parse($("#" + "provincesData").val());
+            console.log(provincesData);
+//            for(var key in provincesData){
+//                if(provincesData.hasOwnProperty(key)){
+//                    console.log(provincesData[key]["name"]);
+//                }
+//            }
+            var provincesDiv = $("#" + "provincesDiv");
+//            console.log(provincesDiv);
+            var select = provincesDiv.find("#provincesSelect");
+            select.attr("data-live-search", true);
+            var blankOption = $('<option selected disabled hidden style="display: none">-- Tỉnh/thành phố --</option>');
+            select.append(blankOption);
+            console.log(select);
+            for(var key in provincesData){
+                if(provincesData.hasOwnProperty(key)){
+                    var option = $("<option>");
+                    option.val(provincesData[key]["provinceid"]);
+//                    console.log(provincesData[key]["provinceid"]);
+                    /**
+                     * improve search by slug
+                     * allow "ho chi minh" as "hồ chí minh"
+                     */
+//                    option.attr("data-tokens", "a");
+                    option.html(provincesData[key]["name"]);
+//                    console.log(provincesData[key]["name"]);
+                    select.append(option);
+                }
+            }
+            provincesDiv.append(select);
+
+            select.on("change", function(){
+                var selectedOption = $(this).find("option:selected");
+                var provinceid = selectedOption.val();
+                console.log(provinceid);
+                /**
+                 * ajax query to PostController
+                 * get district based on provinceid
+                 */
+                var oReq = ajaxCall("/post-tab/district", provinceid);
+                oReq.onload = function(){
+                    console.log(oReq.response);
+                    var districts = JSON.parse(oReq.response)["districts"];
+                    console.log(districts);
+                    /**
+                     * build select picker for districts
+                     */
+                    var districtsDiv = $("#districtsDiv");
+//                    districtsDiv.empty();
+
+//                    var select = $("<select>");
+                    var select = districtsDiv.find("#districtsSelect");
+                    select.empty();
+//                    select.addClass("form-control");
+//                    select.addClass("selectpicker");
+
+                    select.attr("data-live-search", true);
+                    var blankOption = $(
+                        ' <option selected disabled hidden style="display: none">-- Quận/Huyện --</option >');
+                    select.append(blankOption);
+                    for(var key in districts){
+                        if(districts.hasOwnProperty(key)){
+                            var district = districts[key];
+                            console.log(district);
+                            var option = $("<option>");
+                            option.val(district["districtid"]);
+                            var x = sprintf("%s %s", district["type"], district["name"]);
+                            option.html(x);
+                            select.append(option);
+                        }
+                    }
+                    console.log(select);
+                    districtsDiv.append(select);
+
+                    select.on("change", function(){
+                        var selectedOption = $(this).find("option:selected");
+                        var districtid = selectedOption.val();
+                        var oReq = ajaxCall("/post-tab/ward", districtid);
+//                        console.log()
+                        oReq.onload = function(){
+                            console.log(oReq.response);
+                            var wards = JSON.parse(oReq.response)["wards"];
+
+                            var wardsDiv = $("#wardsDiv");
+                            var select = wardsDiv.find("#wardsSelect");
+                            select.empty();
+                            var blankOption = $(
+                                '<option selected disabled hidden style="display: none">-- phường/xã --</option>');
+                            select.append(blankOption);
+                            for(var key in wards){
+                                if(wards.hasOwnProperty(key)){
+                                    var ward = wards[key];
+                                    console.log(ward);
+                                    var option = $("<option>");
+                                    option.val(ward["wardid"]);
+                                    var x = sprintf("%s %s", ward["type"], ward["name"]);
+                                    option.html(x);
+                                    select.append(option);
+                                }
+                            }
+                            wardsDiv.append(select);
+
+                        }
+                    });
+
+                };
+            });
+
+
         });
+
+        function ajaxCall(url, provinceid){
+            var formData = new FormData();
+            formData.append("provinceid", provinceid);
+            var oReq = new XMLHttpRequest();
+            oReq.open("post", url);
+            oReq.send(formData);
+            return oReq;
+        }
     })(jQuery);
 </script>

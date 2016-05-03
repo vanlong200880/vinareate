@@ -1185,6 +1185,25 @@
                 });
             };
             step0.render();
+            $("#" + "btnSubmitStep0").on("click", function(){
+                //hide step-0
+                $("#" + "tabStep0").css({display: 'none'});
+                //display tab-list, tab-content
+                $("#" + "rowSteps").css({display: 'block'});
+                $("a[aria-controls='step-1']").click();
+            });
+            /**
+             * simple version of btn-next
+             * @type {number}
+             */
+            var count = 0;
+            $(".btn-next").on("click", function(){
+                /**
+                 * find out current selected
+                 */
+                count++;
+                $("[aria-controls='step-" + count + "']").click();
+            });
         });
     })(jQuery);
 </script>

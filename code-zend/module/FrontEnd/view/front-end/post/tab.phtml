@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="rowSteps" style="display: none">
+        <div class="row" id="rowSteps" style="display:none;">
             <div class="col-md-3">
                 <ul class="nav nav-tabs tab-step-list" role="tablist">
                     <li role="presentation">
@@ -142,80 +142,82 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="number-address">nhập số nhà</label>
-                                        <input type="text" class="form-control" id="number-address">
+                                        <input id="houseNumber" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="number-address">Chọn tỉnh/thành phố</label>
-                                        <select class="selectpicker form-control" data-live-search="true">
-                                            <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                                            <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                                            <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                                        <select id="provincesSelect" class="form-control">
+                                            <option selected disabled hidden style="display: none;">
+                                                -- Tỉnh/thành phố--
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="number-address">Nhập tên đường</label>
-                                        <input type="text" class="form-control" id="number-address">
+                                        <input id="streetName" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="number-address">Chọn quận/huyện</label>
-                                        <select class="selectpicker form-control" data-live-search="true">
-                                            <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                                            <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                                            <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                                        <select id="districtsSelect" class="form-control">
+                                            <option selected disabled hidden style="display: none;">
+                                                --Quận/Huyện--
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="number-address">Mã zip/code</label>
-                                        <input type="text" class="form-control" id="number-address">
+                                        <input id="zipCode" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="number-address">Chọn phường/xã</label>
-                                        <select class="selectpicker form-control" data-live-search="true">
-                                            <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                                            <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                                            <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                                        <select id="wardsSelect" class="form-control">
+                                            <option selected disabled hidden style="display: none;">
+                                                --phường/xã--
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="number-address">Chọn loại dư án</label>
-                                        <select class="selectpicker form-control" data-live-search="true">
-                                            <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                                            <option data-tokens="mustard">Burger, Shake and a Smile</option>
-                                            <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+                                        <select id="projectTypeSelect" class="form-control">
+                                            <option selected disabled hidden style="display: none;">
+                                                --Chọn loại dư án--
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group step-category">
                                         <label for="number-address">Danh mục</label>
-                                        <div class="list-radio">
-                                            <ul>
-                                                <li>
-                                                    <input type="radio" id="shipadd2" name="address"/>
-                                                    <label for="shipadd2">Nhà đất bán</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="shipadd" name="address"/>
-                                                    <label for="shipadd">Nhà đất cho thuê</label>
-                                                </li>
-                                            </ul>
+                                        <div id="categoryRadio">
+                                            <!--                                            <ul>-->
+                                            <!--                                                <li>-->
+                                            <!--                                                    <input type="radio" name="address"/>-->
+                                            <!--                                                    <label>Nhà đất bán</label>-->
+                                            <!--                                                </li>-->
+                                            <!--                                                <li>-->
+                                            <!--                                                    <input type="radio" name="address"/>-->
+                                            <!--                                                    <label>Nhà đất cho thuê</label>-->
+                                            <!--                                                </li>-->
+                                            <!--                                            </ul>-->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary btn-next">Bước tiếp theo</button>
+                                    <button id="btnSubmitStep1" type="submit" class="btn btn-primary btn-next">
+                                        Bước tiếp theo
+                                    </button>
                                 </div>
                                 <div class="col-md-6"></div>
                             </div>
@@ -226,8 +228,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="number-address">Họ và tên</label>
-                                        <input type="text" class="form-control" id="number-address">
+                                        <label>Họ và tên</label>
+                                        <input id="fullName" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -236,19 +238,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="number-address">Tên công ty</label>
-                                        <input type="text" class="form-control" id="number-address">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="number-address">Email</label>
-                                        <input type="text" class="form-control" id="number-address">
+                                        <label>Tên công ty</label>
+                                        <input id="companyName" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -258,8 +249,19 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="number-address">Số điện thoại</label>
-                                        <input type="text" class="form-control" id="number-address">
+                                        <label>Email</label>
+                                        <input id="email" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Số điện thoại</label>
+                                        <input id="phone" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -267,7 +269,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary btn-next">Bước tiếp theo</button>
+                                    <button id="btnSubmitStep2" type="submit" class="btn btn-primary btn-next">
+                                        Bước tiếp theo
+                                    </button>
                                 </div>
                                 <div class="col-md-6"></div>
                             </div>
@@ -1044,10 +1048,11 @@
     (function($){
         $(document).ready(function(){
             window.Step = function(name, divId, itemsId){
-                this.name = name;
                 this.component = $("#" + divId);
                 this.items = [];
                 this.itemsId = itemsId;
+                this.data = {};
+                this.data.name = name;
             };
             Step.prototype = {
                 pushItem: function(item){
@@ -1058,20 +1063,18 @@
                 },
                 getData: function(){
                     var step = this;
-                    var stepData = {
-                        name: step.name,
-                        data: []
-                    };
-                    for(var key in items){
-                        if(items.hasOwnProperty(key)){
-                            var item = items[key];
-                            step.data.push(item.getData());
+                    for(var i in this.items){
+                        if(this.items.hasOwnProperty(i)){
+                            var item = this.items[i];
+                            $.each(item.getData(), function(key, value){
+                                step.data[key] = value;
+                            });
                         }
                     }
-                    return stepData;
+                    return step.data;
                 },
                 init: function(){
-                    var itemsId = this.itemsId;
+                    var itemsId = this.itemsId["item"];
                     for(var itemType in itemsId){
                         if(itemsId.hasOwnProperty(itemType)){
                             for(var itemName in itemsId[itemType]){
@@ -1104,6 +1107,11 @@
                 itemSelectPicker: function(name, divId){
                     var selectPicker = this.item(name, divId);
                     selectPicker.render = function(options){
+                        if(selectPicker.options){
+                            //empty when created
+                            selectPicker.empty();
+                        }
+                        selectPicker.options = options;
                         for(var key in options){
                             if(options.hasOwnProperty(key)){
                                 var option = $("<option>");
@@ -1126,6 +1134,37 @@
                         return selectPicker.find("option:selected");
                     }
                 },
+                itemRadio: function(name, divId){
+                    var radioDiv = this.item(name, divId);
+                    radioDiv.render = function(radios){
+                        if(radioDiv.options){
+                            //empty when created
+                            radioDiv.empty();
+                        }
+                        radioDiv.options = radios;
+                        for(var i in radios){
+                            if(radios.hasOwnProperty(i)){
+                                var radio = radios[i];
+                                var div = $("<div>").addClass("radio-inline");
+                                var input = $("<input>");
+                                input.attr("name", name)
+                                     .attr("type", "radio")
+                                     .val(radio["input"]["val"]);
+                                var label = $("<label>").html(radio["label"]["html"]);
+                                div.append(input);
+                                div.append(label);
+                                radioDiv.append(div);
+                            }
+                        }
+                    };
+                    radioDiv.getData = function(){
+                        var r = {};
+                        var checkedRadio = radioDiv.find("input:checked");
+//                        console.log(checkedRadio);
+                        r[this.name] = checkedRadio.val();
+                        return r;
+                    }
+                },
                 ajaxCall: function(url, data){
                     var formData = new FormData();
                     for(var key in data){
@@ -1140,26 +1179,32 @@
                 }
             };
             var step0ItemsId = {
-                itemInput: {
-                    house: "houseNumber",
-                    street: "streetName",
-                    zipCode: "zipCode"
+                item: {
+                    itemInput: {
+                        house: "houseNumber",
+                        street: "streetName",
+                        zipCode: "zipCode"
+                    },
+                    itemSelectPicker: {
+                        province: "provincesSelect",
+                        district: "districtsSelect",
+                        ward: "wardsSelect"
+                    }
                 },
-                itemSelectPicker: {
-                    province: "provincesSelect",
-                    district: "districtsSelect",
-                    ward: "wardsSelect"
+                event: {
+                    btnSubmit: "btnSubmitStep0"
                 }
             };
             var step0 = new Step("step0", "step-0", step0ItemsId);
             step0.init();
             step0.render = function(){
                 //render province
-                var provinceSelectPicker = step0.getItem(step0ItemsId.itemSelectPicker.province);
-                var districtSelectPicker = step0.getItem(step0ItemsId.itemSelectPicker.district);
-                var wardSelectPicker = step0.getItem(step0ItemsId.itemSelectPicker.ward);
+                var provinceSelectPicker = step0.getItem(step0ItemsId.item.itemSelectPicker.province);
+                var districtSelectPicker = step0.getItem(step0ItemsId.item.itemSelectPicker.district);
+                var wardSelectPicker = step0.getItem(step0ItemsId.item.itemSelectPicker.ward);
 
                 var provincesOption = JSON.parse($("#provincesData").val());
+//                console.log(provinceSelectPicker);
                 provinceSelectPicker.addClass("selectpicker");
                 provinceSelectPicker.attr("data-live-search", true);
                 provinceSelectPicker.render(provincesOption);
@@ -1168,42 +1213,170 @@
                     var oReq = step0.ajaxCall("/post-tab/district", {provinceid: provinceid});
                     oReq.onload = function(){
                         var districtsOption = JSON.parse(oReq.response)["districts"];
-                        console.log(districtsOption);
+//                        console.log(districtsOption);
                         districtSelectPicker.render(districtsOption);
                     };
 
                 });
 
                 districtSelectPicker.on("change", function(){
-                    var wardId = districtSelectPicker.getSelectedOption().val();
-                    var oReq = step0.ajaxCall("/post-tab/ward", {wardid: wardId});
+                    var districtid = districtSelectPicker.getSelectedOption().val();
+                    var oReq = step0.ajaxCall("/post-tab/ward", {districtid: districtid});
                     oReq.onload = function(){
                         var wardOption = JSON.parse(oReq.response)["wards"];
-                        console.log(wardOption);
+//                        console.log(wardOption);
                         wardSelectPicker.render(wardOption);
                     };
                 });
             };
             step0.render();
-            $("#" + "btnSubmitStep0").on("click", function(){
-                //hide step-0
-                $("#" + "tabStep0").css({display: 'none'});
-                //display tab-list, tab-content
-                $("#" + "rowSteps").css({display: 'block'});
-                $("a[aria-controls='step-1']").click();
-            });
-            /**
-             * simple version of btn-next
-             * @type {number}
-             */
-            var count = 0;
-            $(".btn-next").on("click", function(){
-                /**
-                 * find out current selected
-                 */
-                count++;
-                $("[aria-controls='step-" + count + "']").click();
-            });
+            step0.bindEventHanlder = function(){
+                var btnSubmit = step0.component.find("#" + this.itemsId.event.btnSubmit);
+                btnSubmit.on("click", function(){
+                    console.log("step0Data", step0.getData());
+                    $("#" + "tabStep0").css({display: 'none'});
+                    //display tab-list, tab-content
+                    $("#" + "rowSteps").css({display: 'block'});
+                    $("a[aria-controls='step-1']").click();
+                    //start render step1
+                    step1.render();
+                });
+
+
+            };
+            step0.bindEventHanlder();
+
+
+            var step1ItemsId = {
+                item: {
+                    itemInput: {
+                        house: "houseNumber",
+                        street: "streetName",
+                        zipCode: "zipCode"
+                    },
+                    itemSelectPicker: {
+                        province: "provincesSelect",
+                        district: "districtsSelect",
+                        ward: "wardsSelect",
+                        projectType: "projectTypeSelect"
+                    },
+                    itemRadio: {
+                        category: "categoryRadio"
+                    }
+                },
+                event: {
+                    btnSubmit: "btnSubmitStep1"
+                }
+
+            };
+            var step1 = new Step("step1", "step-1", step1ItemsId);
+//            console.log(step1);
+            step1.init();
+            step1.render = function(){
+                //get item input
+                var inputHouseNumber = step1.getItem(step1ItemsId.item.itemInput.house);
+                var inputStreetName = step1.getItem(step1ItemsId.item.itemInput.street);
+                var inputZipCode = step1.getItem(step1ItemsId.item.itemInput.zipCode);
+                //get item select picker
+                var provinceSelectPicker = step1.getItem(step1ItemsId.item.itemSelectPicker.province);
+                var districtSelectPicker = step1.getItem(step1ItemsId.item.itemSelectPicker.district);
+                var wardSelectPicker = step1.getItem(step1ItemsId.item.itemSelectPicker.ward);
+                //add listener
+                provinceSelectPicker.on("change", function(){
+                    var provinceid = provinceSelectPicker.getSelectedOption().val();
+                    var oReq = step1.ajaxCall("/post-tab/district", {provinceid: provinceid});
+                    oReq.onload = function(){
+                        var districtsOption = JSON.parse(oReq.response)["districts"];
+//                        console.log(districtsOption);
+                        districtSelectPicker.render(districtsOption);
+                    };
+
+                });
+                //add listener
+                districtSelectPicker.on("change", function(){
+                    var districtid = districtSelectPicker.getSelectedOption().val();
+                    var oReq = step1.ajaxCall("/post-tab/ward", {districtid: districtid});
+                    oReq.onload = function(){
+                        var wardOption = JSON.parse(oReq.response)["wards"];
+//                        console.log(wardOption);
+                        wardSelectPicker.render(wardOption);
+                    };
+                });
+
+                //based on step0, set item
+                var step0Data = step0.getData();
+//                provinceSelectPicker.addClass("selectpicker");
+//                provinceSelectPicker.attr("data-live-search", true);
+                provinceSelectPicker.render(step0.getItem(step0ItemsId.item.itemSelectPicker.province).options);
+                districtSelectPicker.render(step0.getItem(step0ItemsId.item.itemSelectPicker.district).options);
+                wardSelectPicker.render(step0.getItem(step0ItemsId.item.itemSelectPicker.ward).options);
+                //set item input based on step0Data
+                inputHouseNumber.setData(step0Data["house"]);
+                inputStreetName.setData(step0Data["street"]);
+                inputZipCode.setData(step0Data["zipCode"]);
+                //set item select picker based on step0Data
+                provinceSelectPicker.setSelectedOption(step0Data["province"]);
+                districtSelectPicker.setSelectedOption(step0Data["district"]);
+                wardSelectPicker.setSelectedOption(step0Data["ward"]);
+
+                var projectTypeSelectPicker = step1.getItem(step1ItemsId.item.itemSelectPicker.projectType);
+                var oReq = step1.ajaxCall("/post-tab/project-type", {projectType: "projectType"});
+                oReq.onload = function(){
+                    var projectTypeOption = JSON.parse(oReq.response)["projectType"];
+//                    console.log(projectTypeOption);
+                    projectTypeSelectPicker.render(projectTypeOption);
+                };
+
+                var categoryRadioDiv = step1.getItem(step1ItemsId.item.itemRadio.category);
+                var oReq1 = step1.ajaxCall("/post-tab/category", {category: "category"});
+                oReq1.onload = function(){
+                    var categoryRadio = JSON.parse(oReq1.response)["category"];
+//                    console.log(categoryRadio);
+                    categoryRadioDiv.render(categoryRadio);
+                };
+
+//                categoryRadioDiv.on("change", function(){
+//                    var v = categoryRadioDiv.getData();
+//                    console.log(v);
+//                })
+            };
+            step1.bindEventHanlder = function(){
+                var btnSubmit = step1.component.find("#" + step1.itemsId.event.btnSubmit);
+                btnSubmit.on("click", function(){
+                    console.log("step1Data", step1.getData());
+                    $("a[aria-controls='step-2']").click();
+//                    step2.render();
+                });
+            };
+            step1.bindEventHanlder();
+
+            var step2ItemsId = {
+                item: {
+                    itemInput: {
+                        fullName: "fullName",
+                        companyName: "companyName",
+                        email: "email",
+                        phone: "phone"
+                    }
+                },
+                event: {
+                    btnSubmit: "btnSubmitStep2"
+                }
+            };
+            var step2 = new Step("step2", "step-2", step2ItemsId);
+            step2.init();
+//            step2.render = function(){
+//
+//            }
+            step2.bindEventHanlder = function(){
+                var btnSubmit = step2.component.find("#" + step2.itemsId.event.btnSubmit);
+                btnSubmit.on("click", function(){
+                    console.log(step2.getData());
+                    $("a[aria-controls='step-2']").click();
+//                    step3.render();
+                });
+            };
+            step2.bindEventHanlder();
         });
     })(jQuery);
 </script>

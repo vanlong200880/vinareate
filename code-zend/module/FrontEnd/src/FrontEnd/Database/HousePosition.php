@@ -4,10 +4,12 @@ namespace FrontEnd\Database;
 use Zend\Db\Sql\Sql;
 use Zend\Stdlib\ArrayUtils;
 
-class PlaceQuery{
+class HousePosition{
     const DISTRICT_TABLE = "district";
     const PROVINCE_TABLE = "province";
     const WARD_TABLE = "ward";
+    const PROJECT_TYPE_TABLE = "projecttype";
+    const CATEGORY_TABLE = "category";
 
     /** @var  Sql $sql */
     protected $sql;
@@ -56,6 +58,31 @@ class PlaceQuery{
             "name",
             "type"
         ))->from(self::WARD_TABLE)->where(array("districtid" => $districtid));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+        $resultSet = ArrayUtils::iteratorToArray($result);
+        return $resultSet;
+    }
+
+    public function getProjectType(){
+        $select = $this->sql->select();
+        $select->columns(array(
+            "projecttypeid",
+            "name"
+        ))->from(self::PROJECT_TYPE_TABLE);
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+        $resultSet = ArrayUtils::iteratorToArray($result);
+        return $resultSet;
+    }
+
+    public function getCategory(){
+        $select = $this->sql->select();
+        $select->columns(array(
+            "categoryid",
+            "type",
+            "description"
+        ))->from(self::CATEGORY_TABLE);
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
         $resultSet = ArrayUtils::iteratorToArray($result);

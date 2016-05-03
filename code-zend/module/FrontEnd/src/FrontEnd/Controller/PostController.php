@@ -1,7 +1,7 @@
 <?php
 namespace FrontEnd\Controller;
 
-use FrontEnd\Database\PlaceQuery;
+use FrontEnd\Database\HousePosition;
 use FrontEnd\UIObject\PostTabView;
 use Zend\Db\Adapter\Adapter;
 use Zend\Http\Request;
@@ -24,7 +24,7 @@ class PostController extends AbstractActionController{
 
         $configDb = $this->serviceManager->get('config')["db"];
         $adapter = new Adapter($configDb);
-        $this->placeQuery = new PlaceQuery($adapter);
+        $this->placeQuery = new HousePosition($adapter);
 
         $this->postTabView = new PostTabView();
     }
@@ -84,11 +84,47 @@ class PostController extends AbstractActionController{
             $view = new JsonModel();
 
             $postParams = $request->getPost();
-            $wardid = $postParams->get("wardid");
+            $wardid = $postParams->get("districtid");
 
             $wards = $this->placeQuery->getWardOnDistrictId($wardid);
             $uiWards = $this->postTabView->getWardsOption($wards);
             $view->setVariable("wards", $uiWards);
+
+            return $view;
+        }
+        die("not handle request GET");
+    }
+
+    public function projectTypeAction(){
+        /** @var Request $request */
+        $request = $this->getRequest();
+
+        if($request->isPost()){
+            $view = new JsonModel();
+
+            //            $postParams = $request->getPost();
+
+            $projectTypes = $this->placeQuery->getProjectType();
+            $uiProjectTypes = $this->postTabView->getProjectTypeOption($projectTypes);
+            $view->setVariable("projectType", $uiProjectTypes);
+
+            return $view;
+        }
+        die("not handle request GET");
+    }
+
+    public function categoryAction(){
+        /** @var Request $request */
+        $request = $this->getRequest();
+
+        if($request->isPost()){
+            $view = new JsonModel();
+
+            //            $postParams = $request->getPost();
+
+            $categories = $this->placeQuery->getCategory();
+            $uiCategories = $this->postTabView->getCategoryRadio($categories);
+            $view->setVariable("category", $uiCategories);
 
             return $view;
         }

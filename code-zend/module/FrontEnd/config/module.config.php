@@ -60,6 +60,26 @@ return array(
                     )
                 ),
             ),
+            'post-tab-project-type' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/post-tab/project-type',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Post',
+                        'action' => 'projectType',
+                    )
+                ),
+            ),
+            'post-tab-category' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/post-tab/category',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Post',
+                        'action' => 'category',
+                    )
+                ),
+            ),
         ),
     ),
     // ViewManager configuration

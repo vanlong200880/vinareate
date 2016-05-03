@@ -23,7 +23,8 @@ class PlaceQuery{
         $select = $this->sql->select();
         $select->columns(array(
             "provinceid",
-            "name"
+            "name",
+            "type"
         ))->from(self::PROVINCE_TABLE);
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();

@@ -2,6 +2,7 @@
 namespace FrontEnd\Controller;
 
 use FrontEnd\Database\PlaceQuery;
+use FrontEnd\UIObject\PostTabView;
 use Zend\Db\Adapter\Adapter;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -11,6 +12,8 @@ use Zend\View\Model\ViewModel;
 
 class PostController extends AbstractActionController{
     protected $serviceManager;
+    protected $placeQuery;
+    protected $postTabView;
 
     /**
      * PostController constructor.
@@ -18,6 +21,12 @@ class PostController extends AbstractActionController{
      */
     public function __construct($sm){
         $this->serviceManager = $sm;
+
+        $configDb = $this->serviceManager->get('config')["db"];
+        $adapter = new Adapter($configDb);
+        $this->placeQuery = new PlaceQuery($adapter);
+
+        $this->postTabView = new PostTabView();
     }
 
     public function indexAction(){
@@ -33,12 +42,14 @@ class PostController extends AbstractActionController{
         /**
          * get province data from database
          */
-//        $configDb = $this->serviceManager->get('config')["db"];
-//        $adapter = new Adapter($configDb);
-        $adapter = $this->serviceManager->get("adapter");
-        $placeQuery = new PlaceQuery($adapter);
-        $provinces = $placeQuery->getProvinces();
-        $view->setVariable('provinces', $provinces);
+        //        $configDb = $this->serviceManager->get('config')["db"];
+        //        $adapter = new Adapter($configDb);
+        //        $adapter = $this->serviceManager->get("adapter");
+        //        $placeQuery = new PlaceQuery($adapter);
+
+        $provinces = $this->placeQuery->getProvinces();
+        $uiProvinces = $this->postTabView->getProvincesOption($provinces);
+        $view->setVariable('provinces', $uiProvinces);
         return $view;
     }
 
@@ -51,15 +62,15 @@ class PostController extends AbstractActionController{
         $request = $this->getRequest();
 
         if($request->isPost()){
+            $view = new JsonModel();
+
             $postParams = $request->getPost();
             $provinceid = $postParams->get("provinceid");
 
-            $adapter = $this->serviceManager->get("adapter");
-            $placeQuery = new PlaceQuery($adapter);
-            $districts = $placeQuery->getDistrictOnProvinceId($provinceid);
-            $view = new JsonModel();
+            $districts = $this->placeQuery->getDistrictOnProvinceId($provinceid);
+            $uiDistricts = $this->postTabView->getDistrictsOption($districts);
+            $view->setVariable("districts", $uiDistricts);
 
-            $view->setVariable("districts", $districts);
             return $view;
         }
         die("not handle request GET");
@@ -70,15 +81,15 @@ class PostController extends AbstractActionController{
         $request = $this->getRequest();
 
         if($request->isPost()){
-            $postParams = $request->getPost();
-            $districtid = $postParams->get("provinceid");
-
-            $adapter = $this->serviceManager->get("adapter");
-            $placeQuery = new PlaceQuery($adapter);
-            $wards = $placeQuery->getWardOnDistrictId($districtid);
             $view = new JsonModel();
 
-            $view->setVariable("wards", $wards);
+            $postParams = $request->getPost();
+            $wardid = $postParams->get("wardid");
+
+            $wards = $this->placeQuery->getWardOnDistrictId($wardid);
+            $uiWards = $this->postTabView->getWardsOption($wards);
+            $view->setVariable("wards", $uiWards);
+
             return $view;
         }
         die("not handle request GET");

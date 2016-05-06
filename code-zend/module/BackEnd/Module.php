@@ -26,7 +26,10 @@ class Module{
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
-        $viewModel = $e->getViewModel();
-        $viewModel->setTemplate(self::LAYOUT);
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, function($mvcEvent){
+            // Set the layout template
+            $viewModel = $mvcEvent->getViewModel();
+            $viewModel->setTemplate(self::LAYOUT);
+        }, 1);
     }
 }

@@ -31,8 +31,6 @@ class PostController extends AbstractActionController{
 
     public function indexAction(){
         $view = new ViewModel();
-
-
         return $view;
     }
 
@@ -125,7 +123,6 @@ class PostController extends AbstractActionController{
             $categories = $this->placeQuery->getCategory();
             $uiCategories = $this->postTabView->getCategoryRadio($categories);
             $view->setVariable("category", $uiCategories);
-
             return $view;
         }
         die("not handle request GET");

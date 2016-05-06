@@ -99,7 +99,7 @@ return array(
         // TemplateMapResolver configuration
         // template/path pairs
         'template_map' => array(
-            \FrontEnd\Module::LAYOUT => __DIR__ . '/../view/layout/layout.phtml',
+            \FrontEnd\Module::LAYOUT => __DIR__ . '/../view/layout/fontend.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),

@@ -84,10 +84,10 @@ return array(
     ),
     // ViewManager configuration
     'view_manager' => array(
-        'display_not_found_reason' => true,
-        'display_exceptions' => true,
-        'not_found_template' => 'error/404',
-        'exception_template' => 'error/index',
+//        'display_not_found_reason' => true,
+//        'display_exceptions' => true,
+//        'not_found_template' => 'error/404',
+//        'exception_template' => 'error/index',
         // Doctype with which to seed the Doctype helper
         'doctype' => 'HTML5',
         // e.g. HTML5, XHTML1
@@ -100,8 +100,8 @@ return array(
         // template/path pairs
         'template_map' => array(
             \FrontEnd\Module::LAYOUT => __DIR__ . '/../view/layout/fontend.phtml',
-            'error/404' => __DIR__ . '/../view/error/404.phtml',
-            'error/index' => __DIR__ . '/../view/error/index.phtml',
+//            'error/404' => __DIR__ . '/../view/error/404.phtml',
+//            'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
 
         // TemplatePathStack configuration

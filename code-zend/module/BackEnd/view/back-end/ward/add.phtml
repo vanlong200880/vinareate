@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Thêm Quận/Huyện</h3> 
+            <?php if(isset($this->arrayParam['error']) == true) {?>
+            <div class="alert alert-success">
+                 <button type="button" class="close" data-dismiss="alert">×</button>
+                 <?php foreach ($this->arrayParam['error'] as $key => $value){?>
+	      	<p> <?php echo $value;?></p>
+	      <?php }?>
+            </div>
+            <?php } ?>
+            <form role="form" class="form-horizontal" method="post" name='formAdmin'>
+                <div class="col-md-12">
+
+<!--                      <div class="form-group">                        
+                        <label for="number-address">Quận/: </label>
+                         <select class="form-control" id="slecttype" name="slecttype">
+                            <option>Phường</option>
+                            <option >Xã</option>
+                        </select>
+                    </div>-->
+                    <div class="form-group">                        
+                        <label for="number-address">Phường/Xã: </label>
+                         <select class="form-control" id="slecttype" name="slecttype">
+                            <option>Phường</option>
+                            <option >Xã</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="number-address">Tên Phường/Xã: </label>
+                        <input type="text" class="form-control" name="nameward"  value="<?php if(isset($this->arrayParam['post']['name'])==true) echo $this->arrayParam['post']['name']; ?>" id="nameward">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary btn-next">Add</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="reset" class="btn btn-primary" value="Reset">reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <h3>danh sach tinhr thanh</h3>
+            <h3>danh sach quận huyện</h3>
             <?php
             if (count($this->flash)) {
                 echo "<div class='alert alert-success'>";
@@ -16,7 +16,7 @@
                 <tr>
                     <td>STT</td>
                     <td>ID</td>
-                    <td>Tên tỉnh thành</td>
+                    <td>Tên Phường</td>
                     <td>Edit</td>
                     <td>Del</td>
                 </tr>
@@ -28,8 +28,8 @@
                     <td><?= $key+1 ?></td>
                     <td><?= $item['id'] ?></td>
                     <td><?= $item['name'] ?></td>
-                    <td><a href = '<?= $this->url('backend/province',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
-                    <td><a href = '<?= $this->url('backend/province',array('action'=>'del','id'=>$item['id'])) ?>'>Del</td>
+                    <td><a href = '<?= $this->url('backend/ward',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
+                    <td><a href = '<?= $this->url('backend/ward',array('action'=>'del','id'=>$item['id'])) ?>'>Del</td>
                 </tr>
                 <?php
                      }
@@ -37,7 +37,7 @@
                 ?>
             </table>
         <div class="col-md-12">
-          <form action="<?php echo $this->url('backend/province', array('action' => 'add')) ?>">
+          <form action="<?php echo $this->url('backend/ward', array('action' => 'add')) ?>">
             <div class="input-group">
               <button type="submit" class="btn btn-primary btn-next">Add Category</button>
             </div>

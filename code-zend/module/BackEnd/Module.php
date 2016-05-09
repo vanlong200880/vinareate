@@ -32,4 +32,14 @@ class Module{
             $viewModel->setTemplate(self::LAYOUT);
         }, 1);
     }
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(
+                'adapter' => function($sm) {
+                    $adapter=$sm->get('Zend\Db\Adapter\Adapter');
+                }
+                
+            )
+        );
+    }
 }

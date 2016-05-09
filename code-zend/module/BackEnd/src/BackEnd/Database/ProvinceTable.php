@@ -6,7 +6,7 @@ use Zend\Db\Sql\Sql;
 use Zend\Stdlib\ArrayUtils;
 
 class ProvinceTable{
-    const PROVINCE_TABLE = "province";
+    const PROVINCE_TABLE = "province2";
         /** @var  Sql $sql */
     protected $sql;
     public function __construct($adapter) {
@@ -33,11 +33,12 @@ class ProvinceTable{
         return $resultSet;
     }
     public function  saveData($arrayParam=''){
-        $value1 = $arrayParam["post"]["namecity"];
-        if(isset($arrayParam['id']) == true && $arrayParam["id"] != ''){
-            $query=$this->sql->update();
+        $value1 = $arrayParam["request"]["namecity"];
+        if(isset($arrayParam['id']) == true && $arrayParam['id'] != ''){
+            $query=$this->sql->update(self::PROVINCE_TABLE);
             $query->set(array('name'=>$value1));
-            $query->where(array('id'=>$arrayParam["id"]));
+            $query->where(array('id'=>$arrayParam['id']));
+            
         }
         if(isset($arrayParam["id"])==false){
         $query=$this->sql->insert();
@@ -62,13 +63,18 @@ class ProvinceTable{
     public function  getItemById($id){
         $select=$this->sql->select();
         $select->columns(array(
-            "provinceid",
+            "id",
             "name",
         ))->from(self::PROVINCE_TABLE);
         $select->where(array('id'=>$id));
          $statement=$this->sql->prepareStatementForSqlObject($select);
         $result =$statement->execute();
+        if(is_numeric($id)){
+            return $result->current();
+        }
+        else{
         return $result;
+        }
     }
 
 }

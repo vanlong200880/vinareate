@@ -1,12 +1,20 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3>Thêm thành phố</h3>
+            <h3>Thêm thành phố</h3> 
+            <?php if(isset($this->arrayParam['error']) == true) {?>
+            <div class="alert alert-success">
+                 <button type="button" class="close" data-dismiss="alert">×</button>
+                 <?php foreach ($this->arrayParam['error'] as $key => $value){?>
+	      	<p> <?php echo $value;?></p>
+	      <?php }?>
+            </div>
+            <?php } ?>
             <form role="form" class="form-horizontal" method="post" name='formAdmin'>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="number-address">Tên thành phố: </label>
-                        <input type="text" class="form-control" name="namecity"  id="namecity">
+                        <input type="text" class="form-control" name="namecity"  value="<?php if(isset($this->arrayParam['post']['name'])==true) echo $this->arrayParam['post']['name']; ?>" id="namecity">
                     </div>
                 </div>
                 <div class="col-md-12">

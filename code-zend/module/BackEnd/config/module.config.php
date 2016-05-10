@@ -68,6 +68,16 @@ return array(
                             ),
                         ),
                     ),
+                    'ajax' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/ajax',
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\Ward',
+                                'action' => 'ajax',
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),

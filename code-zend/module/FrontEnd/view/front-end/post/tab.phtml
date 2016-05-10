@@ -1213,7 +1213,7 @@
                     var oReq = step0.ajaxCall("/post-tab/district", {provinceid: provinceid});
                     oReq.onload = function(){
                         var districtsOption = JSON.parse(oReq.response)["districts"];
-//                        console.log(districtsOption);
+                        console.log(districtsOption);
                         districtSelectPicker.render(districtsOption);
                     };
 

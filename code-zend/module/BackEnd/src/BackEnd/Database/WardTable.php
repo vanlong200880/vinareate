@@ -5,10 +5,11 @@ namespace BackEnd\Database;
 use Zend\Db\Sql\Sql;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
-class WardTable extends AbstractTableGateway {
+class WardTable{
 
     const WARD_TABLE = "ward2";
     const DISTRICT_TABLE = "district2";
+    const PROVINCE_TABLE = "province2";
 
     /** @var  Sql $sql */
     protected $sql;
@@ -69,15 +70,16 @@ class WardTable extends AbstractTableGateway {
     }
 
     public function getCategory() {
-        $select->$this->sql->select();
-        $select->columns(
-                array(
-                    "id",
-                    "name",
-        ))->from(self::DISTRICT_TABLE);
+        $select = $this->sql->select();
+        $select->columns(array(
+            "id",
+            "name",
+            "type",
+        ))->from(self::PROVINCE_TABLE);
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
-        return $result;
+        $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
+        return $resultSet;
     }
 
     public function delItemFromId($id) {
@@ -87,6 +89,20 @@ class WardTable extends AbstractTableGateway {
         $statement = $this->sql->prepareStatementForSqlObject($del);
         $result = $statement->execute();
         return $result;
+    }
+    public function getListDistrict($provinceId=''){
+        $select=$this->sql->select();
+        $select->columns(array(
+            "id",
+            "name",
+            "type",
+            "province_id"
+        ))->from(self::DISTRICT_TABLE);
+                $select->where(array("province_id"=>$provinceId));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+        $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
+        return $resultSet;
     }
 
 }

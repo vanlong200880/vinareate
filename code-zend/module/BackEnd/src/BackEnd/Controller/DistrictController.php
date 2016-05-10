@@ -33,21 +33,28 @@ class DistrictController extends AbstractActionController {
         $arrayParam = '';
         $request = $this->getRequest();
         $postParams = $request->getPost();
-        $arrayParam['listcategory']=$this->placequery->getCategory();
+        $arrayParam['listcategory'] = $this->placequery->getCategory();
+
         if ($request->isPost()) {
+
             $arrayParam['request'] = $postParams->toArray();
             $namedistrict = explode(',', $postParams['namedistrict']);
-            $validator = new ValidatorDistrict($arrayParam, null, $this->serviceManager);
-            if ($validator->isError() == true) {
-                $arrayParam['error'] = $validator->getMessagesError();
-            } else {
-                foreach ($namedistrict as $name) {
-                    $name = ucwords($name);
-                    $result = $this->placequery->saveData($arrayParam, $name);
+                $validator = new ValidatorDistrict($arrayParam, null, $this->serviceManager);
+                if ($validator->isError() == true) {
+                    $arrayParam['error'] = $validator->getMessagesError();
+                } else {
+                    if (array_filter($namedistrict)) {
+                        foreach ($namedistrict as $name) {
+                            $name = ucwords($name);
+                            $result = $this->placequery->saveData($arrayParam, $name);
+                        }
+    //             ////   $this->flashMessenger()->addMessage("thanh cong");
+                        return $this->redirect()->toRoute('backend/district');
+                    }else{
+                       
+                        $arrayParam['error'] =array("Dữ liệu không hợp lệ");
+                    }
                 }
-//             ////   $this->flashMessenger()->addMessage("thanh cong");
-                return $this->redirect()->toRoute('backend/district');
-            }
         }
         $data['arrayParam'] = $arrayParam;
         $data['title'] = 'Thêm Tỉnh thành';
@@ -61,10 +68,10 @@ class DistrictController extends AbstractActionController {
         $request = $this->getRequest();
         $postParams = $request->getPost();
         $arrayParam = $this->params()->fromRoute();
-         
+
         if ($id) {
-            $arrayParam['listcategory']=$this->placequery->getCategory();
-            
+            $arrayParam['listcategory'] = $this->placequery->getCategory();
+
             //get item from id
             $arrayParam['post'] = $this->placequery->getItemById($id);
             //var_dump($arrayParam['post']['province_id']);

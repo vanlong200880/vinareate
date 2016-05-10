@@ -10,7 +10,6 @@ class ValidatorDistrict {
     public function __construct($arrayParam = array(), $options = null, $sm) {
         $this->_arrData = $arrayParam;
         $this->sm = $sm;
-//
 //        //check name
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);

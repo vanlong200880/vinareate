@@ -1,3 +1,45 @@
+<scriptsrc="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<script>
+    var text=$("#select_province").val();
+    
+$("#select_province").change(function(){
+    alert("ok");
+});
+//Function,  activated by clicking the button
+
+//$("#trigger").click(function(){
+//
+//    var text = $("#select_province").val();
+//    var myData = {textData:text};
+//
+//    //The post using ajax
+//    $.ajax({
+//            type:"POST",
+//            // URL : / name of the controller for the site / name of the action to be                         
+//            //                                                 executed
+//            url:"/example/answer",
+//            data:myData,
+//            success: function(data){
+//                                   //The callback function, that is going to be executed 
+//                                   //after the server response. data is the data returned
+//                                   //from the server.
+//
+//                                   // Show the returned text
+//                                   $("#answer").text(data.text);
+//
+//
+//                                    },
+//            failure(function(){alert("Failure!!");})
+//
+//
+//           });
+//
+//
+//});
+
+
+</script>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -12,14 +54,29 @@
             <?php } ?>
             <form role="form" class="form-horizontal" method="post" name='formAdmin'>
                 <div class="col-md-12">
-
-<!--                      <div class="form-group">                        
-                        <label for="number-address">Quận/: </label>
-                         <select class="form-control" id="slecttype" name="slecttype">
-                            <option>Phường</option>
-                            <option >Xã</option>
+                     <div class="form-group">
+                        <label for="number-address">Chọn Tỉnh/Thành: </label>
+                        <select class="form-control" id="select_province" name="select_province">
+                            <?php
+                            if (isset($this->arrayParam['listcategory'])) {
+                                foreach ($this->arrayParam['listcategory'] as $key => $value) {
+                                    
+                                    ?>
+                                    <option value="<?= $value['id'] ?>" <?php if($value['id'] == $this->id) echo "selected"; ?>> <?= $value['name']; ?>  </option>
+                            <?php }
+                        } ?>
                         </select>
-                    </div>-->
+                     </div>
+                        
+                           
+                        <div class="form-group">
+                        <label for="number-address">Chọn Quận/Huyện: </label>
+                        <div id="test"></div>
+<!--                        <select class="form-control" id="select_district" name="select_district">
+                        
+                        </select>-->
+                        </div>
+                   
                     <div class="form-group">                        
                         <label for="number-address">Phường/Xã: </label>
                          <select class="form-control" id="slecttype" name="slecttype">

@@ -15,10 +15,9 @@ $(document).ready(function(){
    				html += '<select class="form-control" id="select_district" name="select_district">';
    				$.each(data, function(key, item){
    					$.each(item, function(key2, item2){
-
    						html += '<option>';
-   					html += item2['type']; html += '-'; html +=item2['name'];
-   					html += '</option>';
+	   					html +=item2['name'];
+	   					html += '</option>';
    					});
    					
    				});

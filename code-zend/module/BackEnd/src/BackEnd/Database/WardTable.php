@@ -3,6 +3,7 @@
 namespace BackEnd\Database;
 
 use Zend\Db\Sql\Sql;
+use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
 class WardTable{
@@ -20,20 +21,18 @@ class WardTable{
 
     public function getAll() {
         $select = $this->sql->select();
-
-        $select->columns(array(
-            "id",
-            "name",
-            "district_id"
-        ))->from(self::WARD_TABLE);
+        $select->columns(array('*'))->from(self::WARD_TABLE);
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
-        return $result;
+        $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
+        return $resultSet;
     }
 
     public function saveData($arrayParam = '', $name = '') {
 
         $value1 = $arrayParam["request"]["nameward"];
+        $idprovince = $arrayParam["request"]["select_province"];
+        $iddistrict = $arrayParam["request"]["select_district"];
         $type = $arrayParam["request"]["slecttype"];
         if (isset($arrayParam['id']) == true && $arrayParam['id'] != '') {
             $query = $this->sql->update(self::WARD_TABLE);
@@ -43,8 +42,8 @@ class WardTable{
         if (isset($arrayParam["id"]) == false) {
             $query = $this->sql->insert();
             $query->into(self::WARD_TABLE);
-            $query->columns(array("name", "type"));
-            $query->values(array($value1, $type));
+            $query->columns(array("name","province_id","district_id", "type"));
+            $query->values(array($value1,$idprovince,$iddistrict, $type));
         }
         $statement = $this->sql->prepareStatementForSqlObject($query);
         $result = $statement->execute();
@@ -54,11 +53,7 @@ class WardTable{
 
     public function getItemById($id) {
         $select = $this->sql->select();
-        $select->columns(array(
-            "id",
-            "name",
-            "type",
-        ))->from(self::WARD_TABLE);
+        $select->columns(array("*"))->from(self::WARD_TABLE);
         $select->where(array('id' => $id));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();

@@ -34,6 +34,7 @@ class ProvinceTable{
     }
     public function  saveData($arrayParam=''){
         $value1 = $arrayParam["request"]["namecity"];
+        $value1=ucwords($value1);
         if(isset($arrayParam['id']) == true && $arrayParam['id'] != ''){
             $query=$this->sql->update(self::PROVINCE_TABLE);
             $query->set(array('name'=>$value1));

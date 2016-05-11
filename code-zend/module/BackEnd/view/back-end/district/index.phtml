@@ -17,6 +17,7 @@
                     <td>STT</td>
                     <td>ID</td>
                     <td>Tên Quận/Huyện</td>
+                    <td>Quận/Huyện</td>
                     <td>Edit</td>
                     <td>Del</td>
                 </tr>
@@ -28,8 +29,9 @@
                     <td><?= $key+1 ?></td>
                     <td><?= $item['id'] ?></td>
                     <td><?= $item['name'] ?></td>
-                    <td><a href = '<?= $this->url('backend/district',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
-                    <td><a href = '<?= $this->url('backend/district',array('action'=>'del','id'=>$item['id'])) ?>'>Del</td>
+                    <td><?= $item['type'] ?></td>
+                    <td><a href = '<?= $this->url('backend/district',array('action'=>'edit','id'=>$item['id'])) ?>' >Edit</td>
+                    <td><a href = '<?= $this->url('backend/district',array('action'=>'del','id'=>$item['id'])) ?>' onClick="return confirm('Bạn thực sự muốn xóa');">Del</td>
                 </tr>
                 <?php
                      }

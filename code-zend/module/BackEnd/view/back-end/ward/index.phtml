@@ -16,20 +16,24 @@
                 <tr>
                     <td>STT</td>
                     <td>ID</td>
-                    <td>Tên Phường</td>
+                    <td>Tên Phường/Xã</td>
+                    <td>Phường/Xã</td>
                     <td>Edit</td>
                     <td>Del</td>
                 </tr>
                 <?php
                 if($data){
                     foreach ($data as $key=>$item) {
+//                        echo "<pre>";
+//                        print_r($data);
                 ?>
                 <tr>
                     <td><?= $key+1 ?></td>
                     <td><?= $item['id'] ?></td>
                     <td><?= $item['name'] ?></td>
+                    <td><?= $item['type'] ?></td>
                     <td><a href = '<?= $this->url('backend/ward',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
-                    <td><a href = '<?= $this->url('backend/ward',array('action'=>'del','id'=>$item['id'])) ?>'>Del</td>
+                    <td><a href = '<?= $this->url('backend/ward',array('action'=>'del','id'=>$item['id'])) ?>' onClick="return confirm('Bạn thực sự muốn xóa');">Del</td>
                 </tr>
                 <?php
                      }

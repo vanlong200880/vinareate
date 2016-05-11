@@ -18,14 +18,48 @@ class ValidatorWard {
             $message = $validator->getMessages();
             $this->_messagesError['namecity'] = 'Tên Phường/Xã: ' . current($message);
         }
+        //check province
+        $validator = new \Zend\Validator\ValidatorChain();
+        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
+        if (!$validator->isValid($arrayParam['request']['select_province']) && $arrayParam['request']['select_province'] == '') {
+            $message = $validator->getMessages();
+            $this->_messagesError['select_province'] = 'Tên Tỉnh/Thành: ' . current($message);
+        }
+        //check district
+        $validator = new \Zend\Validator\ValidatorChain();
+        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
+        if (!$validator->isValid($arrayParam['request']['select_district']) && $arrayParam['request']['select_district'] == '') {
+            $message = $validator->getMessages();
+            $this->_messagesError['select_district'] = 'Tên Quận/Huyện: ' . current($message);
+        }
+//        //check name dulicate
+//
+//        $dbAdapter = $this->sm->get('adapter');
+//        $namedistrict = explode(',', $arrayParam['request']['nameward']);
+//        if (array_filter($namedistrict)) {
+//            foreach ($namedistrict as $key => $name) {
+//                $checkduplicate = new \Zend\Validator\Db\RecordExists(
+//                        array(
+//                    'table' => 'ward2',
+//                    'field' => 'name',
+//                    'adapter' => $dbAdapter,
+//                        )
+//                );
+//                if ($checkduplicate->isValid($name)) {
+//                    $message = $validator->getMessages();
+//                    $this->_messagesError['name'] = 'Tên Phường/Xã này đã tồn tại';
+//                }
+//            }
+//        }
+    }
 
+    public function checkNameDuplicate($arrayParam = array(), $sm) {
 
-        //check name dulicate
-
+        $validator = new \Zend\Validator\ValidatorChain();
         $dbAdapter = $this->sm->get('adapter');
-        $namedistrict = explode(',', $arrayParam['request']['nameward']);
-        if (array_filter($namedistrict)) {
-            foreach ($namedistrict as $key => $name) {
+        $nameward = explode(',', $arrayParam['request']['nameward']);
+        if (array_filter($nameward)) {
+            foreach ($nameward as $key => $name) {
                 $checkduplicate = new \Zend\Validator\Db\RecordExists(
                         array(
                     'table' => 'ward2',
@@ -35,7 +69,7 @@ class ValidatorWard {
                 );
                 if ($checkduplicate->isValid($name)) {
                     $message = $validator->getMessages();
-                    $this->_messagesError['name'] = 'Tên Phường/Xã này đã tồn tại';
+                    return $this->_messagesError['name'] = 'Tên Quận/Huyện này đã tồn tại';
                 }
             }
         }

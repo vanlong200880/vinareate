@@ -24,8 +24,9 @@ class DistrictTable{
         $select->columns(array(
             "id",
             "name",
+            "type",
             "province_id"
-        ))->from(self::DISTRICT_TABLE);
+        ))->from(self::DISTRICT_TABLE)->order('id ASC');
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
         return $result;

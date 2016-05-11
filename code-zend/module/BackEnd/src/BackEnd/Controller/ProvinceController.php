@@ -14,36 +14,35 @@ class ProvinceController extends AbstractActionController {
     protected $serviceManager;
     protected $placequery;
 
-
     public function __construct($sm) {
         $this->serviceManager = $sm;
         $configDb = $this->serviceManager->get('config')["db"];
         $adapter = new Adapter($configDb);
         $this->placequery = new ProvinceTable($adapter);
-    } 
+    }
 
     public function indexAction() {
         $listprovince = $this->placequery->getAll();
-           $request = $this->getRequest();
-           if($request->isPost() == true){
-                 return $this->redirect()->toRoute('backend/province');
-           }
-           return new ViewModel(array('data' => $listprovince));
+        $request = $this->getRequest();
+        if ($request->isPost() == true) {
+            return $this->redirect()->toRoute('backend/province');
+        }
+        return new ViewModel(array('data' => $listprovince));
     }
 
     public function addAction() {
         $request = $this->getRequest();
         $postParams = $request->getPost();
+        $arrayParam['request'] = $postParams->toArray();
         if ($request->isPost()) {
             $view = new JsonModel();
-            $arrayParam['request'] = $postParams->toArray();
-            $validator=new ValidatorProvince($arrayParam, null, $this->serviceManager);
-            if($validator->isError()==true){
+            $validator = new ValidatorProvince($arrayParam, null, $this->serviceManager);
+            if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager) && $validator->isError() == true) {
                 $arrayParam['error'] = $validator->getMessagesError();
-            }else{
-            $result = $this->placequery->saveData($arrayParam);
-            //$this->flashMessenger()->addMessage("thanh cong");
-            return $this->redirect()->toRoute('backend/province');
+            } else {
+                $result = $this->placequery->saveData($arrayParam);
+//            //$this->flashMessenger()->addMessage("thanh cong");
+                return $this->redirect()->toRoute('backend/province');
             }
         }
         $data['arrayParam'] = $arrayParam;
@@ -61,20 +60,27 @@ class ProvinceController extends AbstractActionController {
         }
         return $this->redirect()->toRoute('backend/province');
     }
+
     public function editAction() {
         $id = $this->params()->fromRoute('id');
-        $request=$this->getRequest();
-        $postParams = $request->getPost(); 
+        $request = $this->getRequest();
+        $postParams = $request->getPost();
         $arrayParam = $this->params()->fromRoute();
-        if($id){
+        
+        if ($id) {
+           
             //get item from id
-            $arrayParam['post']=$this->placequery->getItemById($id);
-            $arrayParam['request']=$postParams->toArray();
-            if($request->isPost() == true){
-                $edititem =$this->placequery->saveData($arrayParam);
-                echo "success"; 
-                return $this->redirect()->toRoute('backend/province');
-                
+            $arrayParam['post'] = $this->placequery->getItemById($id);
+            
+            if ($request->isPost() == true) {
+                 $arrayParam['request'] = $postParams->toArray();
+                 $validator = new ValidatorProvince($arrayParam, null, $this->serviceManager);
+                if ($validator->isError() == true) {
+                    $arrayParam['error'] = $validator->getMessagesError();
+                } else {
+                    $edititem = $this->placequery->saveData($arrayParam);
+                    return $this->redirect()->toRoute('backend/province');
+                }
             }
         }
 //        echo "<pre>";
@@ -82,9 +88,8 @@ class ProvinceController extends AbstractActionController {
         $data['arrayParam'] = $arrayParam;
         $data['title'] = 'Sửa Tỉnh thành';
         $view = new ViewModel($data);
-         $view->setTemplate('province_add_template');
-         return $view;
+        $view->setTemplate('province_add_template');
+        return $view;
     }
-    
 
 }

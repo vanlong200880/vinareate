@@ -40,18 +40,18 @@ class DistrictController extends AbstractActionController {
             $arrayParam['request'] = $postParams->toArray();
             $namedistrict = explode(',', $postParams['namedistrict']);
                 $validator = new ValidatorDistrict($arrayParam, null, $this->serviceManager);
-                if ($validator->isError() == true) {
+                if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager)&& $validator->isError() == true) {
                     $arrayParam['error'] = $validator->getMessagesError();
+                    var_dump($validator->getMessagesError());
                 } else {
                     if (array_filter($namedistrict)) {
                         foreach ($namedistrict as $name) {
                             $name = ucwords($name);
                             $result = $this->placequery->saveData($arrayParam, $name);
                         }
-    //             ////   $this->flashMessenger()->addMessage("thanh cong");
+                 ////   $this->flashMessenger()->addMessage("thanh cong");
                         return $this->redirect()->toRoute('backend/district');
-                    }else{
-                       
+                    }else{                       
                         $arrayParam['error'] =array("Dữ liệu không hợp lệ");
                     }
                 }
@@ -68,7 +68,7 @@ class DistrictController extends AbstractActionController {
         $request = $this->getRequest();
         $postParams = $request->getPost();
         $arrayParam = $this->params()->fromRoute();
-
+        
         if ($id) {
             $arrayParam['listcategory'] = $this->placequery->getCategory();
 
@@ -76,9 +76,15 @@ class DistrictController extends AbstractActionController {
             $arrayParam['post'] = $this->placequery->getItemById($id);
             //var_dump($arrayParam['post']['province_id']);
             $arrayParam['request'] = $postParams->toArray();
+            $validator = new ValidatorDistrict($arrayParam, null, $this->serviceManager);
             if ($request->isPost() == true) {
+                if($validator->isError() == true){
+                     $arrayParam['error'] = $validator->getMessagesError();
+                }else{
                 $edititem = $this->placequery->saveData($arrayParam);
                 return $this->redirect()->toRoute('backend/district');
+                
+                }
             }
         }
         $data['arrayParam'] = $arrayParam;

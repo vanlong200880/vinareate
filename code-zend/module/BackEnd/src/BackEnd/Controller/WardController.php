@@ -68,15 +68,24 @@ class WardController extends AbstractActionController {
 
 //
     public function editAction() {
+        
         $id = $this->params()->fromRoute('id');
         $request = $this->getRequest();
         $postParams = $request->getPost();
+        $arrayParam = $this->params()->fromRoute();
         $arrayParam['request'] = $postParams->toArray();
         $arrayParam['listcategory'] = $this->placequery->getCategory();
+       
+        
+//        echo "<pre>";
+//        print_r($arrayParam);
         $validator = new ValidatorWard($arrayParam, null, $this->serviceManager);
+        $view = $this->serviceManager->get('Zend\View\Renderer\PhpRenderer');
+        $view->headScript()->appendFile($view->basePath() . "/js/ajax.js", "text/javascript");
         if ($id) {
             //get item from id
             $arrayParam['post'] = $this->placequery->getItemById($id);
+            if(isset($arrayParam['post']['province_id']))$arrayParam['listdistrict'] = $this->placequery->getListDistrict($arrayParam['post']['province_id']);
             if ($request->isPost() == true) {
                 if($validator->isError() == true){
                      $arrayParam['error'] = $validator->getMessagesError();
@@ -87,7 +96,8 @@ class WardController extends AbstractActionController {
             }
         }
         $data['arrayParam'] = $arrayParam;
-        $data['provinceid'] = $arrayParam['post']['id'];
+        $data['provinceid'] = $arrayParam['post']['province_id'];
+        $data['districtid'] = $arrayParam['post']['district_id'];
         $data['title'] = 'Sửa Tỉnh thành';
         $view = new ViewModel($data);
         $view->setTemplate('ward_add_template');

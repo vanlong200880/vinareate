@@ -66,9 +66,7 @@ class ProvinceController extends AbstractActionController {
         $request = $this->getRequest();
         $postParams = $request->getPost();
         $arrayParam = $this->params()->fromRoute();
-        
         if ($id) {
-           
             //get item from id
             $arrayParam['post'] = $this->placequery->getItemById($id);
             

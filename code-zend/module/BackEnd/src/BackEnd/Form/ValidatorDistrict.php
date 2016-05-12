@@ -13,7 +13,7 @@ class ValidatorDistrict {
         //check name
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (!$validator->isValid($arrayParam['request']['namedistrict'])) {
+        if (isset($arrayParam['request']['namedistrict']) &&!$validator->isValid($arrayParam['request']['namedistrict'])) {
             $message = $validator->getMessages();
             $this->_messagesError['namecity'] = 'Tên Quận/Huyện: ' . current($message);
         }
@@ -51,7 +51,7 @@ class ValidatorDistrict {
             foreach ($namedistrict as $key => $name) {
                 $checkduplicate = new \Zend\Validator\Db\RecordExists(
                         array(
-                    'table' => 'district2',
+                    'table' => 'district',
                     'field' => 'name',
                     'adapter' => $dbAdapter,
                         )
@@ -64,6 +64,31 @@ class ValidatorDistrict {
             }
         }
     }
+        public function checkNameDuplicateEdit($arrayParam = array(), $sm) {
+      
+         $validator = new \Zend\Validator\ValidatorChain();
+        $dbAdapter = $this->sm->get('adapter');
+        $namedistrict = $arrayParam['request']['namedistrict'];
+        if ($namedistrict) {
+                $checkduplicate = new \Zend\Validator\Db\RecordExists(
+                        array(
+                    'table' => 'district2',
+                    'field' => 'name',
+                        'exclude' => array(
+                            'field' => 'name',
+                            'value' => $arrayParam['request']['namedistrict']
+                        ),
+                    'adapter' => $dbAdapter,
+                        )
+                );
+                if ($checkduplicate->isValid($namedistrict)) {
+                    $message = $validator->getMessages();
+                   return  $this->_messagesError['name'] = 'Tên Quận/Huyện này đã tồn tại';
+                    
+                }
+        }
+    }
+
 
     public function isError() {
         if (count($this->_messagesError) > 0) {

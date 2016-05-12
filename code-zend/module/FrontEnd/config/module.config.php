@@ -63,10 +63,10 @@ return array(
             'post-tab-project-type' => array(
                 'type' => 'literal',
                 'options' => array(
-                    'route' => '/post-tab/project-type',
+                    'route' => '/post-tab/parent-category',
                     'defaults' => array(
                         'controller' => 'FrontEnd\Controller\Post',
-                        'action' => 'projectType',
+                        'action' => 'parentCategory',
                     )
                 ),
             ),

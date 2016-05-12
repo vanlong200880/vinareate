@@ -93,7 +93,7 @@ class PostController extends AbstractActionController{
         die("not handle request GET");
     }
 
-    public function projectTypeAction(){
+    public function parentCategoryAction(){
         /** @var Request $request */
         $request = $this->getRequest();
 
@@ -102,9 +102,9 @@ class PostController extends AbstractActionController{
 
             //            $postParams = $request->getPost();
 
-            $projectTypes = $this->placeQuery->getProjectType();
-            $uiProjectTypes = $this->postTabView->getProjectTypeOption($projectTypes);
-            $view->setVariable("projectType", $uiProjectTypes);
+            $parentCategories = $this->placeQuery->getParentCategory();
+            $uiParentCategories = $this->postTabView->getParentCategoryOption($parentCategories);
+            $view->setVariable("parentCategory", $uiParentCategories);
 
             return $view;
         }
@@ -118,10 +118,11 @@ class PostController extends AbstractActionController{
         if($request->isPost()){
             $view = new JsonModel();
 
-            //            $postParams = $request->getPost();
+            $postParams = $request->getPost();
+            $parentCategoryId = $postParams->get("parentCategoryId");
 
-            $categories = $this->placeQuery->getCategory();
-            $uiCategories = $this->postTabView->getCategoryRadio($categories);
+            $categories = $this->placeQuery->getCategory($parentCategoryId);
+            $uiCategories = $this->postTabView->getCategoryOption($categories);
             $view->setVariable("category", $uiCategories);
             return $view;
         }

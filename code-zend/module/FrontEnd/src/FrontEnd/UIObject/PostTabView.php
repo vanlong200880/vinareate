@@ -34,24 +34,24 @@ class PostTabView{
         return $arr;
     }
 
-    public function getProjectTypeOption($projectTypes){
+    public function getParentCategoryOption($projectTypes){
         $arr = array();
         foreach($projectTypes as $projectType){
             $option = array();
-            $option["val"] = $projectType["projecttypeid"];
+            $option["val"] = $projectType["id"];
             $option["html"] = $projectType["name"];
             $arr[] = $option;
         }
         return $arr;
     }
 
-    public function getCategoryRadio($categories){
+    public function getCategoryOption($categories){
         $arr = array();
         foreach($categories as $category){
-            $radio = array();
-            $radio["input"]["val"] = $category["categoryid"];
-            $radio["label"]["html"] = $category["description"];
-            $arr[] = $radio;
+            $option = array();
+            $option["val"] = $category["id"];
+            $option["html"] = $category["name"];
+            $arr[] = $option;
         }
         return $arr;
     }

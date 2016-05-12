@@ -8,7 +8,7 @@ class HousePosition{
     const DISTRICT_TABLE = "district";
     const PROVINCE_TABLE = "province";
     const WARD_TABLE = "ward";
-    const PROJECT_TYPE_TABLE = "projecttype";
+//    const PARENT_CATEGORY = "category";
     const CATEGORY_TABLE = "category";
 
     /** @var  Sql $sql */
@@ -64,25 +64,24 @@ class HousePosition{
         return $resultSet;
     }
 
-    public function getProjectType(){
+    public function getParentCategory(){
         $select = $this->sql->select();
         $select->columns(array(
-            "projecttypeid",
+            "id",
             "name"
-        ))->from(self::PROJECT_TYPE_TABLE);
+        ))->from(self::CATEGORY_TABLE)->where(array("parent" => null));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
         $resultSet = ArrayUtils::iteratorToArray($result);
         return $resultSet;
     }
 
-    public function getCategory(){
+    public function getCategory($parentId){
         $select = $this->sql->select();
         $select->columns(array(
-            "categoryid",
-            "type",
-            "description"
-        ))->from(self::CATEGORY_TABLE);
+            "id",
+            "name",
+        ))->from(self::CATEGORY_TABLE)->where(array("parent" => $parentId));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
         $resultSet = ArrayUtils::iteratorToArray($result);

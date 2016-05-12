@@ -1,0 +1,1 @@
+INSERT INTO `taxonomy` (`id`, `name`, `slug`, `description`, `meta_title`, `meta_keyword`, `meta_description`, `menu_order`, `status`) VALUES (0, 'nhà ??t', 'nha-dat', 't?t c? các danh m?c v? nhà ??t thu?c taxonomy', NULL, NULL, NULL, 0, 1);

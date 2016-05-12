@@ -9,10 +9,10 @@
 	      <?php }?>
             </div>
             <?php } ?>
-            <form role="form" class="form-horizontal" method="post" name='formAdmin'>
+            <form role="form" action="" class="form-horizontal" method="post" name='formAdmin'>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="number-address">Tên thành phố: </label>
+                        <label for="number-address">Tên Tỉnh/Thành: </label>
                         <input type="text" class="form-control" name="namecity"  value="<?php if(isset($this->arrayParam['post']['name'])==true) echo $this->arrayParam['post']['name']; ?>" id="namecity">
                     </div>
                 </div>

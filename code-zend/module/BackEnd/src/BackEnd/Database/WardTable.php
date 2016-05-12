@@ -8,9 +8,9 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 
 class WardTable{
 
-    const WARD_TABLE = "ward2";
-    const DISTRICT_TABLE = "district2";
-    const PROVINCE_TABLE = "province2";
+    const WARD_TABLE = "ward";
+    const DISTRICT_TABLE = "district";
+    const PROVINCE_TABLE = "province";
 
     /** @var  Sql $sql */
     protected $sql;
@@ -29,14 +29,15 @@ class WardTable{
     }
 
     public function saveData($arrayParam = '', $name = '') {
-
+//        echo "<pre>";
+//        print_r($arrayParam);
         $value1 = $arrayParam["request"]["nameward"];
         $idprovince = $arrayParam["request"]["select_province"];
         $iddistrict = $arrayParam["request"]["select_district"];
         $type = $arrayParam["request"]["slecttype"];
         if (isset($arrayParam['id']) == true && $arrayParam['id'] != '') {
             $query = $this->sql->update(self::WARD_TABLE);
-            $query->set(array('name' => $value1));
+            $query->set(array('name' => $value1, 'type' => $type, 'province_id'=>$idprovince, 'district_id'=>$iddistrict));
             $query->where(array('id' => $arrayParam['id']));
         }
         if (isset($arrayParam["id"]) == false) {
@@ -76,6 +77,19 @@ class WardTable{
         $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
         return $resultSet;
     }
+        public function getDistricts() {
+        $select = $this->sql->select();
+        $select->columns(array(
+            "id",
+            "name",
+            "type",
+        ))->from(self::DISTRICT_TABLE);
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+        $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
+        return $resultSet;
+    }
+    
 
     public function delItemFromId($id) {
         $del = $this->sql->delete();

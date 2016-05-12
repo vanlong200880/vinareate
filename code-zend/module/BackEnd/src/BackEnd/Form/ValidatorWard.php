@@ -10,25 +10,25 @@ class ValidatorWard {
     public function __construct($arrayParam = array(), $options = null, $sm) {
         $this->_arrData = $arrayParam;
         $this->sm = $sm;
-//
 //        //check name
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (!$validator->isValid($arrayParam['request']['nameward'])) {
+        if (isset($arrayParam['request']['nameward']) && !$validator->isValid($arrayParam['request']['nameward'])) {
             $message = $validator->getMessages();
-            $this->_messagesError['namecity'] = 'Tên Phường/Xã: ' . current($message);
+            $this->_messagesError['nameward'] = 'Tên Phường/Xã: ' . current($message);
         }
         //check province
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (!$validator->isValid($arrayParam['request']['select_province']) && $arrayParam['request']['select_province'] == '') {
+        if (isset($arrayParam['request']['select_province']) && !$validator->isValid($arrayParam['request']['select_province'])) {
             $message = $validator->getMessages();
             $this->_messagesError['select_province'] = 'Tên Tỉnh/Thành: ' . current($message);
         }
+        
         //check district
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (!$validator->isValid($arrayParam['request']['select_district']) && $arrayParam['request']['select_district'] == '') {
+        if (isset($arrayParam['request']['select_district']) && !$validator->isValid($arrayParam['request']['select_district'])) {
             $message = $validator->getMessages();
             $this->_messagesError['select_district'] = 'Tên Quận/Huyện: ' . current($message);
         }
@@ -62,7 +62,7 @@ class ValidatorWard {
             foreach ($nameward as $key => $name) {
                 $checkduplicate = new \Zend\Validator\Db\RecordExists(
                         array(
-                    'table' => 'ward2',
+                    'table' => 'ward',
                     'field' => 'name',
                     'adapter' => $dbAdapter,
                         )

@@ -14,7 +14,7 @@ class ValidatorProvince {
 //        //check name
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (!$validator->isValid($arrayParam['request']['namecity'])) {
+        if (isset($arrayParam['request']['namecity']) && !$validator->isValid($arrayParam['request']['namecity'])) {
             $message = $validator->getMessages();
             $this->_messagesError['namecity'] = 'Tên thành phố: ' . current($message);
         }
@@ -40,14 +40,14 @@ class ValidatorProvince {
         $dbAdapter = $this->sm->get('adapter');
         $checkduplicate = new \Zend\Validator\Db\RecordExists(
                 array(
-            'table' => 'province2',
+            'table' => 'province',
             'field' => 'name',
             'adapter' => $dbAdapter,
                 )
         );
         if ($checkduplicate->isValid($arrayParam['request']['namecity'])) {
             $message = $validator->getMessages();
-            return $this->_messagesError['name'] = 'Tên thành phố đã tồn tại';
+            return $this->_messagesError['name'] = 'Tên Tỉnh\Thành này đã tồn tại';
             
         }
     }

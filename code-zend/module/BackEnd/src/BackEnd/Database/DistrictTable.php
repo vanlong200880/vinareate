@@ -8,8 +8,8 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 
 class DistrictTable{
 
-    const DISTRICT_TABLE = "district2";
-    const PROVINCE_TABLE = "province2";
+    const DISTRICT_TABLE = "district";
+    const PROVINCE_TABLE = "province";
 
     /** @var  Sql $sql */
     protected $sql;
@@ -40,7 +40,7 @@ class DistrictTable{
 
         if (isset($arrayParam['id']) == true && $arrayParam['id'] != '') {
             $query = $this->sql->update(self::DISTRICT_TABLE);
-            $query->set(array('name' => $value1));
+            $query->set(array('name' => $value1, 'province_id'=>$idprovince,'type'=>$type));
             $query->where(array('id' => $arrayParam['id']));
         }
         if (isset($arrayParam["id"]) == false) {

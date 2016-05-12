@@ -2,6 +2,7 @@ $(document).ready(function(){
 	var x = document.getElementById("select_province");
 	console.log(x);
 	$("#select_province").change(function(){
+		$('.district-detail').css('display','none');
 		var id = document.getElementById("select_province").value;
 		var data = {};
 		data.id = id; // {id: 31}

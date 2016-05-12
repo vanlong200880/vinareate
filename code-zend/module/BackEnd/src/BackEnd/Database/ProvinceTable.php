@@ -6,7 +6,7 @@ use Zend\Db\Sql\Sql;
 use Zend\Stdlib\ArrayUtils;
 
 class ProvinceTable{
-    const PROVINCE_TABLE = "province2";
+    const PROVINCE_TABLE = "province";
         /** @var  Sql $sql */
     protected $sql;
     public function __construct($adapter) {
@@ -33,6 +33,7 @@ class ProvinceTable{
         return $resultSet;
     }
     public function  saveData($arrayParam=''){
+    
         $value1 = $arrayParam["request"]["namecity"];
         $value1=ucwords($value1);
         if(isset($arrayParam['id']) == true && $arrayParam['id'] != ''){

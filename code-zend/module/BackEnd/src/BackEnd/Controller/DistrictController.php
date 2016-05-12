@@ -40,9 +40,8 @@ class DistrictController extends AbstractActionController {
             $arrayParam['request'] = $postParams->toArray();
             $namedistrict = explode(',', $postParams['namedistrict']);
                 $validator = new ValidatorDistrict($arrayParam, null, $this->serviceManager);
-                if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager)&& $validator->isError() == true) {
+                if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager)|| $validator->isError() == true) {
                     $arrayParam['error'] = $validator->getMessagesError();
-                    var_dump($validator->getMessagesError());
                 } else {
                     if (array_filter($namedistrict)) {
                         foreach ($namedistrict as $name) {

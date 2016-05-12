@@ -17,6 +17,7 @@
                         <label for="number-address">Chọn Tỉnh/Thành: </label>
 
                         <select class="form-control" id="slecttype" name="select_province">
+                            <option value=''>Chọn Tỉnh/Thành</option>
                             <?php
                             if (isset($this->arrayParam['listcategory'])) {
                                 foreach ($this->arrayParam['listcategory'] as $key => $value) {
@@ -31,6 +32,7 @@
 
                         <label for="number-address">Quận/Huyện: </label>
                         <select class="form-control" id="slecttype" name="slecttype">
+                            
                             <option <?php if (isset($this->arrayParam['post']['type']) == "Quận") echo "selected='selected'"; ?>>Quận</option>
                             <option <?php if (isset($this->arrayParam['post']['type']) == "Huyện") echo "selected='selected'"; ?>>Huyện</option>
                         </select>

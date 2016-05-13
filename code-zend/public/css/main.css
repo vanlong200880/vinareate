@@ -1160,28 +1160,28 @@ header#header .container-fluid {
       position: relative;
       top: 5px;
       padding-right: 2px; }
-  .unit-features input[type="checkbox"] {
-    display: none; }
-  .unit-features input[type='checkbox'] + label {
-    display: inline-block;
-    background-repeat: no-repeat;
-    cursor: pointer; }
+  /*.unit-features input[type="checkbox"] {*/
+    /*display: none; }*/
+  /*.unit-features input[type='checkbox'] + label {*/
+    /*display: inline-block;*/
+    /*background-repeat: no-repeat;*/
+    /*cursor: pointer; }*/
   .unit-features input[type='checkbox']:checked + label:before {
     background-position: 0 -74px; }
   .unit-features label {
     position: relative;
     font-weight: normal;
     font-size: 12px; }
-    .unit-features label:before {
-      content: " ";
-      height: 19px;
-      width: 19px;
-      display: inline-block;
-      background-image: url("../images/radio.png");
-      background-position: 0 -50px;
-      top: 5px;
-      position: relative;
-      margin-right: 5px; }
+    /*.unit-features label:before {*/
+      /*content: " ";*/
+      /*height: 19px;*/
+      /*width: 19px;*/
+      /*display: inline-block;*/
+      /*background-image: url("../images/radio.png");*/
+      /*background-position: 0 -50px;*/
+      /*top: 5px;*/
+      /*position: relative;*/
+      /*margin-right: 5px; }*/
 
 footer#footer {
   border-top: 1px solid #DDD;

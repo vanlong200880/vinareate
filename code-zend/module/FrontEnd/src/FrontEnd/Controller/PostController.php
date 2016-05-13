@@ -128,4 +128,19 @@ class PostController extends AbstractActionController{
         }
         die("not handle request GET");
     }
+
+    public function featureAction(){
+        /** @var Request $request */
+        $request = $this->getRequest();
+
+        if($request->isPost()){
+            $view = new JsonModel();
+
+            $features = $this->placeQuery->getAllFeatures();
+//            $uiCategories = $this->postTabView->getCategoryOption($categories);
+            $view->setVariable("features", $features);
+            return $view;
+        }
+        die("not handle request GET");
+    }
 }

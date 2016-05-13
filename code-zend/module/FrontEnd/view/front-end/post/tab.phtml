@@ -411,7 +411,8 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Diện tích</label>
-                                                    <input type="text" id="houseArea" value="" placeholder="Diện tích nhà - m2" class="form-control">
+                                                    <input type="text" id="houseArea" value=""
+                                                           placeholder="Diện tích nhà - m2" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -476,9 +477,16 @@
                                         thả dưới đây.</p></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <div class="uploads">
-                                            <p>Kéo & Thả vào đây để tải ảnh<br>
-                                                hoặc Chọn file</p>
+                                        <div id="uploadImage">
+                                            <div id="dragDiv">
+                                                <div class="uploads">
+                                                    <p>Kéo & Thả vào đây để tải ảnh<br>
+                                                        hoặc Chọn file</p>
+                                                </div>
+                                                <input type="file" id="inputFile" name="imageFiles[]"
+                                                       multiple="multiple">
+                                            </div>
+                                            <div id="previewImageDiv"></div>
                                         </div>
                                     </div>
 
@@ -487,16 +495,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Embedded Video</label>
-                                        <textarea class="form-control" rows="4"
-                                                  placeholder="<iframe></iframe>"></textarea>
+                                        <div style="position: relative">
+                                            <input id="youtubeUrl" type="text" name="youtubeUrl" value=""
+                                                   placeholder="Dán link youtube vào đây" class="form-control">
+                                            <div id="effect" class="btn btn-primary"
+                                                 style="display: none; position: absolute; right: 0; bottom: 0">nhấn
+                                                enter
+                                            </div>
+                                        </div>
+                                        <div id="embedCode"></div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary btn-next">Bước tiếp theo</button>
-                                </div>
-                                <div class="col-md-6">
-
+                                    <button id="btnSubmitStep4" type="submit" class="btn btn-primary btn-next">
+                                        Bước tiếp theo
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -510,25 +523,25 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="number-address">Tiêu đề</label>
-                                                <input type="text" class="form-control" id="number-address">
+                                                <input type="text" class="form-control" id="postTitle">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="number-address">Mô tả ngắn</label>
-                                                <textarea class="form-control" rows="4"></textarea>
+                                                <textarea class="form-control" rows="4" id=postExcerpt></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="number-address">Nội dung</label>
-                                                <textarea class="form-control" rows="4"></textarea>
+                                                <textarea class="form-control" rows="4" id="postContent"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="number-address">Website</label>
-                                                <input type="text" class="form-control" id="number-address">
+                                                <input type="text" class="form-control" id="website">
                                             </div>
                                         </div>
                                     </div>
@@ -539,471 +552,32 @@
                                 <div class="col-md-12">
                                     <div class="unit-features">
                                         <div class="row">
-                                            <div class="col-md-12"><h3><span>Tính năng bổ sung</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Wet bar </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Jetted tub</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Skylights </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Sauna </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Jacuzzi / Whirlpool </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> High / Vaulted ceiling </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Hot tub / Spa </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Granite countertop </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Tile floor </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Hardwood floor </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Fireplace </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Máy móc gia dụng</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Trash compactor </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Freezer</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Stainless steel appliances </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Garbage disposal </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Microwave </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Dishwasher </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Refrigerator </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Range / Oven </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Nội thất bên ngoài</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Greenhouse </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Sprinkler system</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Garden </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Porch </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Pond </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Lake </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Lawn </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Fenced yard </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Yard </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Balcony, Deck, or Patio </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Private pool </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Sưởi & Làm lạnh</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Double pane / Storm windows </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Ceiling fans</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Air conditioning </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Central A/C </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Heat: forced air </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Sưởi & Làm lạnh</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Mother-in-law unit </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Office</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Pantry </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Breakfast nook </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Storage space </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Family room </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Master bath </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Walk-in closet </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Dining room </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Living room </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Solarium / Atrium </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Workshop </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Mud room </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Sun room </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Library </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Attic </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Recreation room </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Basement </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Wiring</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Intercom system </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Wired</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> High-speed internet </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Cable-ready </label>
-                                                    </div>
-                                                </div>
+                                            <div class="panel-group" id="panelGroupFeature">
+                                                <!--each panel is a child-->
+<!--                                                <div class="panel panel-default">-->
+<!--                                                    <div class="panel-heading">-->
+<!--                                                        <h4 class="panel-title">-->
+<!--                                                            <a data-toggle="collapse" data-parent="#panelGroupFeature" href="#1"-->
+<!--                                                               id="houseFeatureTitle">-->
+<!--                                                                Collapsible Group Item #1-->
+<!--                                                            </a>-->
+<!--                                                        </h4>-->
+<!--                                                    </div>-->
+<!--                                                    <div id="1" class="panel-collapse collapse in">-->
+<!--                                                        <div class="panel-body" id="houseFeatureContent">-->
+<!--                                                            div1-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"><h2>COMMUNITY FEATURES</h2></div>
-
+<!--                                <div class="col-md-12"><h2>COMMUNITY FEATURES</h2></div>-->
                                 <div class="col-md-12">
-                                    <div class="unit-features">
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Building Type</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Assisted living</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Over 55 active community</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Loft layout </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Waterfront </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> New property </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Vintage building </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Communal Parking</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Garage - Detached </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> RV parking</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Garage - Attached </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> On-street parking </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Covered parking </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Off-street parking </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Guest parking </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Facilities & Recreation</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Dock </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Golf course</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Sports court </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Basketball court </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Tennis court </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Lake </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Business center </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Barbecue </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Pond </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Playground </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Clubhouse </label>
-                                                    </div>
-
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Near transportation </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Fitness center </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Shared pool </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-                                            <div class="col-md-12"><h3><span>Security & Access</span></h3></div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Disability access </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Doorman</label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Security system </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Gated entry </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Controlled access </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Secured entry </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input type="checkbox" id="web-bar" value="">
-                                                        <label for="web-bar"> Elevator </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary btn-next">Bước tiếp theo</button>
-                                </div>
-                                <div class="col-md-6">
-
+                                    <button type="submit" class="btn btn-primary btn-next" id="btnSubmitStep5">
+                                        Bước tiếp theo
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -1076,6 +650,17 @@
                         input.val(d);
                     };
                 },
+                itemTextArea: function(name, divId){
+                    var textArea = this.item(name, divId);
+                    textArea.getData = function(){
+                        var r = {};
+                        r[this.name] = textArea.html();
+                        return r;
+                    };
+                    textArea.setData = function(d){
+                        textArea.html(d);
+                    };
+                },
                 itemSelectPicker: function(name, divId){
                     var selectPicker = this.item(name, divId);
                     selectPicker.render = function(options){
@@ -1106,6 +691,14 @@
                         return selectPicker.find("option:selected");
                     }
                 },
+                /**
+                 * CUSTOM ITEM
+                 * input/selectpicker is most used
+                 * itemRadio, itemCheckBox, itemDragDrop, not frequently
+                 * beside of that "tax history" also has it own custom
+                 * >>> add custom item dynamic in step
+                 * >>> add it here
+                 */
                 itemRadio: function(name, divId){
                     var radioDiv = this.item(name, divId);
                     radioDiv.render = function(radios){
@@ -1136,6 +729,44 @@
                         r[this.name] = checkedRadio.val();
                         return r;
                     }
+                },
+                itemCheckbox: function(name, divId){
+                    var checkboxDiv = this.item(name, divId);
+                    checkboxDiv.render = function(checkboxs){
+                        if(checkboxDiv.options){
+                            //empty when created
+                            checkboxDiv.empty();
+                        }
+                        checkboxDiv.options = checkboxs;
+                        for(var i in checkboxs){
+                            if(checkboxs.hasOwnProperty(i)){
+                                var checkbox = checkboxs[i];
+                                var div = $("<div>");
+                                var input = $("<input>");
+//                                input.attr("name", "name");
+                                input.attr("type", "checkbox")
+                                     .val(checkbox["id"]);
+//                                var label = $("<label>").html(radio["label"]["html"]);
+                                var label = $("<label>").addClass("checkbox-inline");;
+                                label.append(input);
+                                label.append(checkbox["name"]);
+//                                div.append(input);
+                                div.append(label);
+                                checkboxDiv.append(div);
+                            }
+                        }
+                    };
+                    checkboxDiv.getData = function(){
+                        var r = {};
+                        var checkedBoxs = [];
+                        checkboxDiv.find("input:checked").each(function(){
+                            checkedBoxs.push($(this).val());
+                        });
+//                        console.log(checkedRadio);
+                        r[this.name] = checkedBoxs;
+                        return r;
+                    };
+//                    return checkboxDiv;
                 },
                 ajaxCall: function(url, data){
                     var formData = new FormData();
@@ -1387,7 +1018,7 @@
                         houseDirection: "houseDirection",
                         floors: "floors"
                     },
-                    item:{
+                    item: {
                         taxHistory: "taxHistory",
                         buildYear: "buildYear"
                     }
@@ -1408,6 +1039,15 @@
              * not all step have it
              */
             var taxHistory = step3.getItem(step3ItemsId.item.item.taxHistory);
+            /**
+             * custom item "tax history"
+             * dynamic implements it here
+             * we can do in step, but bcs not frequently used
+             * >>> write it here
+             * 2 most important NEED implement
+             * getData
+             * setData
+             */
             taxHistory.getData = function(){
 //                return {taxHistory: "taxHistory"};
                 var r = {};
@@ -1457,7 +1097,8 @@
                  * for user input data
                  */
                 var taxHistory = step3.getItem(step3ItemsId.item.item.taxHistory);
-                var taxRecordSample = $('<div class="form-group taxRecord"> <div class="col-md-9" id="taxHistoryRecord"> <div> <input type="text" value="" id="houseTax" placeholder="Số tiền" class="form-control"> </div> </div> <div class="col-md-3"> <span id="yearSelected" class="tax-date form-control">2016</span> </div> </div>');
+                var taxRecordSample = $(
+                    '<div class="form-group taxRecord"> <div class="col-md-9" id="taxHistoryRecord"> <div> <input type="text" value="" id="houseTax" placeholder="Số tiền" class="form-control"> </div> </div> <div class="col-md-3"> <span id="yearSelected" class="tax-date form-control">2016</span> </div> </div>');
                 var yearSelectedSet = [];
                 yearSelectPicker.on("change", function(){
                     var yearSelected = yearSelectPicker.getSelectedOption().val();
@@ -1502,6 +1143,281 @@
                 });
             };
             step3.bindEventHanlder();
+
+            var step4ItemsId = {
+                item: {
+                    item: {
+                        uploadImage: "uploadImage",
+                        embedCode: "embedCode"
+                    },
+                    itemInput: {
+                        youtubeUrl: "youtubeUrl"
+                    }
+                },
+                event: {
+                    btnSubmit: "btnSubmitStep4"
+                }
+            };
+            var step4 = new Step("step4", "step-4", step4ItemsId);
+            step4.init();
+            /**
+             * handle custom item "dragDiv"
+             */
+            var uploadImage = step4.getItem(step4ItemsId.item.item.uploadImage);
+            /**
+             * bind event for dragDiv
+             */
+            var uploadImageNestedItemsId = {
+                dragDiv: "dragDiv",
+                inputFile: "inputFile",
+                previewImageDiv: "previewImageDiv"
+            };
+            uploadImage.files = [];
+            uploadImage.render = function(nestedItemsId){
+                var preview = function(files, previewImageDiv){
+                    for(var i in files){
+                        if(files.hasOwnProperty(i)){
+                            var file = files[i];
+                            var reader = new FileReader();
+                            reader.onload = function(e){
+                                //get image source
+                                var imageSource = e.target.result;
+                                //create new  image uploaded
+                                var image = $("<img>");
+                                //add src, id to image uploaded
+                                //image has real size >>> on "load" get size WORK
+                                image.css({
+                                    'max-width': '100%',
+                                    height: 100
+                                });
+                                image.attr("src", imageSource);
+                                previewImageDiv.append(image);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                };
+                var dragDiv = uploadImage.find("#" + nestedItemsId.dragDiv);
+                var inputFile = uploadImage.find("#" + nestedItemsId.inputFile);
+                var previewImageDiv = uploadImage.find("#" + nestedItemsId.previewImageDiv);
+                dragDiv.on("dragover", function(e){
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+                dragDiv.on("drop", function(e){
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var originalEvent = e.originalEvent;
+//                    console.log(e);
+                    // fetch FileList object
+                    var files = originalEvent.target.files || originalEvent.dataTransfer.files;
+                    uploadImage.files.push.apply(uploadImage.files, files);
+//                    console.log(uploadImage.files);
+                    console.log(uploadImage.getData());
+                    preview(files, previewImageDiv);
+                });
+                inputFile.on("change", function(){
+                    var files = inputFile.get(0).files;
+                    uploadImage.files.push.apply(uploadImage.files, files);
+//                    console.log(uploadImage.files);
+                    console.log(uploadImage.getData());
+                    preview(files, previewImageDiv);
+                });
+            };
+//            uploadImage.render(uploadImageNestedItemsId);
+            uploadImage.getData = function(){
+                var r = {};
+                r[this.name] = this.files;
+                return r;
+            };
+            /**
+             * handle "uploadImage" setData
+             * for user preview their posted POST
+             */
+            uploadImage.setData = function(){
+            };
+            /**
+             * handle "embedCode"
+             */
+            var embedCode = step4.getItem(step4ItemsId.item.item.embedCode);
+            embedCode.render = function(url){
+                var getId = function(url){
+                    var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    var match = url.match(regExp);
+
+                    if(match && match[2].length == 11){
+                        return match[2];
+                    }else{
+                        return 'error';
+                    }
+                };
+                console.log(url);
+                var videoId = getId(url);
+                embedCode.videoId = videoId;
+                console.log(videoId);
+                var frame = $("<iframe>");
+                var src = "https://www.youtube.com/embed/" + videoId;
+                frame.attr("src", src);
+                frame.attr("allowfullscreen", true);
+                /**
+                 * only allow 1 video
+                 * empty embedCode first
+                 */
+                embedCode.empty();
+                embedCode.append(frame);
+            };
+            embedCode.getData = function(){
+                var r = {};
+                r[this.name] = embedCode.videoId;
+                return r;
+            };
+            var youtubeUrl = step4.getItem(step4ItemsId.item.itemInput.youtubeUrl);
+//            console.log(youtubeUrl);
+            youtubeUrl.on("focus", function(){
+                $("#effect").fadeIn("fast");
+            });
+            youtubeUrl.on("change", function(){
+                console.log("youtubeUrl on change");
+                //funny effect hard code
+                embedCode.render(youtubeUrl.val());
+                $("#effect").fadeOut("fast");
+            });
+            step4.render = function(){
+                //after dynamic add feature to CUSTOM items
+                //render them all in here
+                uploadImage.render(uploadImageNestedItemsId);
+            };
+            step4.render();
+            step4.bindEventHanlder = function(){
+                var btnSubmit = step4.component.find("#" + step4ItemsId.event.btnSubmit);
+                btnSubmit.on("click", function(){
+                    console.log("step4Data", step4.getData());
+                    $("a[aria-controls='step-5']").click();
+                    //call on step5
+                });
+            };
+            step4.bindEventHanlder();
+
+            var step5ItemsId = {
+                item:{
+                    item: {
+                        panelGroupFeature: "panelGroupFeature"
+                    },
+                    itemInput: {
+                        postTitle: "postTitle",
+                        website: "website"
+                    },
+                    itemTextArea: {
+                        postExcerpt: "postExcerpt",
+                        postContent: "postContent"
+                    }
+                },
+                event: {
+                    btnSubmit: "btnSubmitStep5"
+                }
+            };
+            var step5 = new Step("step5", "step-5", step5ItemsId);
+            step5.init();
+            /**
+             * add item "itemTextArea"
+             */
+            /**
+             * handle CUSTOM item "panelGroupFeature"
+             */
+            /**
+             * 1. ajax call get data
+             * [
+             *  "group" : [],
+             *  "group-2": [],
+             *  "group-3": [],
+             *  ]
+             *  2. render "collapse panel"
+             *  based on json data
+             *  3. getData
+             *  4. setData
+             */
+            var panelGroupFeature = step5.getItem(step5ItemsId.item.item.panelGroupFeature);
+            panelGroupFeature.render = function(){
+                /**
+                 * ajax call get data
+                 */
+                var panelItemSample = $('<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#panelGroupFeature" id="houseFeatureTitle"></a> </h4></div><div class="panel-collapse collapse"><div class="panel-body" id="houseFeatureContent"></div></div></div>');
+                var oReq = step5.ajaxCall("/post-tab/features");
+                oReq.onload = function(){
+                    console.log(oReq.response);
+                    var features = JSON.parse(oReq.response)["features"];
+                    console.log(features);
+                    /**
+                     * this count allow <a> href to "panel-collapse"
+                     * @type {number}
+                     */
+                    var count = 0;
+                    var dumpStepItemsId = {item: {itemCheckbox:{}}};
+                    for(var panelItemTitle in features){
+                        if(features.hasOwnProperty(panelItemTitle)){
+                            //create panelItem from sample
+                            var panelItem = panelItemSample.clone();
+                            //find "title", add title for group
+                            panelItem.find("#houseFeatureTitle").html(panelItemTitle);
+                            panelItem.find("#houseFeatureTitle").attr("href", "#" + count);
+                            //href --> "panel-collapse"
+                            panelItem.find(".panel-collapse").attr("id", count);
+                            //handle "in" attr for first one
+                            if(count == 0){
+                                panelItem.find(".panel-collapse").addClass("in");
+                            }
+                            var checkboxDivId = "checkboxDiv_" + count;
+                            dumpStepItemsId.item.itemCheckbox[panelItemTitle] = checkboxDivId;
+                            var checkboxDiv = '<div id="' + checkboxDivId + '"></div>';
+                            panelItem.find(".panel-body").append($(checkboxDiv));
+                            panelGroupFeature.append(panelItem);
+                            count++;
+                        }
+                    }
+                    /**
+                     * to handle checkboxs inside
+                     * ~~~ dump step with [Component[items]]
+                     * Step id is "panelFeatureGroup"
+                     * inside this one, we just care about "checkbox"
+                     */
+                    console.log(dumpStepItemsId);
+                    var checkboxStep = new Step("checkboxStep", step5ItemsId.item.item.panelGroupFeature, dumpStepItemsId);
+                    checkboxStep.init();
+                    /**
+                     * once again, loop to render view for each checkboxDiv
+                     */
+//                    count = 0;
+                    for(var i in features){
+                        if(features.hasOwnProperty(i)){
+                            var checkboxs = features[i];
+                            var checkboxItem = checkboxStep.getItem(dumpStepItemsId.item.itemCheckbox[i]);
+//                            console.log(dumpStepItemsId.item.itemCheckbox[i]);
+//                            console.log(checkboxItem);
+                            checkboxItem.render(checkboxs);
+//                            count++;
+
+                        }
+                    }
+                    panelGroupFeature.checkboxStep = checkboxStep;
+                };
+            };
+            panelGroupFeature.render();
+            panelGroupFeature.getData = function(){
+                var r = {};
+                r[this.name] = this.checkboxStep.getData();
+                return r;
+            };
+            panelGroupFeature.setData = function(){};
+            step5.bindEventHanlder = function(){
+                var btnSubmit = step5.component.find("#" + step5ItemsId.event.btnSubmit);
+                btnSubmit.on("click", function(){
+                    console.log("btnSubmitStep5 click");
+                    console.log("step5Data", step5.getData());
+                    $("a[aria-controls='step-6']").click();
+                    //call on step5
+                });
+            };
+            step5.bindEventHanlder();
         });
     })(jQuery);
 </script>

@@ -26,9 +26,18 @@ class WardController extends AbstractActionController {
     }
 
     public function indexAction() {
+        $viewmodel = new ViewModel;
+        $matches = $this->getEvent()->getRouteMatch();
+        $page      = $matches->getParam('page', 1);
         $listward = $this->placequery->getAll();
-        
-        return new ViewModel(array('data' => $listward));
+        $arrayAdapter = new \Zend\Paginator\Adapter\ArrayAdapter($listward);
+        $paginator = new \Zend\Paginator\Paginator($arrayAdapter);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(5);
+        $viewmodel->setVariable('data', $paginator);
+        return array(
+            'data'=>$paginator,
+        );
     }
 
     public function addAction() {
@@ -52,7 +61,7 @@ class WardController extends AbstractActionController {
                     foreach ($nameward as $name) {
                         $name = ucwords($name);
                        $result = $this->placequery->saveData($arrayParam, $name);
-                    }
+                    } 
                     return $this->redirect()->toRoute('backend/ward');
                 } else {
                     $arrayParam['error'] = array("Dữ liệu không hợp lệ");

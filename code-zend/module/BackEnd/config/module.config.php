@@ -8,7 +8,7 @@ return array(
         ),
         "factories" => array(
             'BackEnd\Controller\Province' => 'BackEnd\Factory\ProvinceControllerFactory',
-            'BackEnd\Controller\District' => 'BackEnd\Factory\DistrictControllerFactory',
+            'BackEnd\Controller\District' => 'BackEnd\Factory\DistrictControllerFactory',      
             'BackEnd\Controller\Ward' => 'BackEnd\Factory\WardControllerFactory',
         )
     ),
@@ -29,7 +29,7 @@ return array(
                     'province' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/province[/:action[/:id]]',
+                            'route' => '/province[/][:action[/:id]]',
                             'constraints' => array(
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]*'
@@ -43,7 +43,7 @@ return array(
                     'district' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/district[/:action[/:id]]',
+                            'route' => '/district[/][:action[/:id]]',
                             'constraints' => array(
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]*'
@@ -54,6 +54,21 @@ return array(
                             ),
                         ),
                     ),
+                      'pager' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/district[/:page]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller'    => 'Backend\Controller\District',
+                                'action'        => 'index',
+                            ),
+                        ),
+                    ),
+                    
                     'ward' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -78,16 +93,23 @@ return array(
                             ),
                         ),
                     ),
+                    
                 ),
             ),
         ),
     ),
+    'view_helpers' => array(
+        'factories' => array(
+            'Requesthelper' => 'BackEnd\View\Helper\Factory\RequestHelperFactory',
+        )
+    ),
+    
     // ViewManager configuration
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
-        'not_found_template' => 'error/404',
-        'exception_template' => 'error/index',
+//        'not_found_template' => 'error/404',
+//        'exception_template' => 'error/index',
         // Doctype with which to seed the Doctype helper
         'doctype' => 'HTML5',
         // e.g. HTML5, XHTML1
@@ -98,11 +120,12 @@ return array(
         // template/path pairs
         'template_map' => array(
             \BackEnd\Module::LAYOUT => __DIR__ . '/../view/layout/backend.phtml',
-            'error/404' => __DIR__ . '/../view/error/404.phtml',
-            'error/index' => __DIR__ . '/../view/error/index.phtml',
+//            'error/404' => __DIR__ . '/../view/error/404.phtml',
+//            'error/index' => __DIR__ . '/../view/error/index.phtml',
             'province_add_template' => __DIR__ . '/../view/back-end/province/add.phtml',
             'district_add_template' => __DIR__ . '/../view/back-end/district/add.phtml',
             'ward_add_template' => __DIR__ . '/../view/back-end/ward/add.phtml',
+            'test_pages'=>__DIR__ . '/../view/pager.phtml',
         ),
         // TemplatePathStack configuration
         // module/view script path pairs

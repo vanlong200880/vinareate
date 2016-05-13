@@ -6,7 +6,7 @@ use BackEnd\Database\DistrictTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Db\Adapter\Adapter;
-//use Zend\View\Model\JsonModel;
+use Zend\View\Model\JsonModel;
 use BackEnd\Form\ValidatorDistrict;
 
 class DistrictController extends AbstractActionController {
@@ -24,9 +24,18 @@ class DistrictController extends AbstractActionController {
     }
 
     public function indexAction() {
-
+        $viewmodel = new ViewModel;
+        $matches = $this->getEvent()->getRouteMatch();
+        $page      = $matches->getParam('page', 1);
         $listdistrict = $this->placequery->getAll();
-        return new ViewModel(array('data' => $listdistrict));
+        $arrayAdapter = new \Zend\Paginator\Adapter\ArrayAdapter($listdistrict);
+        $paginator = new \Zend\Paginator\Paginator($arrayAdapter);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(5);
+        $viewmodel->setVariable('paginator', $paginator);
+        return array(
+            'paginator'=>$paginator,
+        );
     }
 
     public function addAction() {
@@ -58,6 +67,7 @@ class DistrictController extends AbstractActionController {
         $data['arrayParam'] = $arrayParam;
         $data['title'] = 'Thêm Tỉnh thành';
         $data['nameController'] = 'Tỉnh thành';
+        
         $view = new ViewModel($data);
         return $view;
     }
@@ -101,6 +111,13 @@ class DistrictController extends AbstractActionController {
             $this->flashMessenger()->addMessage("xoa thanh cong");
         }
         return $this->redirect()->toRoute('backend/district');
+    }
+    public function getSampleTable()
+    {
+        if (!$this->sampletable){
+            $this->sampletable = $this->getServiceLocator()->get('SanSamplePagination\Database\DistrictTable');
+        }
+        return $this->sampletable;
     }
 
 }

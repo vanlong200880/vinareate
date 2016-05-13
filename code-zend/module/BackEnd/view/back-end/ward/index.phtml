@@ -41,12 +41,11 @@
                 ?>
             </table>
         <div class="col-md-12">
-          <form action="<?php echo $this->url('backend/ward', array('action' => 'add')) ?>">
-            <div class="input-group">
-              <button type="submit" class="btn btn-primary btn-next">Add Category</button>
-            </div>
-          </form>
+              <a class="a-btn-submit" href="<?php echo $this->url('backend/ward', array('action' => 'add')); ?>">ADD NEW</a>
         </div>
         </div>
     </div>
 </div>
+<?php 
+    echo $this->paginationControl($this->data, 'Sliding', 'test_pages', array("route" => "pager")); 
+?>

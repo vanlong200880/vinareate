@@ -8,8 +8,9 @@ class HousePosition{
     const DISTRICT_TABLE = "district";
     const PROVINCE_TABLE = "province";
     const WARD_TABLE = "ward";
-//    const PARENT_CATEGORY = "category";
+    //    const PARENT_CATEGORY = "category";
     const CATEGORY_TABLE = "category";
+    const FEATURE_TABLE = "post_features";
 
     /** @var  Sql $sql */
     protected $sql;
@@ -86,5 +87,39 @@ class HousePosition{
         $result = $statement->execute();
         $resultSet = ArrayUtils::iteratorToArray($result);
         return $resultSet;
+    }
+
+    public function getFeature($parentId){
+        $select = $this->sql->select();
+        $select->columns(array(
+            "id",
+            "name",
+        ))->from(self::FEATURE_TABLE)->where(array("parent" => $parentId));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+        $resultSet = ArrayUtils::iteratorToArray($result);
+        return $resultSet;
+    }
+
+    public function getParentFeature(){
+        $select = $this->sql->select();
+        $select->columns(array(
+            "id",
+            "name",
+        ))->from(self::FEATURE_TABLE)->where(array("parent" => null));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+        $resultSet = ArrayUtils::iteratorToArray($result);
+        return $resultSet;
+    }
+
+    public function getAllFeatures(){
+        $result = array();
+        $parentFeatures = $this->getParentFeature();
+        foreach($parentFeatures as $parentFeature){
+            $features = $this->getFeature($parentFeature["id"]);
+            $result[$parentFeature["name"]] = $features;
+        }
+        return $result;
     }
 }

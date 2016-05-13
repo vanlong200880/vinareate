@@ -80,6 +80,16 @@ return array(
                     )
                 ),
             ),
+            'post-tab-feature' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/post-tab/features',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Post',
+                        'action' => 'feature'
+                    )
+                ),
+            ),
         ),
     ),
     // ViewManager configuration

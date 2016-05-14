@@ -3,10 +3,15 @@
 namespace BackEnd\Database;
 
 use Zend\Db\Sql\Sql;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Where;
 use Zend\Stdlib\ArrayUtils;
+use Zend\Db\Sql\Expression;
 
 class ProvinceTable{
     const PROVINCE_TABLE = "province";
+    const DISTRICT_TABLE = "district";
         /** @var  Sql $sql */
     protected $sql;
     public function __construct($adapter) {
@@ -15,10 +20,14 @@ class ProvinceTable{
 
     public function getAll() {
             $select = $this->sql->select();
-            $select->columns(array('*'))->from(self::PROVINCE_TABLE);
-            $statement = $this->sql->prepareStatementForSqlObject($select);
-            $redult = $statement->execute();
-            $resultSet = ArrayUtils::iteratorToArray($redult);
+            $select->columns(array('*'));
+        $select->from(self::PROVINCE_TABLE);
+//                $select->join('district', 'province.id = district.province_id');
+                $statement = $this->sql->prepareStatementForSqlObject($select);
+            $result = $statement->execute();
+            $resultSet = ArrayUtils::iteratorToArray($result);
+            $result->buffer();
+            $result->next();
             return $resultSet;
     }
     public function getProvinces(){
@@ -39,8 +48,7 @@ class ProvinceTable{
         if(isset($arrayParam['id']) == true && $arrayParam['id'] != ''){
             $query=$this->sql->update(self::PROVINCE_TABLE);
             $query->set(array('name'=>$value1));
-            $query->where(array('id'=>$arrayParam['id']));
-            
+            $query->where(array('id'=>$arrayParam['id']));            
         }
         if(isset($arrayParam["id"])==false){
         $query=$this->sql->insert();
@@ -62,7 +70,7 @@ class ProvinceTable{
         $result =$statement->execute();
         return $result;
     }
-    public function  getItemById($id){
+    public function  getItemById($id=''){
         $select=$this->sql->select();
         $select->columns(array(
             "id",
@@ -78,5 +86,24 @@ class ProvinceTable{
         return $result;
         }
     }
-
+    public function getDistrictbyProvinceID($province_id=''){
+         $select = $this->sql->select();
+                if($province_id){
+                $select->columns(array('id'));
+                $select->from(self::PROVINCE_TABLE);
+                $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('name'));
+                $select->where(array('province.id'=>$province_id));
+                }else{
+                $select->columns(array('*'));
+                $select->from(self::PROVINCE_TABLE);
+                $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('count'=>new Expression('COUNT(district.name)')),'left');
+                $select->group(array('province.id'));
+                }
+                $statement = $this->sql->prepareStatementForSqlObject($select);
+             
+            $result = $statement->execute();
+            $resultSet = ArrayUtils::iteratorToArray($result);
+            $result->buffer();
+            return $resultSet;
+    }
 }

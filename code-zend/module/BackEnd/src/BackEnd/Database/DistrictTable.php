@@ -4,6 +4,8 @@ namespace BackEnd\Database;
 
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Where;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
 class DistrictTable{
@@ -20,16 +22,13 @@ class DistrictTable{
 
     public function getAll() {
         $select = $this->sql->select();
-
-        $select->columns(array(
-            "id",
-            "name",
-            "type",
-            "province_id"
-        ))->from(self::DISTRICT_TABLE)->order('id ASC');
+        $select->columns(array('*'))->from(self::DISTRICT_TABLE)->order('id ASC');
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
-        return $result;
+        $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
+        $result->buffer();
+        $result->next();
+        return $resultSet;
     }
 
     public function saveData($arrayParam = '', $name = '') {

@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-md-8">
             <h3>danh sach tinhr thanh</h3>
-
             <?php
             if (count($this->flash)) {
                 echo "<div class='alert alert-success'>";
@@ -18,7 +17,6 @@
                     <td>STT</td>
                     <td>ID</td>
                     <td>Tên tỉnh thành</td>
-                    <td>Số lượng Quận/Huyện</td>
                     <td>Edit</td>
                     <td>Del</td>
                 </tr>
@@ -30,12 +28,12 @@
                 <tr>
                     <td><?= $key+1 ?></td>
                     <td><?= $item['id'] ?></td>
-                    <td><a href="<?php echo $this->url('backend/province', array('action' => 'district', 'id'=>$item['id'])); ?>"><?= $item['name'] ?></a></td>
+                    <td><?= $item['name'] ?></td>
                     <td>
-                      <?php echo $item['count']; ?>
+                       
                     </td>
-                    <td><a href = '<?= $this->url('backend/province',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
-                    <td><a href = '<?= $this->url('backend/province',array('action'=>'del','id'=>$item['id'])) ?>' onClick="return confirm('Bạn thực sự muốn xóa');">Del</td>
+                    <td><a href = '<?= $this->url('backend/district',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
+                    <td><a href = '<?= $this->url('backend/district',array('action'=>'del','id'=>$item['id'])) ?>' onClick="return confirm('Bạn thực sự muốn xóa');">Del</td>
                 </tr>
                 <?php
                      }
@@ -43,12 +41,13 @@
                 ?>
             </table>
         <div class="col-md-12">
-            <a class="a-btn-submit" href="<?php echo $this->url('backend/province', array('action' => 'add')); ?>">ADD NEW</a>
+            <a class="a-btn-submit" href="<?php echo $this->url('backend/district', array('action' => 'add')); ?>">ADD NEW</a>
         </div>
         </div>
     </div>
 </div>
 <?php 
-    echo $this->paginationControl($this->data, 'Sliding', 'test_pages', array("route" => "pager"));
-    
+//    echo $this->paginationControl($this->data, 'Sliding', 'test_pages', array("route" => "pager")); 
 ?>
+
+

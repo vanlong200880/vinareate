@@ -31,13 +31,17 @@ class Module{
             $viewModel = $mvcEvent->getViewModel();
             $viewModel->setTemplate(self::LAYOUT);
         }, 1);
-    }
+            }
     public function getServiceConfig() {
         return array(
             'factories' => array(
                 'adapter' => function($sm) {
                     $adapter=$sm->get('Zend\Db\Adapter\Adapter');
-                }
+                },
+                 'SanSamplePagination\Database\DistrictTable' =>function($sm){ 
+		    $table = new Database\DistrictTable(); 
+		    return $table;
+                },
                 
             )
         );

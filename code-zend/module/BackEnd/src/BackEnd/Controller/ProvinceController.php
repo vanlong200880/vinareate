@@ -22,12 +22,24 @@ class ProvinceController extends AbstractActionController {
     }
 
     public function indexAction() {
-        $listprovince = $this->placequery->getAll();
-        $request = $this->getRequest();
-        if ($request->isPost() == true) {
-            return $this->redirect()->toRoute('backend/province');
-        }
-        return new ViewModel(array('data' => $listprovince));
+        
+        $viewmodel=new ViewModel;
+        $this->controller = $this;
+        $matches=$this->getEvent()->getRouteMatch();
+        $page=$matches->getParam('page',1);
+        $listprovince = $this->placequery->getDistrictbyProvinceID();
+        //$listprovince = $this->placequery->getAll();
+        //$district=$this->placequery->getDistrictbyProvinceID();
+        $arrayAdapter=new \Zend\Paginator\Adapter\ArrayAdapter($listprovince);
+        $paginator=new \Zend\Paginator\Paginator($arrayAdapter);
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(4);
+        $viewmodel->setVariable('data', $paginator);
+        
+        return array(
+            'data' => $paginator,
+            'district' => $district,
+        );
     }
 
     public function addAction() {
@@ -37,7 +49,7 @@ class ProvinceController extends AbstractActionController {
         if ($request->isPost()) {
             $view = new JsonModel();
             $validator = new ValidatorProvince($arrayParam, null, $this->serviceManager);
-            if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager) && $validator->isError() == true) {
+            if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager) || $validator->isError() == true) {
                 $arrayParam['error'] = $validator->getMessagesError();
             } else {
                 $result = $this->placequery->saveData($arrayParam);
@@ -81,12 +93,34 @@ class ProvinceController extends AbstractActionController {
                 }
             }
         }
-//        echo "<pre>";
-//        print_r($arrayParam);
         $data['arrayParam'] = $arrayParam;
         $data['title'] = 'Sửa Tỉnh thành';
         $view = new ViewModel($data);
         $view->setTemplate('province_add_template');
+        return $view;
+    }
+    public function districtAction(){
+        $province_id = $this->params()->fromRoute('id');
+//        echo $province_id;
+        $request = $this->getRequest();
+        $postParams = $request->getPost();
+//        $arrayParam['request'] = $postParams->toArray();
+        $district=$this->placequery->getDistrictbyProvinceID($province_id);
+//        echo "<pre>";
+//        print_r($district);
+//        if ($request->isPost()) {
+//            $validator = new ValidatorProvince($arrayParam, null, $this->serviceManager);
+//            if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager) || $validator->isError() == true) {
+//                $arrayParam['error'] = $validator->getMessagesError();
+//            } else {
+//                $result = $this->placequery->saveData($arrayParam);
+////            //$this->flashMessenger()->addMessage("thanh cong");
+//                return $this->redirect()->toRoute('backend/province');
+//            }
+//        }
+//        $data['arrayParam'] = $arrayParam;
+//        $data['title'] = 'danh Sách Quận huyện theo Tỉnh/Thành';
+        $view = new ViewModel(array('data'=>$district));
         return $view;
     }
 

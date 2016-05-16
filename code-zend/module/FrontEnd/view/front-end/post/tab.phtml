@@ -554,26 +554,26 @@
                                         <div class="row">
                                             <div class="panel-group" id="panelGroupFeature">
                                                 <!--each panel is a child-->
-<!--                                                <div class="panel panel-default">-->
-<!--                                                    <div class="panel-heading">-->
-<!--                                                        <h4 class="panel-title">-->
-<!--                                                            <a data-toggle="collapse" data-parent="#panelGroupFeature" href="#1"-->
-<!--                                                               id="houseFeatureTitle">-->
-<!--                                                                Collapsible Group Item #1-->
-<!--                                                            </a>-->
-<!--                                                        </h4>-->
-<!--                                                    </div>-->
-<!--                                                    <div id="1" class="panel-collapse collapse in">-->
-<!--                                                        <div class="panel-body" id="houseFeatureContent">-->
-<!--                                                            div1-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
+                                                <!--                                                <div class="panel panel-default">-->
+                                                <!--                                                    <div class="panel-heading">-->
+                                                <!--                                                        <h4 class="panel-title">-->
+                                                <!--                                                            <a data-toggle="collapse" data-parent="#panelGroupFeature" href="#1"-->
+                                                <!--                                                               id="houseFeatureTitle">-->
+                                                <!--                                                                Collapsible Group Item #1-->
+                                                <!--                                                            </a>-->
+                                                <!--                                                        </h4>-->
+                                                <!--                                                    </div>-->
+                                                <!--                                                    <div id="1" class="panel-collapse collapse in">-->
+                                                <!--                                                        <div class="panel-body" id="houseFeatureContent">-->
+                                                <!--                                                            div1-->
+                                                <!--                                                        </div>-->
+                                                <!--                                                    </div>-->
+                                                <!--                                                </div>-->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-<!--                                <div class="col-md-12"><h2>COMMUNITY FEATURES</h2></div>-->
+                                <!--                                <div class="col-md-12"><h2>COMMUNITY FEATURES</h2></div>-->
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary btn-next" id="btnSubmitStep5">
                                         Bước tiếp theo
@@ -582,7 +582,9 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="step-6">...</div>
+                    <div role="tabpanel" class="tab-pane" id="step-6">
+                        <button id="btnSubmitStep6">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -747,7 +749,8 @@
                                 input.attr("type", "checkbox")
                                      .val(checkbox["id"]);
 //                                var label = $("<label>").html(radio["label"]["html"]);
-                                var label = $("<label>").addClass("checkbox-inline");;
+                                var label = $("<label>").addClass("checkbox-inline");
+                                ;
                                 label.append(input);
                                 label.append(checkbox["name"]);
 //                                div.append(input);
@@ -772,7 +775,17 @@
                     var formData = new FormData();
                     for(var key in data){
                         if(data.hasOwnProperty(key)){
-                            formData.append(key, data[key]);
+                            /**
+                             * i don't know WHY, but JSON.stringify
+                             * false on deep object
+                             * >>> append (key > value) to prevent
+                             * so deep object
+                             * data[key] may be deep too @@
+                             * JSON stringify on him
+                             * this way just solve only 1 deep level
+                             * in data[key]
+                             */
+                            formData.append(key, JSON.stringify(data[key]));
                         }
                     }
                     var oReq = new XMLHttpRequest();
@@ -1299,7 +1312,7 @@
             step4.bindEventHanlder();
 
             var step5ItemsId = {
-                item:{
+                item: {
                     item: {
                         panelGroupFeature: "panelGroupFeature"
                     },
@@ -1341,7 +1354,8 @@
                 /**
                  * ajax call get data
                  */
-                var panelItemSample = $('<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#panelGroupFeature" id="houseFeatureTitle"></a> </h4></div><div class="panel-collapse collapse"><div class="panel-body" id="houseFeatureContent"></div></div></div>');
+                var panelItemSample = $(
+                    '<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#panelGroupFeature" id="houseFeatureTitle"></a> </h4></div><div class="panel-collapse collapse"><div class="panel-body" id="houseFeatureContent"></div></div></div>');
                 var oReq = step5.ajaxCall("/post-tab/features");
                 oReq.onload = function(){
                     console.log(oReq.response);
@@ -1352,7 +1366,7 @@
                      * @type {number}
                      */
                     var count = 0;
-                    var dumpStepItemsId = {item: {itemCheckbox:{}}};
+                    var dumpStepItemsId = {item: {itemCheckbox: {}}};
                     for(var panelItemTitle in features){
                         if(features.hasOwnProperty(panelItemTitle)){
                             //create panelItem from sample
@@ -1407,7 +1421,8 @@
                 r[this.name] = this.checkboxStep.getData();
                 return r;
             };
-            panelGroupFeature.setData = function(){};
+            panelGroupFeature.setData = function(){
+            };
             step5.bindEventHanlder = function(){
                 var btnSubmit = step5.component.find("#" + step5ItemsId.event.btnSubmit);
                 btnSubmit.on("click", function(){
@@ -1418,6 +1433,68 @@
                 });
             };
             step5.bindEventHanlder();
+
+            var step6ItemsId = {
+                event: {
+                    btnSubmit: "btnSubmitStep6"
+                }
+            };
+            var step6 = new Step("step6", "step-6", step6ItemsId);
+            step6.init();
+            step6.bindEventHanlder = function(){
+                var btnSubmit = step6.component.find("#" + step6ItemsId.event.btnSubmit);
+                btnSubmit.on("click", function(){
+                    console.log("step6 save clicked");
+                    var steps = [];
+                    steps = {};
+                    steps.step1 = step1.getData();
+                    steps.step2 = step2.getData();
+                    steps.step3 = step3.getData();
+                    steps.step4 = step4.getData();
+                    steps.step5 = step5.getData();
+//                    steps.push(step1.getData());
+//                    steps.push({step1: step1.getData()});
+//                    steps.push(step3.getData());
+//                    steps.push(step4.getData());
+//                    steps.push(step5.getData());
+//                    var data = {data: steps};
+//                    data = {steps}
+                    var oReq = step6.ajaxCall("/post-tab/save-post", steps);
+                    oReq.onload = function(){
+                        console.log(oReq.response);
+                        var postInfo = JSON.parse(oReq.response)["savePost"];
+                        console.log(postInfo);
+
+                        //handle upload image
+                        //because it need to create a FormData
+                        //this form data read file, then manipulate as upload
+//                        var postInfo = {"userId": "1", "postId": "11"};
+                        var formData = new FormData();
+                        formData.append("postInfo", JSON.stringify(postInfo));
+                        var itemUploadImage = step4.getItem(step4ItemsId.item.item.uploadImage).getData();
+                        var uploadImages = step4.getItem(step4ItemsId.item.item.uploadImage).getData()["uploadImage"];
+                        console.log("itemUploadImage", itemUploadImage);
+                        console.log("uploadImages", uploadImages);
+                        for(var i in uploadImages){
+                            if(uploadImages.hasOwnProperty(i)){
+                                formData.append("uploadImage[]", uploadImages[i]);
+                            }
+                        }
+//                    formData
+                        var oReq1 = new XMLHttpRequest();
+                        oReq1.open("post", "post-tab/upload-image");
+                        oReq1.send(formData);
+                        oReq1.onload = function(){
+                            console.log(oReq1.response);
+//                        console.log(JSON.parse(oReq1.response)["savePost"]);
+                        };
+                    };
+
+
+
+                });
+            };
+            step6.bindEventHanlder();
         });
     })(jQuery);
 </script>

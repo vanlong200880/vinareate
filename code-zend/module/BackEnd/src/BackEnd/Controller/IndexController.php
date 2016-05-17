@@ -6,8 +6,8 @@ use BackEnd\Module;
 
 class IndexController extends AbstractActionController{
     public function indexAction(){
-        $layout = $this->layout();
-        $layout->setTemplate(Module::LAYOUT);
+//        $layout = $this->layout();
+//        $layout->setTemplate(Module::LAYOUT);
         return new ViewModel();
     }
     public function abcAction(){

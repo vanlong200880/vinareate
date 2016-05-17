@@ -5,6 +5,7 @@ namespace BackEnd\Database;
 use Zend\Db\Sql\Sql;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Where;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Db\Sql\Expression;
@@ -116,12 +117,27 @@ class ProvinceTable{
         $select->columns(array('*'));
         $select->from(self::PROVINCE_TABLE);
         $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('district_name'=>'name'),'left');
-        $select->join(self::WARD_TABLE, 'province.id = ward.province_id', array('ward_name'=>'name'),'inner');
+        $select->join(self::WARD_TABLE, 'district.id = ward.district_id', array('ward_name'=>'name'),'left');
         $select->where(array('province.id'=>$id));
         $statement=$this->sql->prepareStatementForSqlObject($select);
         $result=$statement->execute();
         $resultSet = ArrayUtils::iteratorToArray($result);
         return $resultSet;
+    }
+    public function DelAllChild($id){
+       $del=$this->sql->delete();
+        $del->from('province , district');
+        
+//        $delete->from('district');
+//                $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('district_name'=>'name'),'left');
+//                $select->join(self::WARD_TABLE, 'district.id = ward.district_id', array('ward_name'=>'name'),'left');
+                //$delete->where(array('province.id=district.province_id'));
+                //$delete->where(array('province.id=ward.province_id'));
+        $del->where(array('id'=>$id));
+        $statement=$this->sql->prepareStatementForSqlObject($del);
+        $result=$statement->execute();
+        echo "<pre>";
+        print_r($result);
     }
 }
    

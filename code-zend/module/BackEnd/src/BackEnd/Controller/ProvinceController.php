@@ -74,7 +74,8 @@ class ProvinceController extends AbstractActionController {
 
     public function delAction() {
         $id = $this->params()->fromRoute('id');
-        $result = $this->placequery->ListAllChild($id);
+        //$result = $this->placequery->ListAllChild($id);
+        $del=$this->placequery->DelAllChild($id);
         echo "<pre>";
         print_r($result);
         return new ViewModel(array('data'=>$result));

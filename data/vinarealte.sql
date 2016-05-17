@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema vinareate
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema vinareate
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `vinareate` DEFAULT CHARACTER SET utf8 ;
+USE `vinareate` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`user`
+-- Table `vinareate`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`user` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'User ID',
   `email` VARCHAR(60) NOT NULL COMMENT 'Email is username',
   `password` VARCHAR(60) NOT NULL,
@@ -35,36 +35,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`permission`
+-- Table `vinareate`.`permission`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`permission` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`permission` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`role`
+-- Table `vinareate`.`role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`role` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`role` (
   `role` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`role`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`user_role`
+-- Table `vinareate`.`user_role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user_role` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`user_role` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`province`
+-- Table `vinareate`.`province`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`province` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`province` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
@@ -73,25 +73,25 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`district`
+-- Table `vinareate`.`district`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`district` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`district` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `province_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`, `province_id`),
   CONSTRAINT `fk_district_province`
     FOREIGN KEY (`id`)
-    REFERENCES `mydb`.`province` (`id`)
+    REFERENCES `vinareate`.`province` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`ward`
+-- Table `vinareate`.`ward`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`ward` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`ward` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `district_id` INT UNSIGNED NOT NULL,
@@ -99,16 +99,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ward` (
   INDEX `fk_ward_district1_idx` (`district_id` ASC),
   CONSTRAINT `fk_ward_district1`
     FOREIGN KEY (`district_id`)
-    REFERENCES `mydb`.`district` (`id`)
+    REFERENCES `vinareate`.`district` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`taxonomy`
+-- Table `vinareate`.`taxonomy`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`taxonomy` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`taxonomy` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `slug` VARCHAR(255) NOT NULL,
@@ -123,9 +123,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`category`
+-- Table `vinareate`.`category`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`category` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`category` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(60) NOT NULL,
   `slug` VARCHAR(255) NULL,
@@ -141,16 +141,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`category` (
   INDEX `fk_category_taxonomy1_idx` (`taxonomy_id` ASC),
   CONSTRAINT `fk_category_taxonomy1`
     FOREIGN KEY (`taxonomy_id`)
-    REFERENCES `mydb`.`taxonomy` (`id`)
+    REFERENCES `vinareate`.`taxonomy` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`post_status`
+-- Table `vinareate`.`post_status`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`post_status` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`post_status` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NULL,
   PRIMARY KEY (`id`))
@@ -158,9 +158,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`post`
+-- Table `vinareate`.`post`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`post` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`post` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `slug` VARCHAR(255) NOT NULL,
@@ -194,26 +194,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`post` (
   INDEX `fk_post_post_status1_idx` (`post_status_id` ASC),
   CONSTRAINT `fk_post_category1`
     FOREIGN KEY (`category_id`)
-    REFERENCES `mydb`.`category` (`id`)
+    REFERENCES `vinareate`.`category` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `vinareate`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post_post_status1`
     FOREIGN KEY (`post_status_id`)
-    REFERENCES `mydb`.`post_status` (`id`)
+    REFERENCES `vinareate`.`post_status` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`post_contact`
+-- Table `vinareate`.`post_contact`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`post_contact` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`post_contact` (
   `id_contact` INT NOT NULL AUTO_INCREMENT,
   `fullname` VARCHAR(255) NOT NULL,
   `conmany` VARCHAR(255) NULL,
@@ -224,16 +224,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`post_contact` (
   INDEX `fk_post_contact_post1_idx` (`post_id` ASC),
   CONSTRAINT `fk_post_contact_post1`
     FOREIGN KEY (`post_id`)
-    REFERENCES `mydb`.`post` (`id`)
+    REFERENCES `vinareate`.`post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`post_tax_history`
+-- Table `vinareate`.`post_tax_history`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`post_tax_history` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`post_tax_history` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `area` VARCHAR(255) NULL COMMENT 'Diện tích',
   `year` INT(5) NULL COMMENT 'năm đóng thuế',
@@ -243,16 +243,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`post_tax_history` (
   INDEX `fk_post_tax_history_post1_idx` (`post_id` ASC),
   CONSTRAINT `fk_post_tax_history_post1`
     FOREIGN KEY (`post_id`)
-    REFERENCES `mydb`.`post` (`id`)
+    REFERENCES `vinareate`.`post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`post_image`
+-- Table `vinareate`.`post_image`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`post_image` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`post_image` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `type` VARCHAR(45) NOT NULL,
@@ -264,16 +264,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`post_image` (
   INDEX `fk_post_image_post1_idx` (`post_id` ASC),
   CONSTRAINT `fk_post_image_post1`
     FOREIGN KEY (`post_id`)
-    REFERENCES `mydb`.`post` (`id`)
+    REFERENCES `vinareate`.`post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`post_features`
+-- Table `vinareate`.`post_features`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`post_features` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`post_features` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(60) NULL,
   `description` VARCHAR(60) NULL,
@@ -285,9 +285,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`post_feature_detail`
+-- Table `vinareate`.`post_feature_detail`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`post_feature_detail` (
+CREATE TABLE IF NOT EXISTS `vinareate`.`post_feature_detail` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `post_id` INT UNSIGNED NOT NULL,
   `post_features_id` INT UNSIGNED NOT NULL,
@@ -296,12 +296,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`post_feature_detail` (
   INDEX `fk_post_feature_detail_post_features1_idx` (`post_features_id` ASC),
   CONSTRAINT `fk_post_feature_detail_post1`
     FOREIGN KEY (`post_id`)
-    REFERENCES `mydb`.`post` (`id`)
+    REFERENCES `vinareate`.`post` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post_feature_detail_post_features1`
     FOREIGN KEY (`post_features_id`)
-    REFERENCES `mydb`.`post_features` (`id`)
+    REFERENCES `vinareate`.`post_features` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -1,0 +1,1 @@
+SELECT ward.name, district_name, province_name as ward_name FROM (SELECT province.name as province_name, district.name as district_name, district.districtid FROM province JOIN district ON province.provinceid = district.provinceid) as PD JOIN ward ON PD.districtid = ward.districtid;

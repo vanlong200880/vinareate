@@ -1,3 +1,4 @@
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -15,9 +16,9 @@
             <table class="table table-striped">
                 <tr>
                     <td>STT</td>
-                    <td>ID</td>
-                    <td>Tên Quận/Huyện</td>
-                    <td>Quận/Huyện</td>
+                    <td><a href="<?= $this->url('backend/district',array('action'=>'index','type'=>'id','col'=>$sort)) ?>">ID</a></td>
+                    <td> <a href="<?= $this->url('backend/district',array('action'=>'index','type'=>'id','col'=>$sort)) ?>">Tên Quận/Huyện</a></td>
+                    <td> <a href="<?= $this->url('backend/district',array('action'=>'index','type'=>'type','col'=>$sort)) ?>>">Quận/Huyện</a></td>
                     <td>Edit</td>
                     <td>Del</td>
                 </tr>

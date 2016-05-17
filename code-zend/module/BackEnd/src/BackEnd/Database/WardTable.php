@@ -21,9 +21,11 @@ class WardTable{
         $this->sql = new Sql($adapter);
     }
 
-    public function getAll() {
+    public function getAll($type='',$sort='') {
+        
         $select = $this->sql->select();
         $select->columns(array('*'))->from(self::WARD_TABLE);
+        if($type != '' && $sort != '')  $select->order(array("$type $sort"));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
         $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);

@@ -23,14 +23,15 @@ class Module{
 
     public function onBootstrap(MvcEvent $e){
         $eventManager = $e->getApplication()->getEventManager();
+       
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, function($mvcEvent){
             // Set the layout template
             $viewModel = $mvcEvent->getViewModel();
             $viewModel->setTemplate(self::LAYOUT);
         }, 1);
+//         echo '<pre>';
             }
     public function getServiceConfig() {
         return array(

@@ -19,7 +19,8 @@
                     <td>STT</td>
                     <td><a href="<?= $this->url('backend/province',array('action'=>'index','type'=>'id','col'=>$sort)) ?>">ID</a></td>
                     <td><a href="<?= $this->url('backend/province',array('action'=>'index','type'=>'name','col'=>$sort)) ?>">Tên tỉnh thành</a></td>
-                    <td><a href="">Số lượng Quận/Huyện</a></td>
+                    <td><a href="">Tên Quận/Huyện</a></td>
+                    <td><a href="">Tên Phường/Xã</a></td>
                     <td>Edit</td>
                     <td>Del</td>
                 </tr>
@@ -33,10 +34,13 @@
                     <td><?= $item['id'] ?></td>
                     <td><a href="<?php echo $this->url('backend/province', array('action' => 'district', 'id'=>$item['id'])); ?>"><?= $item['name'] ?></a></td>
                     <td>
-                      <?php echo $item['count']; ?>
+                      <?php echo $item['district_name']; ?>
+                    </td>
+                    <td>
+                      <?php echo $item['ward_name']; ?>
                     </td>
                     <td><a href = '<?= $this->url('backend/province',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
-                    <td><a href = '<?= $this->url('backend/province',array('action'=>'del','id'=>$item['id'])) ?>'>Del</td>
+                    <td><a href = '<?= $this->url('backend/province',array('action'=>'del','id'=>$item['id'])) ?>' onClick="return confirm('Bạn thực sự muốn xóa');">Del</td>
                 </tr>
                 <?php
                      }
@@ -51,4 +55,5 @@
 </div>
 <?php 
     echo $this->paginationControl($this->data, 'Sliding', 'test_pages', array("route" => "pager"));
+    
 ?>

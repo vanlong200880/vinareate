@@ -25,11 +25,12 @@ class Module{
         $eventManager = $mvcEvent->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, function($mvcEvent){
-            // Set the layout template
-            $viewModel = $mvcEvent->getViewModel();
-            $viewModel->setTemplate(self::LAYOUT);
-        }, 1);
+//        $eventManager->attach(MvcEvent::EVENT_DISPATCH, function($mvcEvent){
+//            // Set the layout template
+//            $viewModel = $mvcEvent->getViewModel();
+//            var_dump("set frontend layout");
+//            $viewModel->setTemplate(self::LAYOUT);
+//        }, 10);
     }
 
 }

@@ -1,3 +1,4 @@
+<br>
 <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -15,9 +16,9 @@
             <table class="table table-striped">
                 <tr>
                     <td>STT</td>
-                    <td>ID</td>
-                    <td>Tên Phường/Xã</td>
-                    <td>Phường/Xã</td>
+                    <td><a href="<?= $this->url('backend/ward',array('action'=>'index','type'=>'id','col'=>$sort)) ?>">ID</a></td>
+                    <td><a href="<?= $this->url('backend/ward',array('action'=>'index','type'=>'name','col'=>$sort)) ?>">Tên Phường/Xã</a></td>
+                    <td><a href="<?= $this->url('backend/ward',array('action'=>'index','type'=>'type','col'=>$sort)) ?>">Phường/Xã</a></td>
                     <td>Edit</td>
                     <td>Del</td>
                 </tr>

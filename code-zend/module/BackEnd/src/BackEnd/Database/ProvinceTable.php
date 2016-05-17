@@ -12,6 +12,7 @@ use Zend\Db\Sql\Expression;
 class ProvinceTable{
     const PROVINCE_TABLE = "province";
     const DISTRICT_TABLE = "district";
+    const WARD_TABLE = "ward";
         /** @var  Sql $sql */
     protected $sql;
     public function __construct($adapter) {
@@ -86,18 +87,22 @@ class ProvinceTable{
         return $result;
         }
     }
-    public function getDistrictbyProvinceID($province_id=''){
+    public function getDistrictbyProvinceID($province_id='', $type='',$sort=''){
          $select = $this->sql->select();
                 if($province_id){
                 $select->columns(array('id'));
                 $select->from(self::PROVINCE_TABLE);
                 $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('name'));
+                $select->order($type,$sort);
                 $select->where(array('province.id'=>$province_id));
                 }else{
                 $select->columns(array('*'));
                 $select->from(self::PROVINCE_TABLE);
                 $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('count'=>new Expression('COUNT(district.name)')),'left');
                 $select->group(array('province.id'));
+//                var_dump($type);
+//                var_dump($sort);
+                if($type != '' && $sort != '')  $select->order(array("$type $sort"));
                 }
                 $statement = $this->sql->prepareStatementForSqlObject($select);
              
@@ -106,4 +111,17 @@ class ProvinceTable{
             $result->buffer();
             return $resultSet;
     }
+     public function ListAllChild($id){
+        $select=$this->sql->select();
+        $select->columns(array('*'));
+        $select->from(self::PROVINCE_TABLE);
+        $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('district_name'=>'name'),'left');
+        $select->join(self::WARD_TABLE, 'province.id = ward.province_id', array('ward_name'=>'name'),'inner');
+        $select->where(array('province.id'=>$id));
+        $statement=$this->sql->prepareStatementForSqlObject($select);
+        $result=$statement->execute();
+        $resultSet = ArrayUtils::iteratorToArray($result);
+        return $resultSet;
+    }
 }
+   

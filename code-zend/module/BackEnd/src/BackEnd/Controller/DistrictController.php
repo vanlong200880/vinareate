@@ -24,10 +24,17 @@ class DistrictController extends AbstractActionController {
     }
 
     public function indexAction() {
+        $request = $this->getRequest();
+        $postParams = $request->getPost();
+        $arrayParam = $this->params()->fromRoute();
+        $arrayParam['request'] = $postParams->toArray();
+        $type=$this->params()->fromRoute('type');
+        strtolower($col = $this->params()->fromRoute('col'));
+        $col = ($col == 'desc')? 'asc': 'desc';
         $viewmodel = new ViewModel;
         $matches = $this->getEvent()->getRouteMatch();
         $page      = $matches->getParam('page', 1);
-        $listdistrict = $this->placequery->getAll();
+        $listdistrict = $this->placequery->getAll($type,$col);
         $arrayAdapter = new \Zend\Paginator\Adapter\ArrayAdapter($listdistrict);
         $paginator = new \Zend\Paginator\Paginator($arrayAdapter);
         $paginator->setCurrentPageNumber($page);
@@ -35,6 +42,8 @@ class DistrictController extends AbstractActionController {
         $viewmodel->setVariable('paginator', $paginator);
         return array(
             'paginator'=>$paginator,
+            'sort'      => $col,
+                
         );
     }
 

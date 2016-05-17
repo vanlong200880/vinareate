@@ -26,10 +26,17 @@ class WardController extends AbstractActionController {
     }
 
     public function indexAction() {
+        $request = $this->getRequest();
+        $postParams = $request->getPost();
+        $arrayParam = $this->params()->fromRoute();
+        $arrayParam['request'] = $postParams->toArray();
+        $type=$this->params()->fromRoute('type');
+        strtolower($col = $this->params()->fromRoute('col'));
+        $col = ($col == 'desc')? 'asc': 'desc';
         $viewmodel = new ViewModel;
         $matches = $this->getEvent()->getRouteMatch();
         $page      = $matches->getParam('page', 1);
-        $listward = $this->placequery->getAll();
+        $listward = $this->placequery->getAll($type,$col);
         $arrayAdapter = new \Zend\Paginator\Adapter\ArrayAdapter($listward);
         $paginator = new \Zend\Paginator\Paginator($arrayAdapter);
         $paginator->setCurrentPageNumber($page);
@@ -37,6 +44,7 @@ class WardController extends AbstractActionController {
         $viewmodel->setVariable('data', $paginator);
         return array(
             'data'=>$paginator,
+            'sort'      => $col,
         );
     }
 

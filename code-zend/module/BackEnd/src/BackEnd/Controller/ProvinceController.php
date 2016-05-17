@@ -22,14 +22,22 @@ class ProvinceController extends AbstractActionController {
     }
 
     public function indexAction() {
-        
+         $request = $this->getRequest();
+        $postParams = $request->getPost();
+        $arrayParam = $this->params()->fromRoute();
+        $arrayParam['request'] = $postParams->toArray();
+        $type=$this->params()->fromRoute('type');
+        strtolower($col = $this->params()->fromRoute('col'));
+        $col = ($col == 'desc')? 'asc': 'desc';
         $viewmodel=new ViewModel;
-        $this->controller = $this;
         $matches=$this->getEvent()->getRouteMatch();
         $page=$matches->getParam('page',1);
-        $listprovince = $this->placequery->getDistrictbyProvinceID();
+        $listprovince = $this->placequery->getDistrictbyProvinceID('',$type,$col);
+//        echo "<pre>";
+//        print_r($listprovince);
         //$listprovince = $this->placequery->getAll();
         //$district=$this->placequery->getDistrictbyProvinceID();
+//        $arrayAdapter=new \Zend\Paginator\Adapter\ArrayAdapter($listprovince);
         $arrayAdapter=new \Zend\Paginator\Adapter\ArrayAdapter($listprovince);
         $paginator=new \Zend\Paginator\Paginator($arrayAdapter);
         $paginator->setCurrentPageNumber($page);
@@ -38,7 +46,7 @@ class ProvinceController extends AbstractActionController {
         
         return array(
             'data' => $paginator,
-            'district' => $district,
+            'sort'  => $col,
         );
     }
 
@@ -66,11 +74,14 @@ class ProvinceController extends AbstractActionController {
 
     public function delAction() {
         $id = $this->params()->fromRoute('id');
-        $result = $this->placequery->delItemFromId($id);
-        if ($result) {
-            $this->flashMessenger()->addMessage("xoa thanh cong");
-        }
-        return $this->redirect()->toRoute('backend/province');
+        $result = $this->placequery->ListAllChild($id);
+        echo "<pre>";
+        print_r($result);
+        return new ViewModel(array('data'=>$result));
+//        if ($result) {
+//            $this->flashMessenger()->addMessage("xoa thanh cong");
+//        }
+//        return $this->redirect()->toRoute('backend/province');
     }
 
     public function editAction() {

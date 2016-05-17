@@ -26,13 +26,35 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+//                     'default' => array(
+//                        'type'    => 'Segment',
+//                        'options' => array(
+//                            'route'    => '/[:controller][/:action][/type/:type][/id/:id][/page/:page][/title/:title][/redirect/:redirect][/ntype/:ntype][/col/:col]',
+//                            'constraints' => array(
+//                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'id'     => '[0-9]+',
+//                                'page'     => '[0-9]+',
+//                                'title'     => '.+',
+//                                'type'     => '[a-zA-Z0-9_-]*',
+//                                'col'     => '.+',
+//                                'redirect' => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'ntype'    	=> '[0-9]+',
+//                            ),
+//                            'defaults' => array(
+//                            ),
+//                        ),
+//                    ),
+                    
                     'province' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/province[/][:action[/:id]]',
+                            'route' => '/province[/][action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]*'
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                                'page'     => '[0-9]+',
+                                 'col'     => '.+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\Province',
@@ -43,10 +65,13 @@ return array(
                     'district' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/district[/][:action[/:id]]',
+                            'route' => '/district[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]*'
+//                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                                'page'     => '[0-9]+',
+                                 'col'     => '.+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\District',
@@ -57,7 +82,7 @@ return array(
                       'pager' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/district[/:page]',
+                            'route'    => '/[:controller][/:page]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -72,10 +97,12 @@ return array(
                     'ward' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/ward[/:action[/:id]]',
+                            'route' => '/ward[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]*'
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                                'page'     => '[0-9]+',
+                                 'col'     => '.+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\Ward',

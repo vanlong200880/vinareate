@@ -9,6 +9,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use FrontEnd\Module;
 
 class PostController extends AbstractActionController{
     protected $serviceManager;
@@ -30,6 +31,8 @@ class PostController extends AbstractActionController{
     }
 
     public function indexAction(){
+        $layout = $this->layout();
+        $layout->setTemplate(Module::LAYOUT);
         $view = new ViewModel();
         return $view;
     }

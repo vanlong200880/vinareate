@@ -2,15 +2,14 @@
 namespace BackEnd\Database;
 
 use Exception;
-use Zend\Db\Sql\Predicate\In;
 use Zend\Db\Sql\Sql;
-use Zend\Db\Sql\Where;
 use Zend\Stdlib\ArrayUtils;
 
 class PostFeature{
     const POST_FEATURES_TABLE = "post_features";
     /** @var  Sql $sql */
     protected $sql;
+    protected $storage;
 
     public function __construct($adapter){
         $this->sql = new Sql($adapter);
@@ -70,6 +69,11 @@ class PostFeature{
         return $result;
     }
 
+
+    /**
+     * @param $id
+     * @return bool|\Zend\Db\Adapter\Driver\ResultInterface
+     */
     public function delete($id){
         $shouldDelete = $this->verifyDeleteParams($id);
         $result = true;
@@ -127,11 +131,11 @@ class PostFeature{
 
     public function verifyDeleteParams($id){
         $shouldDelete = true;
-//        $postFeature = $this->get($id);
-//        if(!$postFeature["parent"]){
-//            $shouldDelete = false;
-//        }
-//        if()
+        //        $postFeature = $this->get($id);
+        //        if(!$postFeature["parent"]){
+        //            $shouldDelete = false;
+        //        }
+        //        if()
         $children = $this->getChildren($id);
         if(count($children) > 0){
             $shouldDelete = false;
@@ -140,25 +144,35 @@ class PostFeature{
     }
 
     /**
-     * @param array $itemsId
-     * @return \Zend\Db\Adapter\Driver\ResultInterface
+     * @param string $itemId
+     * @return array $deletedIds
      */
-    public function multiDelete($itemsId){
-//        $delete = $this->sql->delete();
-////        $spec = function(Where $where, $itemsId){
-////            $where->in("id", $itemsId);
-////        };
-//        $delete->from(self::POST_FEATURES_TABLE)->where(new In("id", $itemsId));
-//        /**
-//         * handle when foreign key exist ????
-//         * post --- feture, can not delete if they are mapped
-//         */
-//        $statement = $this->sql->prepareStatementForSqlObject($delete);
-//        $result = $statement->execute();
-//        return $result;
-
+    public function deepDelete($itemId){
+        $deletedIds = array();
+        $this->recursiveDelete($itemId, $deletedIds);
+        return $deletedIds;
     }
 
+    private function recursiveDelete($itemId, $deletedIds){
+        $children = $this->getChildren($itemId);
+        //delete this item, right after has there children
+        //        $this->delete($itemId);
+        if(count($children) === 0){
+            //this $itemId has no children
+            //1. delete him, bcs delete now is allowed
+            //only foreign on post--feature is prevented
+            if($this->delete($itemId)){
+                //store id when success delete
+                $deletedIds[] = $itemId;
+            }
+        }
+        if(count($children) > 0){
+            foreach($children as $child){
+                //recursive call
+                $this->recursiveDelete($child["id"], $deletedIds);
+            }
+        }
+    }
 
 
 }

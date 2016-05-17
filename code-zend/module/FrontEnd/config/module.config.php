@@ -90,6 +90,26 @@ return array(
                     )
                 ),
             ),
+            'post-save-post' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/post-tab/save-post',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Post',
+                        'action' => 'savePost'
+                    )
+                ),
+            ),
+            'post-upload-image' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/post-tab/upload-image',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Post',
+                        'action' => 'uploadImage'
+                    )
+                ),
+            ),
         ),
     ),
     // ViewManager configuration

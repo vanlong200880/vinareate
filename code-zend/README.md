@@ -2,6 +2,12 @@
 
     composer self-update
     composer install
+
+### Set up database
+
+	in /config/autoload, create `local.php`, tell zend
+	DB_NAME, DB_USER, DB_PASSWORD
+
 ### Run project, open browser at localhost:8080
 
     php -S 0.0.0.0:8080 -t public public/index.php

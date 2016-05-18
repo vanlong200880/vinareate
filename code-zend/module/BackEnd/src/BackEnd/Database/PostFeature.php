@@ -11,6 +11,7 @@ class PostFeature{
     protected $sql;
     protected $storage;
     protected $result;
+    protected $temp;
 
     public function __construct($adapter){
         $this->sql = new Sql($adapter);
@@ -26,6 +27,8 @@ class PostFeature{
      * @return mixed|null
      */
     public function insert(array $postParams){
+        $this->resetResultInfo();
+
         $postParams = $this->verifyInsertParams($postParams);
         $insert = $this->sql->insert(self::POST_FEATURES_TABLE);
         $insert->columns(array_keys($postParams))->values(array_values($postParams));
@@ -34,10 +37,10 @@ class PostFeature{
             $r = $statement->execute();
             $featureId = $r->getGeneratedValue();
             $this->result["status"] = true;
-            $this->result["info"] .= sprintf("new item inserted, id: %s", $featureId);
+            $this->result["info"] .= sprintf("new item inserted, id: %s\n", $featureId);
         }catch(Exception $e){
             $this->result["status"] = false;
-            $this->result["info"] .= $e->__toString();
+            $this->result["info"] .= $e->__toString() . "\n";
         }
         return $this->result;
     }
@@ -98,6 +101,8 @@ class PostFeature{
      * @return string $result
      */
     public function update(array $setColumnValue, array $where){
+        $this->resetResultInfo();
+
         $setColumnValue = $this->verifyInsertParams($setColumnValue);
         $update = $this->sql->update(self::POST_FEATURES_TABLE);
         $update->set($setColumnValue)->where($where);
@@ -119,6 +124,8 @@ class PostFeature{
      * @return string|array $result
      */
     public function delete($id){
+        $this->resetResultInfo();
+
         $shouldDelete = $this->verifyDeleteParams($id);
         if($shouldDelete){
             $delete = $this->sql->delete();
@@ -132,15 +139,15 @@ class PostFeature{
             try{
                 $statement->execute();
                 $this->result["status"] = true;
-                $this->result["info"] = sprintf("%s deleted", $id);
+                $this->result["info"] = sprintf("%s deleted\n", $id);
             }catch(Exception $e){
                 $this->result["status"] = false;
-                $this->result["info"] = $e->__toString();
+                $this->result["info"] = $e->__toString() . "\n";
             }
         }
         if(!$shouldDelete){
             $this->result["status"] = false;
-            $this->result["info"] .= "should not delete";
+            $this->result["info"] .= "should not delete\n";
         }
         return $this->result;
     }
@@ -180,37 +187,48 @@ class PostFeature{
     }
 
 
-
     /**
      * @param string $itemId
      * @return array $deletedIds
      */
     public function deepDelete($itemId){
-        $deletedIds = array();
-        $this->recursiveDelete($itemId, $deletedIds);
-        return $deletedIds;
+        $this->resetResultInfo();
+        $this->temp = "";
+        $this->recursiveDelete($itemId);
+        $this->result["info"] = $this->temp;
+        return $this->result;
     }
 
-    private function recursiveDelete($itemId, $deletedIds){
+    private function recursiveDelete($itemId){
         $children = $this->getChildren($itemId);
         //delete this item, right after has there children
         //        $this->delete($itemId);
         if(count($children) === 0){
-            //this $itemId has no children
-            //1. delete him, bcs delete now is allowed
-            //only foreign on post--feature is prevented
-            if($this->delete($itemId)){
-                //store id when success delete
-                $deletedIds[] = $itemId;
-            }
+
         }
         if(count($children) > 0){
             foreach($children as $child){
                 //recursive call
-                $this->recursiveDelete($child["id"], $deletedIds);
+                $this->recursiveDelete($child["id"]);
             }
         }
+        //this $itemId has no children
+        //1. delete him, bcs delete now is allowed
+        //only foreign on post--feature is prevented
+        $result = $this->delete($itemId);
+        if($result["status"]){
+            //store id when success delete
+            $this->temp .= sprintf("%s deleted\n", $itemId);
+        }
+        if(!$result["status"]){
+            $this->temp .= $result["info"];
+        }
+
     }
 
+    private function resetResultInfo(){
+        $this->result["status"] = false;
+        $this->result["info"] = "";
 
+    }
 }

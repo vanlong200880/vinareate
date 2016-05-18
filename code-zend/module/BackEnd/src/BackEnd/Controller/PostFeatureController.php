@@ -117,6 +117,7 @@ class PostFeatureController extends AbstractActionController{
     }
 
     public function deepFeatureAction(){
+        $this->msgUtil->show($this->layout());
         $postFeatures = $this->postFeature->all();
         /**
          * do pagination
@@ -141,24 +142,25 @@ class PostFeatureController extends AbstractActionController{
              * 1. has children > /deep-feature/{id}
              * 2. is a single item > /post-feature/{id}
              */
-            $children = $this->postFeature->getChildren($featureId);
+            //            $children = $this->postFeature->getChildren($featureId);
             $url = "";
-            if(count($children) > 0){
-                $url .= "/backend/deep-feature/" . $featureId;
-            }
-            if(count($children) === 0){
-                $url .= "/backend/post-feature/" . $featureId;
-            }
+            //            $url = "/backend/deep-feature/" . $featureId;
+            //            if(count($children) > 0){
+            //                $url .= "/backend/deep-feature/" . $featureId;
+            //            }
+            //            if(count($children) === 0){
+            //                $url .= "/backend/post-feature/" . $featureId;
+            //            }
             /**
              * handle 2 cases on "action"
              * 1. edit
              * 2. delete
              */
             if($action === "edit"){
-                $url .= "/edit";
+                $url .= "/backend/post-feature/" . $featureId . "/edit";
             }
             if($action === "delete"){
-                $url .= "/delete";
+                $url .= "/backend/deep-feature/" . $featureId . "/delete";
             }
             return $this->redirect()->toUrl($url);
 
@@ -186,9 +188,11 @@ class PostFeatureController extends AbstractActionController{
      */
     public function deepFeatureDeleteAction(){
         $postFeatureId = $this->getEvent()->getRouteMatch()->getParam('id');
-        $deletedItemsId = $this->postFeature->deepDelete($postFeatureId);
-        $this->msgUtil->set($deletedItemsId);
-        return $this->redirect()->toUrl("/backend/deep-feature/");
+
+        $result = $this->postFeature->deepDelete($postFeatureId);
+        $this->msgUtil->set($result["info"]);
+
+        return $this->redirect()->toUrl("/backend/deep-feature");
     }
 
     public function testAction(){

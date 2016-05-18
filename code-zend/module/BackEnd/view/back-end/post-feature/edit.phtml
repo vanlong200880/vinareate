@@ -1,0 +1,22 @@
+<h1>hello</h1>
+<?php $paginator = $this->postFeature; ?>
+<?php //var_dump($postFeature); ?>
+<?php //var_dump($this->msg); ?>
+<form method="POST" action="" class="form-group">
+    <label>name
+        <input type="text" name="name" value="<?php echo $paginator["name"]; ?>" class="form-control">
+    </label>
+    <label>description
+        <input type="text" name="description" value="<?php echo $paginator["description"]; ?>" class="form-control">
+    </label>
+    <label>menu order
+        <input type="text" name="menu_order" value="<?php echo $paginator["menu_order"]; ?>" class="form-control">
+    </label>
+    <label>parent
+        <input type="text" name="parent" value="<?php echo $paginator["parent"]; ?>" class="form-control">
+    </label>
+    <label>status
+        <input type="text" name="status" value="<?php echo $paginator["status"]; ?>" class="form-control">
+    </label>
+    <input type="submit" name="" value="save" class="btn btn-default">
+</form>

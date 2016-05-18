@@ -15,7 +15,7 @@ return array(
     'db' => array(
         //default mysql-connection
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=vinareate;host=localhost',
+//        'dsn' => 'mysql:dbname=vinareate;host=localhost',
         'driver_options' => array(
             \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),

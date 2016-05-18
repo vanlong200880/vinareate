@@ -1,0 +1,30 @@
+<div class="container">
+    <h2>post feature</h2>
+    <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>description</th>
+            <th>menu_order</th>
+            <th>parent</th>
+            <th>status</th>
+            <th>action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $postFeature = $this->postFeature; ?>
+        <td><?php echo $postFeature["id"]; ?></td>
+        <td><?php echo $postFeature["name"]; ?></td>
+        <td><?php echo $postFeature["description"]; ?></td>
+        <td><?php echo $postFeature["menu_order"]; ?></td>
+        <td><?php echo $postFeature["parent"]; ?></td>
+        <td><?php echo $postFeature["status"]; ?></td>
+        <td>
+            <a href="/backend/post-feature/<?php echo $postFeature["id"]; ?>/edit" class="btn btn-default">edit</a>
+            <a href="/backend/post-feature/<?php echo $postFeature["id"]; ?>/delete" class="btn btn-default">delete</a>
+        </td>
+        </tbody>
+    </table>
+</div>

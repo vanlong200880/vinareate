@@ -3,6 +3,7 @@ namespace BackEnd\Controller;
 
 use BackEnd\Database\PostFeature;
 use BackEnd\Module;
+use BackEnd\Util\MessageUtil;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\ServiceManager\ServiceManager;
@@ -12,133 +13,115 @@ use Zend\View\Model\ViewModel;
 class PostFeatureController extends AbstractActionController{
     protected $serviceManager;
     protected $postFeature;
-    /** @var Container $sessionError */
-    protected $sessionError;
     protected $view;
     protected $msg = "";
-    protected $msgCtrl;
+    protected $msgUtil;
+
+    private $info = "sorry, we still not handle this situation";
 
     public function __construct(ServiceManager $sm){
+        /**
+         * init serviceManager
+         */
         $this->serviceManager = $sm;
+
         $this->postFeature = new PostFeature($this->serviceManager->get("adapter"));
-        $this->layout()->setTemplate(Module::LAYOUT);
-        $this->sessionError = $this->serviceManager->get("SessionError");
+
+        /**
+         * init msgCtrl
+         */
+        /** @var Container $sessionError */
+        $sessionError = $this->serviceManager->get("SessionError");
+        $this->msgUtil = new MessageUtil($sessionError);
+
+        /**
+         * init view
+         */
         $this->view = new ViewModel();
-        $this->view->setVariable("msg", $this->msg);
-        $this->layout()->setVariable("msg", $this->msg);
-        if($this->sessionError->offsetExists("msg")){
-            $this->view->setVariable("msg", $this->sessionError->msg);
-            $this->layout()->setVariable("msg", $this->sessionError->msg);
-        }
-        $this->msgCtrl = new MessageController($this->serviceManager->get("SessionError"));
+
+        /**
+         * set layout
+         */
+        $this->layout()->setTemplate(Module::LAYOUT);
     }
 
     public function indexAction(){
-        //        $view = new ViewModel();
-        $postFeatures = $this->postFeature->all();
+        $this->msgUtil->show($this->layout());
 
-        //        $view->setVariable("postFeatures", $postFeatures);
+        $postFeatures = $this->postFeature->all();
         $this->view->setVariable("postFeatures", $postFeatures);
-        //        return $view;
         return $this->view;
     }
 
     public function viewAction(){
-        //        $view = new ViewModel();
         $postFeatureId = $this->getEvent()->getRouteMatch()->getParam('id');
-        /** @var Request $request */
-        //        $request = $this->getRequest();
-        //            var_dump("view action GET");
         $postFeature = $this->postFeature->get($postFeatureId);
-        //        $view->setVariable("postFeature", $postFeature);
         $this->view->setVariable("postFeature", $postFeature);
-        //        return $view;
         return $this->view;
     }
 
     public function editAction(){
-        //        $view = new ViewModel();
-        //set default msg
-        //        $view->setVariable("msg", "");
+        $this->msgUtil->show($this->layout());
+
         $postFeatureId = $this->getEvent()->getRouteMatch()->getParam('id');
         /** @var Request $request */
         $request = $this->getRequest();
         if($request->isPost()){
             $postParams = $request->getPost();
-            //            $postFeatureColumns = array(
-            //                "name",
-            //                "description",
-            //                "menu_order",
-            //                "parent",
-            //                "status"
-            //            );
-            //            $postFeatureValues = array();
-            //            $postFeature["name"] = $postParams["name"];
-            //            $postFeature["description"] = $postParams["description"];
-            //            $postFeature["menu_order"] = $postParams["menu_order"];
-            //            $postFeature["parent"] = $postParams["parent"];
-            //            $postFeature["status"] = $postParams["status"];
-            //            $postFeatureSetColumnValue = array_combine($postFeatureColumns, $postFeatureValues);
-            //            $this->postFeature->verifyInsertParams($postParams);
-            $this->postFeature->update((array)$postParams, array("id" => $postFeatureId));
-
+            $result = $this->postFeature->update((array)$postParams, array("id" => $postFeatureId));
+            $this->msgUtil->set($result["info"]);
             return $this->redirect()->toUrl("/backend/post-feature/" . $postFeatureId . "/edit");
-            //            return $this->redirect()->toRoute("post-feature-edit");
         }
         if($request->isGet()){
             $postFeature = $this->postFeature->get($postFeatureId);
-            if($this->sessionError->offsetExists("msg")){
-                //                $view->setVariable("msg", $this->sessionError->msg);
-//                $this->view->setVariable("msg", $this->sessionError->msg);
-//                $this->sessionError->offsetUnset("msg");
-//                $this->msgCtrl->setSessionError()
-            }
-            //            $view->setVariable("postFeature", $postFeature);
             $this->view->setVariable("postFeature", $postFeature);
         }
-        //        return $view;
         return $this->view;
     }
 
     public function deleteAction(){
+        $this->msgUtil->show($this->layout());
+
         $postFeatureId = $this->getEvent()->getRouteMatch()->getParam('id');
         $result = $this->postFeature->delete($postFeatureId);
-        if($result){
-//            $this->sessionError->msg = sprintf("%s deleted", $postFeatureId);
-            $this->msgCtrl->setSessionError(sprintf("%s deleted", $postFeatureId));
-            return $this->redirect()->toUrl("/backend/post-feature");
+        $this->msgUtil->set($result["info"]);
+        $url = "/backend/post-feature";
+        //$result is empty string
+        if($result["status"]){
+            $url .= "";
         }
-        if(!$result){
-            //            var_dump("foreign key, map post-feature");
-            $this->sessionError->msg = "foreign key, map post-feature\ndelete on parent of others @@";
-            return $this->redirect()->toUrl("/backend/post-feature/" . $postFeatureId . "/edit");
+        if(!$result["status"]){
+            /**
+             * they can not delete it
+             * let them edit it if they want
+             */
+            $url .= "/" . $postFeatureId . "/edit";
         }
-        die("sorry we still not handle this situation");
+        return $this->redirect()->toUrl($url);
     }
 
     public function createAction(){
-        //        $view = new ViewModel();
+        $this->msgUtil->show($this->layout());
         /** @var Request $request */
         $request = $this->getRequest();
         if($request->isPost()){
             $postParams = $request->getPost();
-            //            $this->postFeature->verifyInsertParams($postParams);
-            $this->postFeature->insert((array)$postParams);
+            $result = $this->postFeature->insert((array)$postParams);
+            $this->msgUtil->set($result["info"]);
             return $this->redirect()->toUrl("/backend/post-feature");
         }
         if($request->isGet()){
-            //            return $view;
             return $this->view;
         }
-        die("sorry we still not handle this situation");
+        die($this->info);
     }
 
     public function deepFeatureAction(){
-        //        $view = new ViewModel();
         $postFeatures = $this->postFeature->all();
-        //        $view->setVariable("postFeatures", $postFeatures);
+        /**
+         * do pagination
+         */
         $this->view->setVariable("postFeatures", $postFeatures);
-        //        return $view;
         return $this->view;
     }
 
@@ -147,16 +130,14 @@ class PostFeatureController extends AbstractActionController{
      * @return \Zend\Http\Response|ViewModel
      */
     public function deepFeatureMatchAction(){
-        //        $view = new ViewModel();
         /** @var Request $request */
         $request = $this->getRequest();
-        //        if($request)
         if($request->isPost()){
             $postParmas = $request->getPost();
             $featureId = $postParmas->get("featureId");
             $action = $postParmas->get("action");
             /**
-             * handel 2 case
+             * handle 2 cases on "featureId"
              * 1. has children > /deep-feature/{id}
              * 2. is a single item > /post-feature/{id}
              */
@@ -168,6 +149,11 @@ class PostFeatureController extends AbstractActionController{
             if(count($children) === 0){
                 $url .= "/backend/post-feature/" . $featureId;
             }
+            /**
+             * handle 2 cases on "action"
+             * 1. edit
+             * 2. delete
+             */
             if($action === "edit"){
                 $url .= "/edit";
             }
@@ -177,44 +163,37 @@ class PostFeatureController extends AbstractActionController{
             return $this->redirect()->toUrl($url);
 
         }
-        //        return $view;
-        return $this->view;
+        die($this->info);
     }
 
+    /**
+     * unused, bcs 1. edit directly/ 2. single edit
+     * edit this way like loop again
+     * @return ViewModel
+     */
     public function deepFeatureEditAction(){
-        //        $view = new ViewModel();
         $postFeatureId = $this->getEvent()->getRouteMatch()->getParam('id');
-        /** @var Request $request */
-        $request = $this->getRequest();
-        //        if($request)
-        if($request->isPost()){
-        }
-        if($request->isGet()){
-            $feature = $this->postFeature->get($postFeatureId);
-            $children = $this->postFeature->getChildren($postFeatureId);
-            //            $view->setVariable("feature", $feature);
-            $this->view->setVariable("feature", $feature);
-            //            $view->setVariable("children", $children);
-            $this->view->setVariable("children", $children);
-        }
-        //        return $view;
+        $feature = $this->postFeature->get($postFeatureId);
+        $children = $this->postFeature->getChildren($postFeatureId);
+        $this->view->setVariable("feature", $feature);
+        $this->view->setVariable("children", $children);
         return $this->view;
     }
 
+    /**
+     * delete on a group (DEEP)
+     * @return \Zend\Http\Response
+     */
     public function deepFeatureDeleteAction(){
-        //        $view = new ViewModel();
         $postFeatureId = $this->getEvent()->getRouteMatch()->getParam('id');
-        $result = $this->postFeature->deepDelete($postFeatureId);
-        $this->sessionError->msg = $result;
+        $deletedItemsId = $this->postFeature->deepDelete($postFeatureId);
+        $this->msgUtil->set($deletedItemsId);
         return $this->redirect()->toUrl("/backend/deep-feature/");
     }
 
     public function testAction(){
-        //        $view = new ViewModel();
         $postFeatures = $this->postFeature->all();
-        //        $view->setVariable("postFeatures", $postFeatures);
         $this->view->setVariable("postFeatures", $postFeatures);
-        //        return $view;
         return $this->view;
     }
 

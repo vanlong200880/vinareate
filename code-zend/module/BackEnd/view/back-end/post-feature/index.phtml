@@ -1,8 +1,8 @@
 <div class="container">
     <h2>post feature</h2>
     <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-    <?php if(isset($this->msg)){
-        var_dump($this->msg);
+    <?php if(isset($this->msgCtrl)){
+        echo $this->msgCtrl;
     } ?>
     <form method="GET" action="/backend/post-feature/create">
         <input type="submit" name="" value="create new one" class="btn btn-default">

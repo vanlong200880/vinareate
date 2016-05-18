@@ -1,6 +1,12 @@
 <h1>Backend</h1>
 <div class="container">
-    <?php var_dump($this->msg); ?>
+    <h3>msg info</h3>
+    <?php
+    use BackEnd\Controller\MessageController;
 
+    /** @var MessageController $msgCtrl */
+    $msgCtrl = $this->msgCtrl;
+    $msgCtrl->msg();
+    ?>
 </div>
 <?php echo $this->content; ?>

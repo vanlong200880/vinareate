@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     <?php echo $this->headTitle("web application"); ?>
-    <?php echo $this->headMeta()
-        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+    <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
     ?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -12,17 +11,19 @@
     <link rel="stylesheet" href="">
     <!-- Scripts -->
     <script type="application/javascript" src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-    <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="application/javascript"
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="application/javascript" src=""></script>
     <script type="application/javascript" src=""></script>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>web application</h1>
+        <h1>Backend</h1>
     </header>
     <hr>
-    <div class="content"><?php echo $this->content; ?></div>
+    <?php echo $this->msgUtil; ?>
+    <?php echo $this->content; ?>
     <hr>
     <footer>
         <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies

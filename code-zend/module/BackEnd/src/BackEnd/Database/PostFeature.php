@@ -10,9 +10,15 @@ class PostFeature{
     /** @var  Sql $sql */
     protected $sql;
     protected $storage;
+    protected $result;
 
     public function __construct($adapter){
         $this->sql = new Sql($adapter);
+        //simple version, status only has true/false
+        $this->result = array(
+            "status" => false,
+            "info" => ""
+        );
     }
 
     /**
@@ -24,12 +30,43 @@ class PostFeature{
         $insert = $this->sql->insert(self::POST_FEATURES_TABLE);
         $insert->columns(array_keys($postParams))->values(array_values($postParams));
         $statement = $this->sql->prepareStatementForSqlObject($insert);
-        $result = $statement->execute();
-        //get id from last row inserted
-        $postContactId = $result->getGeneratedValue();
-        return $postContactId;
+        try{
+            $r = $statement->execute();
+            $featureId = $r->getGeneratedValue();
+            $this->result["status"] = true;
+            $this->result["info"] .= sprintf("new item inserted, id: %s", $featureId);
+        }catch(Exception $e){
+            $this->result["status"] = false;
+            $this->result["info"] .= $e->__toString();
+        }
+        return $this->result;
     }
 
+    /**
+     * when we show input for user edit
+     * input is TEXT, but value in database may different
+     * >>> mismatch >>> NULL / 0
+     * how to check this ????
+     * @param $postParams
+     * @return mixed
+     */
+    public function verifyInsertParams($postParams){
+        if(isset($postParams["action"])){
+            unset($postParams["action"]);
+        }
+        if(empty($postParams["parent"])){
+            //by remove "parent" from $postParams
+            //we not insert "parent" when not exist
+            //"parent" map NULL
+            unset($postParams["parent"]);
+        }
+        return $postParams;
+    }
+
+    /**
+     * return all features
+     * @return array
+     */
     public function all(){
         $select = $this->sql->select();
         $select->columns(array("*"))->from(self::POST_FEATURES_TABLE);
@@ -58,25 +95,31 @@ class PostFeature{
     /**
      * @param array $setColumnValue
      * @param array $where
-     * @return \Zend\Db\Adapter\Driver\ResultInterface
+     * @return string $result
      */
     public function update(array $setColumnValue, array $where){
         $setColumnValue = $this->verifyInsertParams($setColumnValue);
         $update = $this->sql->update(self::POST_FEATURES_TABLE);
         $update->set($setColumnValue)->where($where);
         $statement = $this->sql->prepareStatementForSqlObject($update);
-        $result = $statement->execute();
-        return $result;
+        try{
+            $statement->execute();
+            $this->result["status"] = true;
+            $this->result["info"] .= sprintf("%s updated", $where["id"]);
+        }catch(Exception $e){
+            $this->result["status"] = false;
+            $this->result["info"] .= $e->__toString();
+        }
+        return $this->result;
     }
 
 
     /**
      * @param $id
-     * @return bool|\Zend\Db\Adapter\Driver\ResultInterface
+     * @return string|array $result
      */
     public function delete($id){
         $shouldDelete = $this->verifyDeleteParams($id);
-        $result = true;
         if($shouldDelete){
             $delete = $this->sql->delete();
             $delete->from(self::POST_FEATURES_TABLE)->where(array("id" => $id));
@@ -88,47 +131,25 @@ class PostFeature{
 
             try{
                 $statement->execute();
-                $result = true;
+                $this->result["status"] = true;
+                $this->result["info"] = sprintf("%s deleted", $id);
             }catch(Exception $e){
-                $result = false;
+                $this->result["status"] = false;
+                $this->result["info"] = $e->__toString();
             }
         }
         if(!$shouldDelete){
-            $result = false;
+            $this->result["status"] = false;
+            $this->result["info"] .= "should not delete";
         }
-        return $result;
+        return $this->result;
     }
 
     /**
-     * when we show input for user edit
-     * input is TEXT, but value in database may different
-     * >>> mismatch >>> NULL / 0
-     * how to check this ????
-     * @param $postParams
-     * @return mixed
+     * when delete, need verify should delete
+     * @param $id
+     * @return bool
      */
-    public function verifyInsertParams($postParams){
-        if(isset($postParams["action"])){
-            unset($postParams["action"]);
-        }
-        if(empty($postParams["parent"])){
-            //by remove "parent" from $postParams
-            //we not insert "parent" when not exist
-            //"parent" map NULL
-            unset($postParams["parent"]);
-        }
-        return $postParams;
-    }
-
-    public function getChildren($parentId){
-        $select = $this->sql->select();
-        $select->columns(array("*"))->from(self::POST_FEATURES_TABLE)->where(array("parent" => $parentId));
-        $statement = $this->sql->prepareStatementForSqlObject($select);
-        $result = $statement->execute();
-        $resultSet = ArrayUtils::iteratorToArray($result);
-        return $resultSet;
-    }
-
     public function verifyDeleteParams($id){
         $shouldDelete = true;
         //        $postFeature = $this->get($id);
@@ -142,6 +163,23 @@ class PostFeature{
         }
         return $shouldDelete;
     }
+
+
+    /**
+     * return children of a feature
+     * @param $parentId
+     * @return array
+     */
+    public function getChildren($parentId){
+        $select = $this->sql->select();
+        $select->columns(array("*"))->from(self::POST_FEATURES_TABLE)->where(array("parent" => $parentId));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
+        $result = $statement->execute();
+        $resultSet = ArrayUtils::iteratorToArray($result);
+        return $resultSet;
+    }
+
+
 
     /**
      * @param string $itemId

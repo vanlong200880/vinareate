@@ -259,6 +259,7 @@ return array(
             'district_add_template' => __DIR__ . '/../view/back-end/district/add.phtml',
             'ward_add_template' => __DIR__ . '/../view/back-end/ward/add.phtml',
             'test_pages' => __DIR__ . '/../view/pager.phtml',
+            "msg-info" => __DIR__ . "/../view/child-view/msg.phtml",
         ),
         // TemplatePathStack configuration
         // module/view script path pairs

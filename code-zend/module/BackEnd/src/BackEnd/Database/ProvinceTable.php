@@ -126,14 +126,15 @@ class ProvinceTable{
     }
     public function DelAllChild($id){
        $del=$this->sql->delete();
-        $del->from('province , district');
+        $del->from('province');
         
 //        $delete->from('district');
 //                $select->join(self::DISTRICT_TABLE, 'province.id = district.province_id', array('district_name'=>'name'),'left');
 //                $select->join(self::WARD_TABLE, 'district.id = ward.district_id', array('ward_name'=>'name'),'left');
                 //$delete->where(array('province.id=district.province_id'));
                 //$delete->where(array('province.id=ward.province_id'));
-        $del->where(array('id'=>$id));
+        $del->where(array('province.id'=>$id));
+//        $del->where(array('district.province_id'=>$id));
         $statement=$this->sql->prepareStatementForSqlObject($del);
         $result=$statement->execute();
         echo "<pre>";

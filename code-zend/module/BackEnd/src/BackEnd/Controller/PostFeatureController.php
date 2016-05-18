@@ -142,15 +142,7 @@ class PostFeatureController extends AbstractActionController{
              * 1. has children > /deep-feature/{id}
              * 2. is a single item > /post-feature/{id}
              */
-            //            $children = $this->postFeature->getChildren($featureId);
             $url = "";
-            //            $url = "/backend/deep-feature/" . $featureId;
-            //            if(count($children) > 0){
-            //                $url .= "/backend/deep-feature/" . $featureId;
-            //            }
-            //            if(count($children) === 0){
-            //                $url .= "/backend/post-feature/" . $featureId;
-            //            }
             /**
              * handle 2 cases on "action"
              * 1. edit

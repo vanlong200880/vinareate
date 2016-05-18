@@ -159,11 +159,7 @@ class PostFeature{
      */
     public function verifyDeleteParams($id){
         $shouldDelete = true;
-        //        $postFeature = $this->get($id);
-        //        if(!$postFeature["parent"]){
-        //            $shouldDelete = false;
-        //        }
-        //        if()
+
         $children = $this->getChildren($id);
         if(count($children) > 0){
             $shouldDelete = false;

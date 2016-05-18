@@ -1,0 +1,23 @@
+<ul class="pagination">
+    <?php if(!isset($this->previous)){
+        $this->previous = $this->first;
+    } ?>
+    <li><a href="<?php echo '/backend/post-feature/page/' . $this->previous; ?>">&lt</a></li>
+    <?php foreach($this->pagesInRange as $page){ ?>
+        <li>
+            <a href="<?php echo '/backend/post-feature/page/' . $page; ?>"><?php echo $page; ?></a>
+        </li>
+    <?php } ?>
+    <?php if(!isset($this->next)){
+        $this->next = $this->last;
+    } ?>
+    <li><a href=" <?php echo '/backend/post-feature/page/' . $this->next; ?>">&gt</a></li>
+</ul>
+<script>
+    (function($){
+        var paginator = $(".pagination");
+        paginator.on("click", "li", function(){
+            $(this).addClass("active");
+        });
+    })(jQuery);
+</script>

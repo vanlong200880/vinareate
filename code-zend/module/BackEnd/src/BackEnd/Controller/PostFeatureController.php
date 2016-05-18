@@ -6,6 +6,8 @@ use BackEnd\Module;
 use BackEnd\Util\MessageUtil;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
@@ -16,6 +18,8 @@ class PostFeatureController extends AbstractActionController{
     protected $view;
     protected $msg = "";
     protected $msgUtil;
+
+    const ITEMS_PER_PAGE = 5;
 
     private $info = "sorry, we still not handle this situation";
 
@@ -48,8 +52,18 @@ class PostFeatureController extends AbstractActionController{
     public function indexAction(){
         $this->msgUtil->show($this->layout());
 
+        $pageId = $this->getEvent()->getRouteMatch()->getParam('page');
+
         $postFeatures = $this->postFeature->all();
-        $this->view->setVariable("postFeatures", $postFeatures);
+        /**
+         * handle paginator
+         */
+        $paginator = new Paginator(new ArrayAdapter($postFeatures));
+        $paginator->setItemCountPerPage(self::ITEMS_PER_PAGE);
+        $paginator->setCurrentPageNumber($pageId);
+
+        //        $this->view->setVariable("postFeatures", $postFeatures);
+        $this->view->setVariable("paginator", $paginator);
         return $this->view;
     }
 

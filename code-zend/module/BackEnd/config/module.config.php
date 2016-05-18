@@ -122,16 +122,16 @@ return array(
                             ),
                         ),
                     ),
-                    'post-feature' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route' => '/post-feature',
-                            'defaults' => array(
-                                'controller' => 'Backend\Controller\PostFeature',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
+//                    'post-feature' => array(
+//                        'type' => 'literal',
+//                        'options' => array(
+//                            'route' => '/post-feature',
+//                            'defaults' => array(
+//                                'controller' => 'Backend\Controller\PostFeature',
+//                                'action' => 'index',
+//                            ),
+//                        ),
+//                    ),
                     'post-feature-view' => array(
                         'type' => 'segment',
                         'options' => array(
@@ -227,6 +227,20 @@ return array(
                             ),
                         ),
                     ),
+                    'post-feature-paginator' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/post-feature[/page/:page]',
+                            'constraints' => array(
+                                'page' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'page' => 1,
+                                'controller' => 'Backend\Controller\PostFeature',
+                                'action' => 'index'
+                            ),
+                        ),
+                    ),
                 ),
             ),
         ),
@@ -260,6 +274,7 @@ return array(
             'ward_add_template' => __DIR__ . '/../view/back-end/ward/add.phtml',
             'test_pages' => __DIR__ . '/../view/pager.phtml',
             "msg-info" => __DIR__ . "/../view/child-view/msg.phtml",
+            "post-feature-paginator" => __DIR__ . "/../view/child-view/post-feature-paginator.phtml",
         ),
         // TemplatePathStack configuration
         // module/view script path pairs

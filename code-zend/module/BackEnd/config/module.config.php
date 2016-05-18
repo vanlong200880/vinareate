@@ -6,6 +6,7 @@ return array(
         'invokables' => array(
             'BackEnd\Controller\Index' => 'BackEnd\Controller\IndexController',
             //            'BackEnd\Controller\District' => 'BackEnd\Controller\DistrictController',
+            'BackEnd\Controller\IlluminateDatabase' => 'BackEnd\Controller\IlluminateDatabaseController',
         ),
         "factories" => array(
             'BackEnd\Controller\Province' => 'BackEnd\Factory\ProvinceControllerFactory',
@@ -69,7 +70,7 @@ return array(
                         'options' => array(
                             'route' => '/district[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-                                //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                // 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'page' => '[0-9]+',
@@ -122,16 +123,16 @@ return array(
                             ),
                         ),
                     ),
-//                    'post-feature' => array(
-//                        'type' => 'literal',
-//                        'options' => array(
-//                            'route' => '/post-feature',
-//                            'defaults' => array(
-//                                'controller' => 'Backend\Controller\PostFeature',
-//                                'action' => 'index',
-//                            ),
-//                        ),
-//                    ),
+                    'post-feature' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/post-feature',
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\PostFeature',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
                     'post-feature-view' => array(
                         'type' => 'segment',
                         'options' => array(
@@ -237,6 +238,16 @@ return array(
                             'defaults' => array(
                                 'page' => 1,
                                 'controller' => 'Backend\Controller\PostFeature',
+                                'action' => 'index'
+                            ),
+                        ),
+                    ),
+                    'illuminate-database' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '/illuminate-database',
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\IlluminateDatabase',
                                 'action' => 'index'
                             ),
                         ),

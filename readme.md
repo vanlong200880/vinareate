@@ -7,5 +7,6 @@ review on Youtube, change-log
 + [create a post, up to step 3](https://www.youtube.com/watch?v=SKLcL5ta1T4)
 + [up to step5](https://www.youtube.com/watch?v=anY7mk-V7yM)
 + [save data, upload image](https://www.youtube.com/watch?v=ObCq2BKh7a0)
-+ [message info](https://www.youtube.com/watch?v=GFsKdP-JRQU);
-+ [deep delete](https://www.youtube.com/watch?v=D7BfFetOzEE);
++ [message info](https://www.youtube.com/watch?v=GFsKdP-JRQU)
++ [deep delete](https://www.youtube.com/watch?v=D7BfFetOzEE)
++ [illuminate database](https://www.youtube.com/watch?v=QcZA5cGjX4A)

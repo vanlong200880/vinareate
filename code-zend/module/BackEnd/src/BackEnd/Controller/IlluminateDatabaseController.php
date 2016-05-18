@@ -37,18 +37,23 @@ class IlluminateDatabaseController extends AbstractActionController{
 
     public function indexAction(){
         $view = new ViewModel();
-        //        $postFeature = PostFeature::where("id", "=", 1)->get();
-        $postFeature = PostFeature::find(1);
-        //        $postFeatureAll = PostFeature::all();
-        //        $postFeature = Capsule::table('post_features')->where('id', '=', 1)->get();
-        $postFeatureDetail = PostFeatureDetail::with("feature")->find(1);
-        //        $postFeatureDetail = PostFeatureDetail::find(1);
-        //        $feature = $postFeatureDetail->feature;
 
-        $view->setVariable("postFeature", $postFeature->getAttributes());
+        /**
+         * simple query on table PostFeatureDetail
+         * instead of self-code on SELECT
+         * extends Eloquent\Model
+         * access row by find/get
+         */
+        $detail2 = PostFeatureDetail::find(2);
+        /**
+         * relations, PostFeatureDetail, map post-feature
+         * like JOIN table, after get out id=1,
+         * get out feature map with
+         */
+        $postFeatureDetail = PostFeatureDetail::with("feature")->find(1);
+
         $view->setVariable("postFeatureDetail", $postFeatureDetail);
-        //        $view->setVariable("feature", $feature->getAttributes());
-        //        $view->setVariable("postFeatureAll", $postFeatureAll);
+        $view->setVariable("detail2", $detail2);
         return $view;
 
     }

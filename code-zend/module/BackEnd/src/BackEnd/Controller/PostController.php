@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Db\Adapter\Adapter;
 use Zend\View\Model\JsonModel;
-use BackEnd\Factory\A;
+
 
 
 class PostController extends AbstractActionController{

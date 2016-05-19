@@ -1,4 +1,5 @@
 <?php
+
 namespace BackEnd\Database;
 
 use Zend\Db\Sql\Sql;
@@ -8,14 +9,14 @@ use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Where;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Db\Sql\Expression;
+
 //use BackEnd\Database\P;
 //use BackEnd\Database\DistrictTable;
 //use BackEnd\Database\;
 
-class PostRatingTable{
-    const RATING_TABLE="rating";
-      
-    
+class PostRatingTable {
+
+    const RATING_TABLE = "rating";
 
     /** @var  Sql $sql */
     protected $sql;
@@ -23,6 +24,7 @@ class PostRatingTable{
     public function __construct($adapter) {
         $this->sql = new Sql($adapter);
     }
+
 //     public function getAll($type='',$col='') {
 //        $select = $this->sql->select();
 //        $select->columns(array('*'))->from(self::POST_IMG_TABLE);
@@ -34,24 +36,27 @@ class PostRatingTable{
 //        $result->next();
 //        return $resultSet;
 //     }
-     public function getPostbyPostImage($data) {
-         $select=$this->sql->select();
-         $select->columns(array('*'))->from(self::POST_IMG_TABLE);
-         $select->where(new \Zend\Db\Sql\Predicate\In("post_id", $data));
-         $statement = $this->sql->prepareStatementForSqlObject($select);
+    public function getPostbyPostImage($data) {
+        $select = $this->sql->select();
+        $select->columns(array('*'))->from(self::POST_IMG_TABLE);
+        $select->where(new \Zend\Db\Sql\Predicate\In("post_id", $data));
+        $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
         $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
         return $resultSet;
-     }
-     public function DelRatingbyPostId($data) {
-         $del=$this->sql->delete();
-         $del->from(self::RATING_TABLE);
-         $del->where(new \Zend\Db\Sql\Predicate\In("post_id", $data));
-         $statement = $this->sql->prepareStatementForSqlObject($del);
-//         var_dump($statement);
-        $result = $statement->execute();
-//        $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
-        return true;
-     }
-}
+    }
 
+    public function DelRatingbyPostId($data) {
+        $del = $this->sql->delete();
+        $del->from(self::RATING_TABLE);
+        $del->where(new \Zend\Db\Sql\Predicate\In("post_id", $data));
+        $statement = $this->sql->prepareStatementForSqlObject($del);
+        try {
+            $result = $statement->execute();
+            return $result = TRUE;
+        } catch (Exception $e) {
+            return $result = FALSE;
+        }
+    }
+
+}

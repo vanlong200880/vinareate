@@ -1,12 +1,12 @@
 <?php
 
-
 return array(
     'controllers' => array(
         'invokables' => array(
             'BackEnd\Controller\Index' => 'BackEnd\Controller\IndexController',
-            //            'BackEnd\Controller\District' => 'BackEnd\Controller\DistrictController',
+            //'BackEnd\Controller\District' => 'BackEnd\Controller\DistrictController',
             'BackEnd\Controller\IlluminateDatabase' => 'BackEnd\Controller\IlluminateDatabaseController',
+//            'BackEnd\Controller\PostImages'=>'BackEnd\Controller\PostImagesController',
         ),
         "factories" => array(
             'BackEnd\Controller\Province' => 'BackEnd\Factory\ProvinceControllerFactory',
@@ -14,11 +14,11 @@ return array(
             'BackEnd\Controller\Ward' => 'BackEnd\Factory\WardControllerFactory',
             'BackEnd\Controller\Category' => 'BackEnd\Factory\CategoryControllerFactory',
             'BackEnd\Controller\Post' => 'BackEnd\Factory\PostControllerFactory',
-            'BackEnd\Controller\PostImage' => 'BackEnd\Factory\PostImageControllerFactory',
+            'BackEnd\Controller\PostImages' => 'BackEnd\Factory\PostImagesControllerFactory',
             'BackEnd\Controller\PostFeature' => 'BackEnd\Factory\PostFeatureControllerFactory',
         )
     ),
-    'router' => array(  
+    'router' => array(
         'routes' => array(
             'backend' => array(
                 'type' => 'Literal',
@@ -71,7 +71,7 @@ return array(
                     'district' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/district[/][/action/:action][type/:type][/:id][/col/:col]',
+                            'route' => '/district[/][/:page][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
                                 // 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -85,20 +85,35 @@ return array(
                             ),
                         ),
                     ),
-<<<<<<< HEAD
                     'category' => array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => '/category[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
 //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
-                                'page'     => '[0-9]+',
-                                 'col'     => '.+',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\Category',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'post-images' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/post-images[/][/:action][type/:type][/:id][/col/:col]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\PostImages',
                                 'action' => 'index',
                             ),
                         ),
@@ -108,11 +123,10 @@ return array(
                         'options' => array(
                             'route' => '/post[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-//                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
-                                'page'     => '[0-9]+',
-                                 'col'     => '.+',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\Post',
@@ -120,17 +134,12 @@ return array(
                             ),
                         ),
                     ),
-                      'pager' => array(
-                        'type'    => 'Segment',
-=======
                     'pager' => array(
                         'type' => 'Segment',
->>>>>>> 7bee2e9aed46624d4dcfe0711ff46446443c5cc9
                         'options' => array(
-                            'route' => '/[:controller][/:page]',
+                            'route' => '/district[/:page]',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\District',
@@ -138,7 +147,6 @@ return array(
                             ),
                         ),
                     ),
-
                     'ward' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -303,13 +311,12 @@ return array(
             'Requesthelper' => 'BackEnd\View\Helper\Factory\RequestHelperFactory',
         )
     ),
-
     // ViewManager configuration
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
-        //        'not_found_template' => 'error/404',
-        //        'exception_template' => 'error/index',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         // Doctype with which to seed the Doctype helper
         'doctype' => 'HTML5',
         // e.g. HTML5, XHTML1
@@ -320,8 +327,8 @@ return array(
         // template/path pairs
         'template_map' => array(
             \BackEnd\Module::LAYOUT => __DIR__ . '/../view/layout/layout.phtml',
-            //            'error/404' => __DIR__ . '/../view/error/404.phtml',
-            //            'error/index' => __DIR__ . '/../view/error/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
             'province_add_template' => __DIR__ . '/../view/back-end/province/add.phtml',
             'district_add_template' => __DIR__ . '/../view/back-end/district/add.phtml',
             'ward_add_template' => __DIR__ . '/../view/back-end/ward/add.phtml',
@@ -342,17 +349,17 @@ return array(
             'ViewJsonStrategy',
             // register JSON renderer strategy
             'ViewFeedStrategy',
-            // register Feed renderer strategy
+        // register Feed renderer strategy
         ),
     ),
     'service_manager' => array(
         'factories' => array(
-            'adapter' => function($sm){
+            'adapter' => function($sm) {
                 /** @var \Zend\ServiceManager\ServiceManager $sm */
                 $config = $sm->get('config');
                 return new \Zend\Db\Adapter\Adapter($config['db']);
             },
-            "SessionError" => function(){
+            "SessionError" => function() {
                 $sessionManger = new \Zend\Session\SessionManager();
                 $sessionStorage = new \Zend\Session\Storage\SessionArrayStorage();
                 $sessionManger->setStorage($sessionStorage);

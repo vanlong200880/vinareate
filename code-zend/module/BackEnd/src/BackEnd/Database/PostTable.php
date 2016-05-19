@@ -45,11 +45,17 @@ class PostTable {
         $del->from(self::POST_TABLE);
         $del->where(array('category_id'=>$id));
         $statement = $this->sql->prepareStatementForSqlObject($del);
-        $result = $statement->execute(); 
-        $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
-//        echo "<pre>";
-//        print_r($resultSet);
-        return true;
+        
+        try {
+            $result = $statement->execute(); 
+            return $result=TRUE;
+        } catch (Exception $exc) {
+           return $result=FALSE;
+        }
+
+        if(is_array($resultSet)) return true;
+        else return FALSE;
+        
     }
 
 }

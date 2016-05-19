@@ -1,18 +1,29 @@
 <?php if($this->pageCount){ ?>
+    <?php //var_dump($this->url("test-config", array("page" => 1))); ?>
+    <?php //var_dump($this->url("backend/post-feature-paginator", array("page" => 2))); ?>
     <ul class="pagination">
         <?php if(!isset($this->previous)){
             $this->previous = $this->first;
         } ?>
-        <li><a href="<?php echo '/backend/post-feature/page/' . $this->previous; ?>">&lt</a></li>
+        <li><a href="<?php echo $this->url("backend/post-feature-paginator", array("page" => $this->previous)); ?>">
+                &lt
+            </a>
+        </li>
         <?php foreach($this->pagesInRange as $page){ ?>
             <li>
-                <a href="<?php echo '/backend/post-feature/page/' . $page; ?>"><?php echo $page; ?></a>
+                <a href="<?php echo $this->url("backend/post-feature-paginator", array("page" => $page)); ?>">
+                    <?php echo $page; ?>
+                </a>
             </li>
         <?php } ?>
         <?php if(!isset($this->next)){
             $this->next = $this->last;
         } ?>
-        <li><a href=" <?php echo '/backend/post-feature/page/' . $this->next; ?>">&gt</a></li>
+        <li>
+            <a href=" <?php echo $this->url("backend/post-feature-paginator", array("page" => $this->next)); ?>">
+                &gt
+            </a>
+        </li>
     </ul>
     <script>
         (function($){

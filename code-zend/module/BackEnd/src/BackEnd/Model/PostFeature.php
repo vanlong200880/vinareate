@@ -1,8 +1,6 @@
 <?php
 namespace BackEnd\Model;
 
-use Illuminate\Database\Eloquent\Model;
-
-class PostFeature extends Model{
+class PostFeature extends IlluminateModel{
     protected $table = "post_features";
 }

@@ -1,0 +1,14 @@
+<h1>user rating comment</h1>
+<?php //var_dump($this->rating); ?>
+<?php //var_dump($this->rating->getAttributes()); ?>
+<?php //var_dump($this->ratingUser); ?>
+<ul class="list-group">
+    <?php foreach($this->commentUser as $commentUser){ ?>
+        <li class="list-group-item">
+            user: <?php echo $commentUser->user["email"]; ?><br>
+            rating: <?php echo $commentUser->rating; ?><br>
+            comment: <?php echo $commentUser->comment; ?><br>
+        </li>
+    <?php } ?>
+</ul>
+

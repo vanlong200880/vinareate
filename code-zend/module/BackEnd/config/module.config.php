@@ -16,6 +16,8 @@ return array(
             'BackEnd\Controller\Post' => 'BackEnd\Factory\PostControllerFactory',
             'BackEnd\Controller\PostImages' => 'BackEnd\Factory\PostImagesControllerFactory',
             'BackEnd\Controller\PostFeature' => 'BackEnd\Factory\PostFeatureControllerFactory',
+            'BackEnd\Controller\Test' => 'BackEnd\Factory\TestControllerFactory',
+            'BackEnd\Controller\Auth' => 'BackEnd\Factory\AuthControllerFactory',
         )
     ),
     'router' => array(
@@ -90,7 +92,10 @@ return array(
                         'options' => array(
                             'route' => '/category[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
+
 //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+
+                                //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'page' => '[0-9]+',
@@ -123,6 +128,8 @@ return array(
                         'options' => array(
                             'route' => '/post[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
+
+                                                               'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'page' => '[0-9]+',
@@ -281,19 +288,19 @@ return array(
                     'post-feature-paginator' => array(
                         'type' => 'segment',
                         'options' => array(
-                            'route' => '/post-feature[/page/:page]',
+                            'route' => '/post-feature/page[/:page]',
                             'constraints' => array(
                                 'page' => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'page' => 1,
+                                //                                'page' => 1,
                                 'controller' => 'Backend\Controller\PostFeature',
                                 'action' => 'index'
                             ),
                         ),
                     ),
                     'illuminate-database' => array(
-                        'type' => 'segment',
+                        'type' => 'literal',
                         'options' => array(
                             'route' => '/illuminate-database',
                             'defaults' => array(
@@ -304,6 +311,63 @@ return array(
                     ),
                 ),
             ),
+            'join' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/join',
+                    'defaults' => array(
+                        'controller' => 'BackEnd\Controller\Auth',
+                        'action' => 'join',
+                    ),
+                ),
+            ),
+            'login' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/login',
+                    'defaults' => array(
+                        'controller' => 'BackEnd\Controller\Auth',
+                        'action' => 'login',
+                    ),
+                ),
+            ),
+            'logout' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/logout',
+                    'defaults' => array(
+                        'controller' => 'BackEnd\Controller\Auth',
+                        'action' => 'logout',
+                    ),
+                ),
+            ),
+            'test-user-comment' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/test/post[/:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Backend\Controller\Test',
+                        'action' => 'userComment',
+                    ),
+                ),
+            ),
+            'test-config' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/test/config[/:page]',
+                    'constraints' => array(
+                        'page' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Backend\Controller\Test',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+
         ),
     ),
     'view_helpers' => array(
@@ -366,6 +430,31 @@ return array(
                 \Zend\Session\Container::setDefaultManager($sessionManger);
                 $container = new \Zend\Session\Container("SessionError");
                 return $container;
+            },
+            "init-capsule" => function($sm){
+                $db = $sm->get("config")["db"];
+                $capsule = new Illuminate\Database\Capsule\Manager();
+
+                $capsule->addConnection([
+                    "driver" => $db["illuminate_driver"],
+                    "host" => $db["host"],
+                    "database" => $db["database"],
+                    "username" => $db["username"],
+                    "password" => $db["password"],
+                    "charset" => "utf8",
+                    "collation" => "utf8_unicode_ci",
+                    "prefix" => "",
+                ]);
+
+                // Set the event dispatcher used by Eloquent models... (optional)
+                $capsule->setEventDispatcher(new Illuminate\Events\Dispatcher(new Illuminate\Container\Container));
+
+                // Make this Capsule instance available globally via static methods... (optional)
+                $capsule->setAsGlobal();
+
+                // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+                $capsule->bootEloquent();
+                return $capsule;
             }
         ),
     ),

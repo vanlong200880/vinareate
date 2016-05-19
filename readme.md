@@ -10,3 +10,4 @@ review on Youtube, change-log
 + [message info](https://www.youtube.com/watch?v=GFsKdP-JRQU)
 + [deep delete](https://www.youtube.com/watch?v=D7BfFetOzEE)
 + [illuminate database](https://www.youtube.com/watch?v=QcZA5cGjX4A)
++ [login, comment](https://www.youtube.com/watch?v=iGncu0xnR88)

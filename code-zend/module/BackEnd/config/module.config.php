@@ -10,6 +10,9 @@ return array(
             'BackEnd\Controller\Province' => 'BackEnd\Factory\ProvinceControllerFactory',
             'BackEnd\Controller\District' => 'BackEnd\Factory\DistrictControllerFactory',
             'BackEnd\Controller\Ward' => 'BackEnd\Factory\WardControllerFactory',
+            'BackEnd\Controller\Category' => 'BackEnd\Factory\CategoryControllerFactory',
+            'BackEnd\Controller\Post' => 'BackEnd\Factory\PostControllerFactory',
+            'BackEnd\Controller\PostImage' => 'BackEnd\Factory\PostImageControllerFactory',
             'BackEnd\Controller\PostFeature' => 'BackEnd\Factory\PostFeatureControllerFactory',
             'BackEnd\Controller\Test' => 'BackEnd\Factory\TestControllerFactory',
             'BackEnd\Controller\Auth' => 'BackEnd\Factory\AuthControllerFactory',
@@ -82,6 +85,40 @@ return array(
                             ),
                         ),
                     ),
+                    'category' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/category[/][/action/:action][type/:type][/:id][/col/:col]',
+                            'constraints' => array(
+                                //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\Category',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'post' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/post[/][/action/:action][type/:type][/:id][/col/:col]',
+                            'constraints' => array(
+                                //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\Post',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
                     'pager' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -96,7 +133,6 @@ return array(
                             ),
                         ),
                     ),
-
                     'ward' => array(
                         'type' => 'Segment',
                         'options' => array(

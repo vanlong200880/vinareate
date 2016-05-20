@@ -1,37 +1,91 @@
-    <div class="row">
-        <div class="col-md-12">
-            <h3>Thêm thành phố</h3> 
-            <?php if(isset($this->arrayParam['error']) == true) {?>
+<div class="row">
+    <div class="col-md-8">
+        <h3>Thêm chuyên mục</h3> 
+        <?php if (isset($this->arrayParam['error']) == true) { ?>
             <div class="alert alert-success">
-                 <button type="button" class="close" data-dismiss="alert">×</button>
-                 <?php foreach ($this->arrayParam['error'] as $key => $value){?>
-	      	<p> <?php echo $value;?></p>
-	      <?php }?>
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <?php foreach ($this->arrayParam['error'] as $key => $value) { ?>
+                    <p> <?php echo $value; ?></p>
+                <?php } ?>
             </div>
-            <?php } ?>
-            <form role="form" action="" class="form-horizontal" method="post" name='formAdmin'>
-                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="number-address">Tên Tỉnh/Thành: </label>
-                        <select class="form-control" id="taxonomy">
-                            <option
-                        </select>
+        <?php } ?>
+        
+        <form role="form" action="" class="form-horizontal" method="post" name='formAdmin'>
+          
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="number-address">Trạng Thái: </label>
+                            <select class="form-control" id="status" name="status">
+                                    <?php
+                                    ?>
+                                    <option  value="1">Kích Hoạt</option>
+                                <option  value="0">Vô Hiệu</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="number-address">Thuộc Chuyên mục: </label>
+                            <select class="form-control" id="parent" name="parent">
+                                <option value="0">root</option>
+                                <?php
+                                if ($getparentcate) {
+                                    foreach ($getparentcate as $item2) {
+                                        ?>
+                                        <option  value="<?= $item2['id'] ?>" <?php if($item2['id']==$id) echo "selected"; ?>><?= $item2['name'] ?></option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="number-address">Tên Chuyên mục: </label>
+                            <input type="text" class="form-control" name="nametitle" value="<?php if (isset($post['0']['name']) == true) echo $post['0']['name']; ?>" id="nametitle">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="number-address">Meta Title: </label>
+                            <input type="text" class="form-control" name="metatitle" value="<?php if (isset($post['0']['meta_title']) == true) echo $post['0']['meta_title']; ?>" id="metatitle">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="number-address">Meta Keyword: </label>
+                            <input type="text" class="form-control" value="<?php if (isset($post['0']['meta_keyword']) == true) echo $post['0']['meta_keyword']; ?>" name="metakeyword" id="metakeyword"></div>
+                    </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="number-address">Mô Tả Chuyên mục: </label>
+                    <textarea class="form-control" rows="5" name="description" id="description"><?php if (isset($post['0']['description']) == true) echo $post['0']['description']; ?></textarea>
                 </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="number-address">Tên Tỉnh/Thành: </label>
-                        <input type="text" class="form-control" name="namecity"  value="<?php if(isset($this->arrayParam['post']['name'])==true) echo $this->arrayParam['post']['name']; ?>" id="namecity">
-                    </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="number-address">Meta Chuyên mục: </label>
+                    <textarea class="form-control" rows="5" id="metadescription" name="metadescription"><?php if (isset($post['0']['meta_description']) == true) echo $post['0']['meta_description']; ?></textarea>
                 </div>
-                <div class="col-md-12">
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary btn-next">Add</button>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="reset" class="btn btn-primary" value="Reset">reset</button>
-                    </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="number-address">Vị trí: </label>
+                    <input type="text" class="form-control" name="numorder" value="<?php if (isset($post['0']['menu_order']) == true) echo $post['0']['menu_order']; ?>" id="numorder">
                 </div>
-            </form>
-        </div>
+            </div>
+
+<div class="col-md-12">
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary btn-next">Add</button>
     </div>
+    <div class="col-md-4">
+        <button type="reset" class="btn btn-primary" value="Reset">reset</button>
+    </div>
+</div>
+</form>
+</div>
+</div>

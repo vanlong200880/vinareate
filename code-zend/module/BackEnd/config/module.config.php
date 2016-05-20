@@ -392,6 +392,7 @@ return array(
             'province_add_template' => __DIR__ . '/../view/back-end/province/add.phtml',
             'district_add_template' => __DIR__ . '/../view/back-end/district/add.phtml',
             'ward_add_template' => __DIR__ . '/../view/back-end/ward/add.phtml',
+            'category_add_template' => __DIR__ . '/../view/back-end/category/add.phtml',
             'test_pages' => __DIR__ . '/../view/pager.phtml',
             "msg-info" => __DIR__ . "/../view/child-view/msg.phtml",
             "post-feature-paginator" => __DIR__ . "/../view/child-view/post-feature-paginator.phtml",

@@ -11,3 +11,4 @@ review on Youtube, change-log
 + [deep delete](https://www.youtube.com/watch?v=D7BfFetOzEE)
 + [illuminate database](https://www.youtube.com/watch?v=QcZA5cGjX4A)
 + [login, comment](https://www.youtube.com/watch?v=iGncu0xnR88)
++ [mobile detect](https://www.youtube.com/watch?v=TDyJ2ZP7Yxw)

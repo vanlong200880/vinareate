@@ -1,5 +1,0 @@
-﻿this is abc branch, hehehe
-git checkout origin/abc
-	
-	automaticlly create a new branch named "abc" at point origin/abc
-	>>> [origin/abc] [abc]

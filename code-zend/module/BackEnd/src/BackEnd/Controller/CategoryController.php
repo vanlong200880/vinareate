@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Db\Adapter\Adapter;
 use Zend\View\Model\JsonModel;
+use BackEnd\Form\ValidatorCategory;
 
 
 class CategoryController extends AbstractActionController{
@@ -44,15 +45,22 @@ class CategoryController extends AbstractActionController{
           $request = $this->getRequest();
           $postParams=$request->getPost();
           $arrayParam=$this->params()->fromRoute();
+          $arrayParam['request']=$postParams->toArray();
         $arrayParam['getParentCate']=$this->placequery->getParentCate();
           if($id){
 //              //get item from id
               $arrayParam['post']=$this->placequery->getItemById($id);
+              $validator = new ValidatorCategory($arrayParam, null, $this->serviceManager);
               if($request->isPost()){
-                  $arrayParam['request']=$postParams->toArray();
-                  $edititem=$this->placequery->saveData($arrayParam);
-                  $this->flashMessenger()->addMessage("Sửa chuyên mục thành công ");
-             return $this->redirect()->toRoute('backend/category');
+                  if($validator->isError() == true) {
+                      $arrayParam['error'] = $validator->getMessagesError();
+                  }else{
+                    $edititem=$this->placequery->saveData($arrayParam);
+                    $this->flashMessenger()->addMessage("Sửa chuyên mục thành công"); 
+                    return $this->redirect()->toRoute('backend/category');
+                    
+                  }
+            
                   
               }
           }
@@ -62,6 +70,7 @@ class CategoryController extends AbstractActionController{
         $view->setVariable("getparentcate", $arrayParam['getParentCate']);
         $view->setVariable("post", $arrayParam['post']);
         $view->setVariable("id", $id);
+        if(isset($arrayParam['error']))$view->setVariable("error", $arrayParam['error']);
           $view->setTemplate('category_add_template');
           return $view;
     }
@@ -72,14 +81,22 @@ class CategoryController extends AbstractActionController{
         $arrayParam = $this->params()->fromRoute();
         $arrayParam['request'] = $postParams->toArray();         
         $arrayParam['getParentCate']=$this->placequery->getParentCate();
+        $validator = new ValidatorCategory($arrayParam, null, $this->serviceManager);
         if($request->isPost()){
-            $result=$this->placequery->saveData($arrayParam);
-             $this->flashMessenger()->addMessage("Thêm Chuyên mục thành công ");
-             return $this->redirect()->toRoute('backend/category');
+             if($validator->isError() == true) {
+                 $arrayParam['error'] = $validator->getMessagesError();
+                
+             }else{
+                $result=$this->placequery->saveData($arrayParam);
+                $this->flashMessenger()->addMessage("Thêm Chuyên mục thành công ");
+                return $this->redirect()->toRoute('backend/category');
+             }
+            
         }
         $data['arrayParam'] = $arrayParam;
         $view->setVariable("data", $data);
         $view->setVariable("getparentcate", $arrayParam['getParentCate']);
+        if(isset($arrayParam['error']))$view->setVariable("error", $arrayParam['error']);
         return $view;
     }
     

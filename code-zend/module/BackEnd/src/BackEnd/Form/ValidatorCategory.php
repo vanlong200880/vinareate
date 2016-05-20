@@ -2,7 +2,7 @@
 
 namespace BackEnd\Form;
 
-class ValidatorProvince {
+class ValidatorCategory {
 
     protected $_messagesError = null;
     protected $sm;
@@ -16,42 +16,42 @@ class ValidatorProvince {
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
         if (isset($arrayParam['request']['nametitle']) && !$validator->isValid($arrayParam['request']['nametitle'])) {
             $message = $validator->getMessages();
-            $this->_messagesError['namecity'] = 'Tên thành phố: ' . current($message);
+            $this->_messagesError['nametitle'] = 'Tên chuyên mục: ' . current($message);
         }
 //        //check name metatitle
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
         if (isset($arrayParam['request']['metatitle']) && !$validator->isValid($arrayParam['request']['metatitle'])) {
             $message = $validator->getMessages();
-            $this->_messagesError['namecity'] = 'Tên thành phố: ' . current($message);
+            $this->_messagesError['metatitle'] = 'Meta title chuyên mục: ' . current($message);
         }
 //        //check name keyword
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
         if (isset($arrayParam['request']['metakeyword']) && !$validator->isValid($arrayParam['request']['metakeyword'])) {
             $message = $validator->getMessages();
-            $this->_messagesError['namecity'] = 'Tên thành phố: ' . current($message);
+            $this->_messagesError['metakeyword'] = 'meta keyword: ' . current($message);
         }
-
+        
     }
 
-    public function checkNameDuplicate($arrayParam = array(), $sm) {
-
-        $validator = new \Zend\Validator\ValidatorChain();
-        $dbAdapter = $this->sm->get('adapter');
-        $checkduplicate = new \Zend\Validator\Db\RecordExists(
-                array(
-            'table' => 'province',
-            'field' => 'name',
-            'adapter' => $dbAdapter,
-                )
-        );
-        if ($checkduplicate->isValid($arrayParam['request']['namecity'])) {
-            $message = $validator->getMessages();
-            return $this->_messagesError['name'] = 'Tên Tỉnh\Thành này đã tồn tại';
-            
-        }
-    }
+//    public function checkNameDuplicate($arrayParam = array(), $sm) {
+//
+//        $validator = new \Zend\Validator\ValidatorChain();
+//        $dbAdapter = $this->sm->get('adapter');
+//        $checkduplicate = new \Zend\Validator\Db\RecordExists(
+//                array(
+//            'table' => 'category',
+//            'field' => 'name',
+//            'adapter' => $dbAdapter,
+//                )
+//        );
+//        if ($checkduplicate->isValid($arrayParam['request']['nametitle'])) {
+//            $message = $validator->getMessages();
+//            return $this->_messagesError['name'] = 'Tên Chuyên mục này đã tồn tại';
+//            
+//        }
+//    }
 
     public function isError() {
         if (count($this->_messagesError) > 0) {

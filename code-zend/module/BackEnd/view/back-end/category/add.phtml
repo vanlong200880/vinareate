@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-8">
         <h3>Thêm chuyên mục</h3> 
-        <?php if (isset($this->arrayParam['error']) == true) { ?>
+        <?php if (isset($error) == true) { ?>
             <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                <?php foreach ($this->arrayParam['error'] as $key => $value) { ?>
+                <?php foreach ($error as $key => $value) { ?>
                     <p> <?php echo $value; ?></p>
                 <?php } ?>
             </div>

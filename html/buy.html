@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vinarealte</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/fonts.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/owl.carousel.min.js" type="text/javascript"></script>
+    <script src="js/scripts.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div id="wrapper">
+  <!-- header --> 
+  <header id="header">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="logo"></div>
+              <div class="menu">
+                  <div class="row">
+                      <div class="col-lg-9">
+                          <ul id="menu-top">
+                            <li><a class="level child" href="#">Cần bán</a>
+                                <ul>
+                                  <li>
+                                    <div class="container-fluid">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="item-menu">
+                                            <div class="item-menu-top">
+                                              <h2>Nhà bán</h2>
+                                              <a href="#">Nhà phố</a>
+                                              <a href="#">Biệt thự/Villa</a>
+                                              <a href="#">khác</a>
+                                            </div>
+                                            <div class="item-menu-top">
+                                              <h2>Căn hộ bán</h2>
+                                              <a href="#">Chung cư</a>
+                                              <a href="#">Chung cư cao cấp</a>
+                                              <a href="#">Chung cư khác</a>
+                                            </div>
+                                            <div class="item-menu-top">
+                                              <h2>Đất bán</h2>
+                                              <a href="#">Đất thổ cư</a>
+                                              <a href="#">Đất nông nghiệp</a>
+                                              <a href="#">Đất công nghiệp</a>
+                                              <a href="#">Đất loại khác</a>
+                                            </div>
+                                            <div class="item-menu-top">
+                                              <h2>Mặt bằng bán</h2>
+                                              <a href="#">Mặt bằng văn phòng</a>
+                                              <a href="#">bặt bằng lẻ</a>
+                                              <a href="#">khác</a>
+                                            </div>
+                                            <div class="item-menu-top">
+                                              <h2>kho xưởng bán</h2>
+                                              <a href="#">Nhà xưởng</a>
+                                              <a href="#">Nhà kho</a>
+                                              <a href="#">khác</a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li><a class="level" href="#">Cho thuê</a>
+                                
+                              </li>
+                              <li><a class="level" href="#">Cần mua - Cần thuê</a>
+                                
+                              </li>
+                              <li><a class="level" href="#">Nhà môi giới</a></li>
+                              <li><a class="level" href="#">Tư vấn</a></li>
+                              <li><a class="level" href="#">Tư vấn</a></li>
+                              <li><a class="level" href="#">Thiết kế phòng</a></li>
+                              <li><a class="level" href="#">Phong thủy</a></li>
+                          </ul>
+                      </div>
+                      <div class="col-lg-3">
+                          <ul class="login">
+                              <li><a href="#">Đăng ký</a></li>
+                              <li><a href="#">Đăng nhập</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        <div class="col-lg-12">
+          <div class="menu-search">
+            <ul>
+              <li class="search-textbox">
+                <div class="input-search">
+                  <input type="text" class="form-control" placeholder="Từ khóa">
+                </div>
+              </li>
+              <li class="search-list-item" data-toggle="dropdown"><a class="search-page type-serach" href="#">Loại</a>
+                <ul class="level">
+                  <li class="item-level-2 buy">
+                    <input type="checkbox" data-key="listings-sell-1" value="listings-sell-1" class="for-home for-sale" name="fs-listings-input" id="fs-listings-input">
+                    <label class="fs-home" for="fs-listings-input">
+                      <span class="root-radius"></span>
+                      <span>Nhà đất bán</span>
+                      <span>(1000)</span>
+                    </label>
+                    <ul>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-sell-agent" id="fs-listings-input-sell-agent">
+                        <label class="fs-home" data-key="listings-sell-2" for="fs-listings-input-sell-agent">
+                          <span>Thành viên bán</span>
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-sell-owner" id="fs-listings-input-sell-owner">
+                        <label class="fs-home" data-key="listings-sell-3"  for="fs-listings-input-sell-owner">
+                          <span>Chủ nhà bán</span>
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-sell-contruction" id="fs-listings-input-sell-contruction">
+                        <label class="fs-home" data-key="listings-sell-4" for="fs-listings-input-sell-contruction">
+                          <span>Mới xây dựng</span> 
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-sell-coming-soon" id="fs-listings-input-sell-coming-soon">
+                        <label class="fs-home" data-key="listings-sell-5" for="fs-listings-input-sell-coming-soon">
+                          <span>Sắp mở bán</span> 
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="item-level-2 rent">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-rent" id="fs-listings-rent">
+                    <label class="fs-home" data-key="listings-rent-1" for="fs-listings-rent">
+                      <span class="root-radius"></span>
+                      <span>Nhà đất cho thuê</span>
+                      <span>(1000)</span>
+                    </label>
+                    <ul>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-rent-agent" id="fs-listings-input-rent-agent">
+                        <label class="fs-home" data-key="listings-rent-2" for="fs-listings-input-rent-agent">
+                          <span>Thành viên cho thuê</span>
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-rent-owner" id="fs-listings-input-rent-owner">
+                        <label class="fs-home" data-key="listings-rent-3" for="fs-listings-input-rent-owner">
+                          <span>Chủ nhà cho thuê</span>
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-rent-contruction" id="fs-listings-input-rent-contruction">
+                        <label class="fs-home" data-key="listings-rent-4" for="fs-listings-input-rent-contruction">\
+                          <span>Mới xây cho thuê</span> 
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-rent-coming-soon" id="fs-listings-input-rent-coming-soon">
+                        <label class="fs-home" data-key="listings-rent-5" for="fs-listings-input-rent-coming-soon">
+                          <span>Sắp cho thuê</span> 
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                    </ul>
+                  </li>
+                  
+                  
+                  <li class="item-level-2 pottential-listings">
+                    <input type="checkbox" class="for-home for-sale" name="fs-pottential-rent" id="fs-pottential-rent">
+                    <label class="fs-home" data-key="listings-potential-1" for="fs-pottential-rent">
+                      <span class="root-radius"></span>
+                      <span>Potential Listings</span>
+                      <span>(30)</span>
+                    </label>
+                    <ul>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-pottential-agent" id="fs-listings-input-pottential-agent">
+                        <label class="fs-home" data-key="listings-potential-2" for="fs-listings-input-pottential-agent">
+                          <span>Foreclosed</span>
+                          <span>(354)</span>
+                        </label>
+                      </li>
+                      <li>
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-rent-owner" id="fs-listings-input-pottential-owner">
+                        <label class="fs-home" data-key="listings-potential-3" for="fs-listings-input-pottential-owner">
+                          <span>Pre-Foreclosure</span>
+                          <span>(0)</span>
+                        </label>
+                      </li>
+                      <li>                        
+                        <input type="checkbox" class="for-home for-sale" name="fs-listings-input-pottential-contruction" id="fs-listings-input-pottential-contruction">
+                        <label class="fs-home" data-key="listings-potential-4" for="fs-listings-input-pottential-contruction">
+                          <span>Make Me Move</span> 
+                          <span>(1)</span>
+                        </label>
+                      </li>
+
+                    </ul>
+                  </li>
+                  
+                  <li class="item-level-2 recently">
+                    <input type="checkbox" class="for-home for-sale" name="fs-pottential-rent" id="fs-pottential-rent">
+                    <label class="fs-home" data-key="listings-recently-1" for="fs-pottential-rent">
+                      <span class="root-radius"></span>
+                      <span>Đã bán</span>
+                      <span>(30)</span>
+                    </label>
+                  </li>
+                  
+                  
+                </ul>
+              </li>
+              <li class="search-list-item price"><a class="search-page type-serach" href="#">Giá</a>
+                <ul class="level">
+                  <li>
+                    <div class="search-block-price">
+                      <div class="textbox-price">
+                        <input type="text" name="price-min">
+                        <div class="dash">&nbsp;</div>
+                        <input type="text" name="price-min">
+                      </div>
+                      <div class="content-price">
+                        <div class="list-price-item min">
+                          <ul>
+                            <li><span>100 triệu</span></li>
+                            <li><span>200 triệu</span></li>
+                            <li><span>300 triệu</span></li>
+                            <li><span>400 triệu</span></li>
+                            <li><span>500 triệu</span></li>
+                            <li><span>600 triệu</span></li>
+                            <li><span>700 triệu</span></li>
+                            <li><span>800 triệu</span></li>
+                            <li><span>900 triệu</span></li>
+                            <li><span>1 tỷ</span></li>
+                            <li><span>2 tỷ</span></li>
+                            <li><span>3 tỷ</span></li>
+                            <li><span>4 tỷ</span></li>
+                            <li><span>5 tỷ</span></li>
+                            <li><span>6 tỷ</span></li>
+                          </ul>
+                        </div>
+                        <div class="list-price-item max">
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li class="search-list-item home-type"><a class="search-page type-serach" href="#">Loại nhà</a>
+                <ul class="level">
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-home" id="fs-listings-input-home">
+                    <label class="fs-home"  for="fs-listings-input-home">
+                      <span class="home-type-dak">Nhà riêng</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-house" id="fs-listings-input-house">
+                    <label class="fs-home"  for="fs-listings-input-house">
+                      <span class="home-type-dak">Căn hộ</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-apartment" id="fs-listings-input-apartment">
+                    <label class="fs-home"  for="fs-listings-input-apartment">
+                      <span class="home-type-dak">Biệt thự</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-condo" id="fs-listings-input-condo">
+                    <label class="fs-home"  for="fs-listings-input-condo">
+                      <span class="home-type-dak">Nhà phố</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-town" id="fs-listings-input-town">
+                    <label class="fs-home"  for="fs-listings-input-town">
+                      <span class="home-type-dak">Đất dự án</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-town-home" id="fs-listings-input-town-home">
+                    <label class="fs-home"  for="fs-listings-input-town-home">
+                      <span class="home-type-dak">Đất nhà riêng</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-office" id="fs-listings-input-office">
+                    <label class="fs-home"  for="fs-listings-input-office">
+                      <span class="home-type-dak">Văn phòng</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-store" id="fs-listings-input-store">
+                    <label class="fs-home"  for="fs-listings-input-store">
+                      <span class="home-type-dak">kho, nhà xưởng</span>
+                    </label>
+                  </li>
+                  <li class="buy">
+                    <input type="checkbox" class="for-home for-sale" name="fs-listings-input-lots" id="fs-listings-input-lots">
+                    <label class="fs-home"  for="fs-listings-input-lots">
+                      <span class="home-type-dak">Trang trại</span>
+                    </label>
+                  </li>
+                </ul>
+              </li>
+              <li class="search-list-item advanced" ><a class="search-page type-serach" href="#">nâng cao</a>
+                <ul class="level">
+                  <li>
+                    <div class="list-state">
+                      <div class="form-group">
+                        <select class="form-control">
+                          <option>-- Chọn tỉnh/thành phố --</option>
+                          <option>Thành phố Hồ Chí Minh</option>
+                          <option>Đồng Nai</option>
+                          <option>Bình Dương</option>
+                          <option>Lâm Đồng</option>
+                          <option>Vũng Tàu</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control">
+                          <option>-- Chọn quận/huyện --</option>
+                          <option>Quận 1</option>
+                          <option>Quận 2</option>
+                          <option>Quận 3</option>
+                          <option>Quận 4</option>
+                          <option>Quận 5</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <select class="form-control">
+                          <option>-- Chọn phường/xã--</option>
+                          <option>Linh đông</option>
+                          <option>Linh tây</option>
+                          <option>Linh xuân</option>
+                          <option>Linh trung</option>
+                          <option>Tam bình</option>
+                        </select>
+                      </div>
+                      
+                      <div class="form-group">
+                        <select class="form-control">
+                          <option>-- Chọn diện tích --</option>
+                          <option>Chưa xác định</option>
+                          <option><= 30 m2</option>
+                          <option>30 - 50 m2</option>
+                          <option>50 - 80 m2</option>
+                          <option>80 - 100 m2</option>
+                          <option>100 - 150 m2</option>
+                          <option>150 - 200 m2</option>
+                          <option>200 - 250 m2</option>
+                          <option>250 - 300 m2</option>
+                          <option>300 - 500 m2</option>
+                          <option>>= 500 m2</option>
+                        </select>
+                      </div>
+                      <div class="form-group btn-search-advance">
+                        <a class="btn-search pull-right">Tìm</a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- end header -->
+  <div id="search-content-container">
+    <div id="content">
+      <div class="map">
+        <div id="map">
+          <div id="map_canvas" style="overflow:hidden;width:100%;height:100%;position:absolute;left:0px;top:0px;">Loading map...</div>
+        </div>
+         
+      </div>
+      <div class="page-content">
+        <div class="list-post">
+          <div class="page-right">
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="page-rent-title">
+                  <li class="active"><a href="#">Mới nhất</a></li>
+                  <li><a href="#">Giá thấp nhất</a></li>
+                  <li><a href="#">Giá cao nhất</a></li>
+                </ul>
+              </div>
+              <div class="col-md-12">
+                <ul id="rent-page" class="row">
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li class="col-md-6">
+                    <div class="item-rent">
+                      <div class="img-rent">
+                        <div class="rent-date">
+                          <p>11/03/2016</p>
+                        </div>
+                        <a href="#" class="viewmore">Xem ngay</a>
+                        <a href="#"><img src="images/2_C.jpg"></a>
+                      </div>
+                      <div class="content-rent">
+                        <h2><a href="#">Bán nhà 25 Lê Lại Phường 12, Quận Tân Bình</a></h2>
+                        <div class="rent-price">
+                          <p><span class="icon icon-home"></span> Nhà bán</p>
+                          <p class="acreage">Diện tích: 80m<span>2</span></p>
+                          <p class="price"><span>600</span> triệu</p>
+                          <p>sdf</p>
+                        </div>
+                        <div class="rent-description">2 phòng ngủ - 1 phòng khách - 1 phòng ăn 
+      - 1 phòng thờ - Xây dụng năm 2014</div>
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="footer-scroll">
+                <div class="col-lg-12 menu-footer">
+                <ul>
+                  <li><a href="#">Trang chủ</a></li>
+                  <li><a href="#">Giới thiệu</a></li>
+                  <li><a href="#">Quy định</a></li>
+                  <li><a href="#">Nhà đất bán</a></li>
+                  <li><a href="#">Nhà đất cho thuê</a></li>
+                  <li><a href="#">Tư vấn</a></li>
+                  <li><a href="#">Tin tức & sự kiện</a></li>
+                  <li><a href="#">Tuyển dụng</a></li>
+                  <li><a href="#">Liên hệ</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-12">
+                <ul>
+                  <li>© 2006-2016 Unimedia</li>
+                  <li><span class="social">Tìm chúng tôi trên</span></li>
+                </ul>
+              </div>
+<!--                <script type="text/javascript">
+    function ChangeUrl(page, url) {
+        if (typeof (history.pushState) != "undefined") {
+            var obj = { Page: page, Url: url };
+            history.pushState(obj, obj.Page, obj.Url);
+        } else {
+            alert("Browser does not support HTML5.");
+        }
+    }
+    $(function () {
+        $("#button1").click(function () {
+            ChangeUrl('Page1', 'Page1.htm');
+        });
+        $("#button2").click(function () {
+            ChangeUrl('Page2', 'Page2.htm');
+        });
+        $("#button3").click(function () {
+            ChangeUrl('Page3', 'Page3.htm');
+        });
+    });
+</script>
+<input type="button" value="Page1" id="button1" />
+<input type="button" value="Page2" id="button2" />
+<input type="button" value="Page3" id="button3" />-->
+              </div>
+            </div>
+          </div>
+          
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>  
+
+<script>
+  function initialize() {
+    var myLatlng = new google.maps.LatLng(10.771971, 106.697845);
+    var mapOptions = {
+        zoom: 16,
+        center: myLatlng
+    };
+    var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        title: 'Hello World!'
+    });
+
+    marker.setMap(map);
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+
+
+</body>
+
+</html>

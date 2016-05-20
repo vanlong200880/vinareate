@@ -1,0 +1,181 @@
+.all-article{
+	.show-article{
+		figure{
+			figcaption{
+				p{
+					font-size: 14px;
+				}
+				a{
+					font-size: 15px;
+				}
+			}
+		}
+	}
+	.show-sub{
+		width: 50%;
+		float: left;
+		display: inline-block;
+    	margin-bottom: 5px;
+    	padding-right: 6px;
+    	padding-left: 6px;
+    	figure{
+    		a{
+	    		width: 100%;
+	    		float: none;
+	    		display: block;
+	    		margin-right: 0;
+	    	}
+	    	figcaption{
+    			width: 100%;
+				margin-bottom: 10px;
+				p{
+					font-size: 15px;
+					p.address, span{
+						font-size: 14px;
+						
+					}
+					a{
+						font-size: 14px;
+						margin-top: 5px;
+					}
+				}
+			}
+    	}
+    	&:nth-child(2n+1){
+    		padding-left: 0;
+    	}
+    	&:nth-child(2n+2){
+    		padding-right: 0;
+    	}	
+	}
+	.show-large.show-large-2{
+		figure{
+			figcaption{
+				.wrapp-info{
+					width: 100%;
+				}
+				p.address, span{
+					font-size: 14px;
+					a{
+						font-size: 15px;
+						margin-top: 5px;
+					}
+				}
+				
+			}
+		}
+	}
+	.show-large{
+		figure{
+			figcaption{
+				a{
+					font-size: 15px;
+				}
+				p.address, span{
+					font-size: 14px;
+				}
+			}
+		}   
+	}
+	.show-sub.show-sub-2{
+			width: 50%;
+			float: left;
+			display: inline-block;
+	    	margin-bottom: 5px;
+	    	padding-right: 6px;
+	    	padding-left: 6px;
+	    	figure{
+	    		a{
+		    		width: 100%;
+		    		float: none;
+		    		display: block;
+		    		margin-right: 0;
+		    	}
+		    	figcaption{
+	    			width: 100%;
+					margin-bottom: 10px;
+					p, span{
+						font-size: 14px;
+						a{
+							font-size: 14px;
+						}
+					}
+				}
+	    	}
+	    	&:nth-child(2n+1){
+	    		padding-left: 0;
+	    	}
+	    	&:nth-child(2n+2){
+	    		padding-right: 0;
+	    	}	
+		}
+}
+.user{
+	.all-content-user{
+		li.list-post-item{
+			width: 49%;
+			float: left;
+			margin-right: 2%;
+			.show-article-details{
+				figure{
+					a{
+						width: inherit;
+						margin-right: 0;
+					}
+					figcaption{
+						width: 100%;
+						p{
+							display: block;
+							width: 100%;
+						}
+						p.edit-delete{
+							width: inherit;
+							a{
+								display: block;
+								float:left;
+								width: 22%;
+							}
+						}
+					}
+				}
+			}
+			&:nth-child(2n + 2){
+				margin-right: 0;
+			}
+		}
+	}
+}
+.tab-vote .nav-tabs li a {
+    font-size: 18px;
+}
+.wrap-new-adv{
+	.top-sub-adv{
+		.show-adv{
+			figure{
+				figcaption{
+					p, span{
+						font-size: 14px;
+						
+						a{
+							font-size: 14px;
+							height: auto;
+						}
+					}
+				}
+			}
+		}
+	}	
+}
+.item-magazine {
+  ul#owl-magazine{
+    li {
+      figure {
+        figcaption {
+          a{
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  } 
+}

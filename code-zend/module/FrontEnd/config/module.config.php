@@ -6,6 +6,7 @@ return array(
         ),
         'factories' => array(
             'FrontEnd\Controller\Post' => 'FrontEnd\Factory\PostControllerFactory',
+            'FrontEnd\Controller\Test' => 'FrontEnd\Factory\TestControllerFactory',
         ),
     ),
     'router' => array(
@@ -107,6 +108,26 @@ return array(
                     'defaults' => array(
                         'controller' => 'FrontEnd\Controller\Post',
                         'action' => 'uploadImage'
+                    )
+                ),
+            ),
+            'test-unlink-image' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/test/unlink-image',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Test',
+                        'action' => 'index'
+                    )
+                ),
+            ),
+            'test-mobile-detect' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/test/mobile-detect',
+                    'defaults' => array(
+                        'controller' => 'FrontEnd\Controller\Test',
+                        'action' => 'mobileDetect'
                     )
                 ),
             ),

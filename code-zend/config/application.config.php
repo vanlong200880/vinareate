@@ -10,6 +10,7 @@ return array(
     'modules' => array(
         'BackEnd',
         'FrontEnd',
+        'Neilime\MobileDetect',
         
     ),
 

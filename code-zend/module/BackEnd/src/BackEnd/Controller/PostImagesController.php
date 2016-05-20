@@ -28,7 +28,7 @@ class PostImagesController extends AbstractActionController{
        echo $id;
 //        $request=$this->getRequest();
 //        if($id) $this->placequery->getPostAndDelAll($id);
-        $data(array(5,6));
+//        $data(array(5,6));
 //        $this->placequery->getPostAndDelAll($data);
         //return $this->response;
     }

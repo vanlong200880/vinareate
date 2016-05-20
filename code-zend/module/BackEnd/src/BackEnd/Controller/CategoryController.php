@@ -40,10 +40,29 @@ class CategoryController extends AbstractActionController{
         
 //        return $this->response;
     }
-    public function edtAction(){
+    public function editAction(){
           $id=$this->params()->fromRoute('id');
-          if($id){
-              $edit=$this->placequery->saveData($id);
-          }
+          $request = $this->getRequest();
+          $postParams=$request->getPost();
+          $arrayParam=$this->params()->fromRoute();
+//          if($id){
+//              //get item from id
+//              //$arrayParam['post']=$this->placequery->getItemById($id);
+//              if($request->isPost()=true){
+//                  $arrayParam['request']=$postParams->toArray();
+//                  $edititem=$this->placequery->saveData($id);
+//                  
+//              }
+//             
+//          }
+    }
+    public function addAction(){
+        $view=new ViewModel();
+        $request=$this->getRequest();
+        $postParams=$request->getPost();
+        $arrayParam['request'] = $postParams->toArray();
+         $data['arrayParam'] = $arrayParam;
+        $view->setVariable("data", $data);
+        return $view;
     }
 }

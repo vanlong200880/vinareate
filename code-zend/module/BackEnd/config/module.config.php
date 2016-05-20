@@ -90,11 +90,9 @@ return array(
                     'category' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/category[/][/action/:action][type/:type][/:id][/col/:col]',
+                            'route' => '/category[/][action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-
 //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-
                                 //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
@@ -128,8 +126,7 @@ return array(
                         'options' => array(
                             'route' => '/post[/][/action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-
-                                                               'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'page' => '[0-9]+',
@@ -367,7 +364,6 @@ return array(
                     ),
                 ),
             ),
-
         ),
     ),
     'view_helpers' => array(
@@ -431,7 +427,7 @@ return array(
                 $container = new \Zend\Session\Container("SessionError");
                 return $container;
             },
-            "init-capsule" => function($sm){
+            "init-capsule" => function($sm) {
                 $db = $sm->get("config")["db"];
                 $capsule = new Illuminate\Database\Capsule\Manager();
 
@@ -456,6 +452,7 @@ return array(
                 $capsule->bootEloquent();
                 return $capsule;
             }
-        ),
-    ),
-);
+                ),
+            ),
+        );
+        

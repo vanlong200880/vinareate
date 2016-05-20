@@ -56,11 +56,7 @@
           ?>
         </table>
         <div class="col-md-12">
-          <form action="<?= $this->url('backend/category', array('action' => 'add')) ?>">
-            <div class="input-group">
-              <button type="submit" class="btn btn-primary btn-next">Add Category</button>
-            </div>
-          </form>
+            <a class="a-btn-submit" href="<?php echo $this->url('backend/category', array('action' => 'add')); ?>">ADD NEW</a>
         </div>
       </div>
     </div>

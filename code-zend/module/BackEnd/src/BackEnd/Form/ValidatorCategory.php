@@ -11,27 +11,28 @@ class ValidatorProvince {
         $this->_arrData = $arrayParam;
         $this->sm = $sm;
 
-//        //check name
+//        //check name title
         $validator = new \Zend\Validator\ValidatorChain();
         $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (isset($arrayParam['request']['namecity']) && !$validator->isValid($arrayParam['request']['namecity'])) {
+        if (isset($arrayParam['request']['nametitle']) && !$validator->isValid($arrayParam['request']['nametitle'])) {
+            $message = $validator->getMessages();
+            $this->_messagesError['namecity'] = 'Tên thành phố: ' . current($message);
+        }
+//        //check name metatitle
+        $validator = new \Zend\Validator\ValidatorChain();
+        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
+        if (isset($arrayParam['request']['metatitle']) && !$validator->isValid($arrayParam['request']['metatitle'])) {
+            $message = $validator->getMessages();
+            $this->_messagesError['namecity'] = 'Tên thành phố: ' . current($message);
+        }
+//        //check name keyword
+        $validator = new \Zend\Validator\ValidatorChain();
+        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
+        if (isset($arrayParam['request']['metakeyword']) && !$validator->isValid($arrayParam['request']['metakeyword'])) {
             $message = $validator->getMessages();
             $this->_messagesError['namecity'] = 'Tên thành phố: ' . current($message);
         }
 
-        //check name dulicate        
-//        $dbAdapter = $this->sm->get('adapter');
-//        $checkduplicate = new \Zend\Validator\Db\RecordExists(
-//                array(
-//                    'table'   => 'province2',
-//                    'field'   => 'name',
-//                    'adapter' => $dbAdapter,
-//                )
-//                );
-//        if ($checkduplicate->isValid($arrayParam['request']['namecity'])) {
-//                $message = $validator->getMessages();
-//              $this->_messagesError['name'] = 'Tên thành phố đã tồn tại';                
-//        }
     }
 
     public function checkNameDuplicate($arrayParam = array(), $sm) {

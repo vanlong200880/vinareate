@@ -123,24 +123,6 @@ return array(
                             ),
                         ),
                     ),
-                    'post' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/post[/][/action/:action][type/:type][/:id][/col/:col]',
-                            'constraints' => array(
-
-                                                               'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+',
-                                'page' => '[0-9]+',
-                                'col' => '.+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Backend\Controller\Post',
-                                'action' => 'index',
-                            ),
-                        ),
-                    ),
                     'pager' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -306,6 +288,16 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\IlluminateDatabase',
                                 'action' => 'index'
+                            ),
+                        ),
+                    ),
+                    'post-create' => array(
+                        'type' => 'literal',
+                        'options' => array(
+                            'route' => '/post/create',
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\Post',
+                                'action' => 'create'
                             ),
                         ),
                     ),

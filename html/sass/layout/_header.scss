@@ -1,8 +1,9 @@
-header{
+header#header{
+  background: $background;
   .logo{
     width: 100px;
     height: 100px;
-    background: $color;
+    background: #FFF;
     position: absolute;
     z-index: 99;
   }
@@ -14,13 +15,24 @@ header{
     ul#menu-top{
       li{
         display: inline-block;
+        a{
+          text-transform: uppercase;
+          color: #FFF;
+          padding: 0 15px;
+          display: inline-block;
+          height: 50px;
+          line-height: 50px;
+          &:hover{
+            color: $hover;
+          }
+        }
         a.level{
           display: block;
-          padding: 15px 15px;
+          padding: 0 15px;
           position: relative;
         }
         ul{
-          position: absolute;
+          position: fixed;
           left: 0;
           visibility: hidden;
           top: 50px;
@@ -28,7 +40,6 @@ header{
           background: #e1effa;
           width: 100%;
           border-top: 1px solid #DDD;
-          padding-left: 130px;
 /*          transition: all 0.2s;
           -moz-transition: all 0.2s;
           -webkit-transition: all 0.2s;
@@ -38,27 +49,43 @@ header{
           -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
           -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.4);
           li{
-            .item-menu-top{
-              width: 500px;
-              border-right: 1px solid #FFF;
-              display: inline-block;
-              padding-left: 13px;
-              padding-right: 15px;
-              h2{
-                font-size: 14px;
-                margin-top: 10px;
-              }
-              a{
-                width: 50%;
-                display: block;
-                float: left;
-                height: 38px;
+            width: 100%;
+            .item-menu{
+              padding-left: 120px;
+              width: 100%;
+              .item-menu-top{
+                width: 19%;
+                border-right: 1px solid #FFF;
+                display: table-cell;
+                padding-right: 15px;
+                h2{
+                  font-size: 14px;
+                  margin-top: 10px;
+                  padding: 0 15px;
+                  text-transform: uppercase;
+                  color: $color;
+                  font-weight: bold;
+                }
+                a{
+                  width: 100%;
+                  display: block;
+                  float: left;
+                  height: 38px;
+                  color: #000;
+                  height: 30px;
+                  line-height: 30px;
+                  text-transform: inherit;
+                  &:hover{
+                    color: $hover;
+                  }
+                }
               }
             }
+            
           }
         }
         &:hover{
-          a.level{
+          a.level.child{
             color: $color;
             &:before{
               content: " ";
@@ -96,10 +123,30 @@ header{
   }
 }
 
+
+/* menu user */
+#menu-user{
+  height: 60px;
+  background: $background-menu;
+  ul#menu-user-profile{
+    padding-left: 120px;
+    li{
+      display: inline-block;
+      a{
+        display: inline-block;
+        height: 60px;
+        line-height: 60px;
+        padding: 0 15px;
+      }
+    }
+  }
+}
+/* end menu user*/
+
 /* slier */
 section#slider-home{
   position: relative;
-  height: 600px;
+  height: 500px;
   background: url('../images/Rental_Hero_1024x500_2x.jpg') no-repeat;
   background-size: cover;
   background-position: center;
@@ -268,7 +315,7 @@ section#slider-home.sell{
     }
   }
   margin-top: 15px;
-  ul{
+  ul#list-home-news{
     li{
       .item{
         border: 1px solid #DDD;

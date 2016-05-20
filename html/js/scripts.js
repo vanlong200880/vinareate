@@ -6,60 +6,60 @@ jQuery(document).ready(function($){
     $("#slider-home").removeClass().addClass(key);
   });
   
-  $("#list-home-news").owlCarousel({
-      items : 4,
-      itemsDesktop: [1400, 4],
-      itemsDesktopSmall: [1100, 3],
-      itemsTablet: [767, 3],
-      itemsMobile: [500, 2],
-      
-      autoPlay: 6000,
-      navigation : true,
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      pagination : false,
-      paginationNumbers: false,
-          //singleItem : true,
-      navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
-      rewindNav : true,
-      stopOnHover : true,
-  });
-  $("#list-home-news-1").owlCarousel({
-      items : 4,
-      itemsDesktop: [1400, 4],
-      itemsDesktopSmall: [1100, 3],
-      itemsTablet: [767, 3],
-      itemsMobile: [500, 2],
-      
-      autoPlay: 18000,
-      navigation : true,
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      pagination : false,
-      paginationNumbers: false,
-          //singleItem : true,
-      navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
-      rewindNav : true,
-      stopOnHover : true,
-  });
-  $("#list-home-news-2").owlCarousel({
-      items : 4,
-      itemsDesktop: [1400, 4],
-      itemsDesktopSmall: [1100, 3],
-      itemsTablet: [767, 3],
-      itemsMobile: [500, 2],
-      
-      autoPlay: 10000,
-      navigation : true,
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      pagination : false,
-      paginationNumbers: false,
-          //singleItem : true,
-      navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
-      rewindNav : true,
-      stopOnHover : true,
-  });
+//  $("#list-home-news").owlCarousel({
+//      items : 4,
+//      itemsDesktop: [1400, 4],
+//      itemsDesktopSmall: [1100, 3],
+//      itemsTablet: [767, 3],
+//      itemsMobile: [500, 2],
+//      
+//      autoPlay: 6000,
+//      navigation : true,
+//      slideSpeed : 300,
+//      paginationSpeed : 400,
+//      pagination : false,
+//      paginationNumbers: false,
+//          //singleItem : true,
+//      navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
+//      rewindNav : true,
+//      stopOnHover : true,
+//  });
+//  $("#list-home-news-1").owlCarousel({
+//      items : 4,
+//      itemsDesktop: [1400, 4],
+//      itemsDesktopSmall: [1100, 3],
+//      itemsTablet: [767, 3],
+//      itemsMobile: [500, 2],
+//      
+//      autoPlay: 18000,
+//      navigation : true,
+//      slideSpeed : 300,
+//      paginationSpeed : 400,
+//      pagination : false,
+//      paginationNumbers: false,
+//          //singleItem : true,
+//      navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
+//      rewindNav : true,
+//      stopOnHover : true,
+//  });
+//  $("#list-home-news-2").owlCarousel({
+//      items : 4,
+//      itemsDesktop: [1400, 4],
+//      itemsDesktopSmall: [1100, 3],
+//      itemsTablet: [767, 3],
+//      itemsMobile: [500, 2],
+//      
+//      autoPlay: 10000,
+//      navigation : true,
+//      slideSpeed : 300,
+//      paginationSpeed : 400,
+//      pagination : false,
+//      paginationNumbers: false,
+//          //singleItem : true,
+//      navigationText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
+//      rewindNav : true,
+//      stopOnHover : true,
+//  });
   // menu search
   $(".menu-search ul>li.search-list-item").on('click', function(e){
       $(".menu-search li.search-list-item").removeClass('selected');

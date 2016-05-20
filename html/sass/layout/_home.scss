@@ -1,0 +1,198 @@
+#list-home{
+  ul.nav-tabs{
+    border-bottom: 2px solid #DDD;
+    li{
+      margin: 0;
+      a{
+        text-transform: uppercase;
+        border-radius: 0;
+        margin: 0;
+        border: none;
+        padding: 10px 0px 5px 0;
+        position: relative;
+        margin-right: 30px;
+        top: 2px;
+        &:hover,
+        &:focus{
+          background: transparent;
+          border: none;
+        }
+        &:hover{
+          color: red;
+          border-bottom: 2px solid red;
+        }
+      }
+    }
+    li.active{
+      a{
+        color: $color;
+        border-bottom: 2px solid $color;
+      }
+    }
+  }
+}
+ul#list-home-news{
+  margin-top: 15px;
+  li{
+    margin-bottom: 15px;
+    .item{
+      border: 1px solid #DDD;
+      position: relative;
+      .img{
+        position:relative;
+        .news-icon{
+          span{
+            color: white;
+            z-index: 9;
+            position: relative;
+            transform: rotate(-45deg);
+            display: block;
+            top: 9px;
+            right: 1px;
+            text-transform: uppercase;
+          }
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 9;
+          color: #FFF;
+          padding: 0 5px;
+          height: 20px;
+          &:before{
+            content: " ";
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            border-left: 50px solid #00a650;
+            border-bottom: 50px solid transparent;
+          }
+        }
+        .news-icon.hot{
+          &:before{
+            border-left-color: #e30513;
+          }
+        }
+        .district{
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          z-index: 9;
+          background: $color;
+          color: #FFF;
+          padding: 0 5px;
+          height: 20px;
+          &:before{
+            content: " ";
+            border-right: 20px solid $color;
+            border-top: 20px solid transparent;
+            border-bottom: 0px solid transparent;
+            position: absolute;
+            left: -20px;
+           }
+        }
+      }
+      .item-price{
+        position: absolute;
+        top: 10px;
+        right: 0;
+        background: #e52529;
+        z-index: 9;
+        .sf-price{
+          height: 20px;
+          padding: 0 5px;
+          color: #FFF;
+          line-height: 20px;
+          position: relative;
+          &:before{
+            content: " ";
+            border-right: 10px solid #e52529;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            position: absolute;
+            left: -10px;
+          }
+          &:after{
+            height: 20px;
+            width: 5px;
+            content: " ";
+            position: absolute;
+            right: -5px;
+            background: #e52529;
+          }
+          span{
+            &:after{
+              content: " ";
+              border-top: 5px solid #c71b20;
+              border-left: 0px solid transparent;
+              border-right: 5px solid transparent;
+              bottom: -5px;
+              right: -5px;
+              position: absolute;
+            }
+          }
+        }
+        
+      }
+     .name{
+       padding-left: 5px;
+       padding-right: 5px;
+       a{
+         font-weight: bold;
+       }
+       .line{
+         border-bottom: 1px solid #DDD;
+         margin-bottom: 5px;
+         padding-bottom: 5px;
+       }
+     }
+     .info{
+       padding-left: 5px;
+       padding-right: 5px;
+       display: inline-block;
+       p{
+         line-height: 20px;
+         height: 60px;
+         overflow: hidden;
+       }
+/*       p{
+         width: 50%;
+         float: left;
+         padding: 5px 0;
+         span{
+           color: #636363;
+         }
+       }
+       p.price{
+         text-align: center;
+         var{
+           font-size: 18px;
+           color: red;
+           font-weight: bold;
+         }
+       }
+       p.acreage{
+         text-align: center;
+         span{
+           color: #000;
+           position: relative;
+           top: -5px;
+           font-size: 12px;
+         }
+       }*/
+     }
+   }
+   &:hover{
+    .item{
+        border-color: $color;
+      }
+    }
+  }
+}
+.home-readmove{
+  text-align: right;
+  span{
+    color: #1d3158;
+    position: relative;
+    top: 2px;
+  }
+}

@@ -18,20 +18,20 @@ class ValidatorCategory {
             $message = $validator->getMessages();
             $this->_messagesError['nametitle'] = 'Tên chuyên mục: ' . current($message);
         }
-//        //check name metatitle
-        $validator = new \Zend\Validator\ValidatorChain();
-        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (isset($arrayParam['request']['metatitle']) && !$validator->isValid($arrayParam['request']['metatitle'])) {
-            $message = $validator->getMessages();
-            $this->_messagesError['metatitle'] = 'Meta title chuyên mục: ' . current($message);
-        }
-//        //check name keyword
-        $validator = new \Zend\Validator\ValidatorChain();
-        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
-        if (isset($arrayParam['request']['metakeyword']) && !$validator->isValid($arrayParam['request']['metakeyword'])) {
-            $message = $validator->getMessages();
-            $this->_messagesError['metakeyword'] = 'meta keyword: ' . current($message);
-        }
+////        //check name metatitle
+//        $validator = new \Zend\Validator\ValidatorChain();
+//        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
+//        if (isset($arrayParam['request']['metatitle']) && !$validator->isValid($arrayParam['request']['metatitle'])) {
+//            $message = $validator->getMessages();
+//            $this->_messagesError['nameslug'] = 'Meta title chuyên mục: ' . current($message);
+//        }
+////        //check name keyword
+//        $validator = new \Zend\Validator\ValidatorChain();
+//        $validator->addValidator(new \Zend\Validator\NotEmpty(), true);
+//        if (isset($arrayParam['request']['metakeyword']) && !$validator->isValid($arrayParam['request']['metakeyword'])) {
+//            $message = $validator->getMessages();
+//            $this->_messagesError['metakeyword'] = 'meta keyword: ' . current($message);
+//        }
         
     }
 

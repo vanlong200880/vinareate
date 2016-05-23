@@ -18,6 +18,7 @@ return array(
             'BackEnd\Controller\PostFeature' => 'BackEnd\Factory\PostFeatureControllerFactory',
             'BackEnd\Controller\Test' => 'BackEnd\Factory\TestControllerFactory',
             'BackEnd\Controller\Auth' => 'BackEnd\Factory\AuthControllerFactory',
+            'BackEnd\Controller\Status' => 'BackEnd\Factory\PostStatusControllerFactory',
         )
     ),
     'router' => array(
@@ -92,8 +93,6 @@ return array(
                         'options' => array(
                             'route' => '/category[/][action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-//                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'page' => '[0-9]+',
@@ -101,6 +100,22 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\Category',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'status' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/status[/][action/:action][type/:type][/:id][/col/:col]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\Status',
                                 'action' => 'index',
                             ),
                         ),

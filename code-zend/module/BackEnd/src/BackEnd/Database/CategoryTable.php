@@ -30,12 +30,12 @@ class CategoryTable {
     /** @var  Sql $sql */
     protected $sql;
     protected $adapter;
-     protected $unicode;
+    protected $unicode;
 
     public function __construct($adapter) {
         $this->sql = new Sql($adapter);
         $this->adapter = $adapter;
-        $this->unicode=new \BackEnd\Filter\Text\Slug();
+        $this->unicode = new \BackEnd\Filter\Text\Slug();
     }
 
     public function getAll($type = '', $col = '') {
@@ -62,11 +62,14 @@ class CategoryTable {
     }
 
     public function saveData($arrayParam = '') {
-        
-       
+
+
         $title = $arrayParam['request']['nametitle'];
-        $slug=$this->unicode->filter($arrayParam['request']['nameslug']);
-        if($slug == '') $slug=$this->unicode->filter($title);
+        $slug = $this->unicode->filter($arrayParam['request']['nameslug']);
+        if ($slug == '')
+            $slug = $this->unicode->filter($title);
+        var_dump($slug);
+        die();
         $metatitle = $arrayParam['request']['metatitle'];
         $metakeyword = $arrayParam['request']['metakeyword'];
         $description = $arrayParam['request']['description'];
@@ -140,7 +143,7 @@ class CategoryTable {
                         return $result = TRUE;
                     } catch (Exception $e) {
                         return $result = FALSE;
-                    }
+                    } 
                 }
             } else
                 return $result = FALSE;
@@ -157,14 +160,39 @@ class CategoryTable {
         }
     }
 
-    public function getParentCate() {
+    public function getParentCate($selected = 0) {
         $select = $this->sql->select();
         $select->columns(array('*'));
-        $select->from(self::CATEGORY_TABLE)->where(array('parent' => '0'));
+        $select->from(self::CATEGORY_TABLE);//->where(array('parent' => '0'));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
         $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
-        return $resultSet;
+        if ($resultSet) {
+            function showMenu(&$output,$resultSet,$selected = 0, $id_parent = 0,$deep = 0) {
+                foreach ($resultSet as $value) {
+                    if ($value['parent'] == $id_parent) {
+                        $selectOption = '';
+                        if($selected == $value['id']){
+                            $selectOption = 'selected=""';
+                        }
+                        $output .='<option '.$selectOption.' value="'.$value['id'].'">';
+//                        $prefix = $deep == 0 ? '' :'--';
+                        $prefix = $deep == 0 ? '' :str_repeat('--', $deep);
+                        $label =str_repeat('&nbsp;', $deep).$prefix.$value['name'];
+                        $output .= $label;
+                        $output .='</option>';
+                        showMenu($output, $resultSet,$selected, $value['id'],$deep+1);
+                    }
+                }
+            }
+            $html = '<select class="form-control" id="parent" name="parent">';
+            $html.= showMenu($html,$resultSet,$selected);
+            $html.='</select>';
+            return $html;
+            
+        }
+        return false;
+        
     }
 
 }

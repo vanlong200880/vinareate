@@ -120,8 +120,6 @@ class WardController extends AbstractActionController {
         $view->setTemplate('ward_add_template');
         return $view;
     }
-
-//
     public function delAction() {
         $id = $this->params()->fromRoute();
         $result = $this->placequery->delItemFromId($id);

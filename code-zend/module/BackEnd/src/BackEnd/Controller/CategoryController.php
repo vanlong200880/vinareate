@@ -46,7 +46,7 @@ class CategoryController extends AbstractActionController{
           $postParams=$request->getPost();
           $arrayParam=$this->params()->fromRoute();
           $arrayParam['request']=$postParams->toArray();
-        $arrayParam['getParentCate']=$this->placequery->getParentCate();
+        $arrayParam['getParentCate']=$this->placequery->getParentCate($id);
           if($id){
 //              //get item from id
               $arrayParam['post']=$this->placequery->getItemById($id);
@@ -67,6 +67,7 @@ class CategoryController extends AbstractActionController{
         $data['arrayParam'] = $arrayParam;
         $view->setVariable("data", $data);
         $view->setVariable("getparentcate", $arrayParam['getParentCate']);
+       
         $view->setVariable("post", $arrayParam['post']);
         $view->setVariable("id", $id);
         if(isset($arrayParam['error']))$view->setVariable("error", $arrayParam['error']);
@@ -79,7 +80,7 @@ class CategoryController extends AbstractActionController{
         $postParams=$request->getPost();
         $arrayParam = $this->params()->fromRoute();
         $arrayParam['request'] = $postParams->toArray();         
-        $arrayParam['getParentCate']=$this->placequery->getParentCate();
+        $arrayParam['getParentCate']=$this->placequery->getParentCate();  
         $validator = new ValidatorCategory($arrayParam, null, $this->serviceManager);
         if($request->isPost()){
              if($validator->isError() == true) {

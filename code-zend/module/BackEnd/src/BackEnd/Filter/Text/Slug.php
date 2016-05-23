@@ -28,6 +28,7 @@ class Slug extends AbstractSeparator {
         $value = preg_replace('/[^a-zA-Z0-9\s]/i', ' ', $value);
         $value = str_replace('_', ' ', $value);
         $value = str_replace(array('    ', '   ', '  '), ' ', $value);
+        $value = str_replace(array('-', ' --', '  '), ' ', $value);
         if ($this->separator != ' ') {
             $value = str_replace(' ', $this->separator, trim($value));
         }

@@ -363,6 +363,9 @@ return array(
         ),
     ),
     'view_helpers' => array(
+        'invokables' => array(
+            'formDeepCheckbox' => BackEnd\View\Helper\FormDeepCheckbox::class,
+        ),
         'factories' => array(
             'Requesthelper' => 'BackEnd\View\Helper\Factory\RequestHelperFactory',
         )

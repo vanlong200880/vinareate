@@ -1,11 +1,8 @@
 <?php
 namespace BackEnd\UISupport;
 
-class DeepFeatureUI{
+class MenuHierarchy{
     static function showMenu($postFeature){
-        //        echo "hello";
-
-
     }
 
     /*
@@ -37,7 +34,8 @@ class DeepFeatureUI{
             foreach($menu_tmp as $item){
                 echo '<div style="padding-left: 50px">';
                 echo '<form method="POST" action="/backend/deep-feature/match">
-                    <input type="hidden" name="featureId" value="' . $item["id"] . '">
+                    <input type="hidden" name="featureId" value="' .
+                    $item["id"] . '">
                     <input type="submit" name="action" value="edit" class="btn btn-default">
                     <input type="submit" name="action" value="delete" class="btn btn-default">
                 </form>';
@@ -52,9 +50,30 @@ class DeepFeatureUI{
                         </table >';
                 self::showMenuLi($menus, $item['id']);
                 echo '</div > ';
-                // Gọi lại đệ quy
-                // Truyền vào danh sách menu chưa lặp và id parent của menu hiện tại
+            }
+        }
+    }
 
+    static function show($menus, $idParent = 0, $cbForeach, $cbItem){
+        $closure = function(){
+        };
+        $cbForeach = ($cbForeach == null)? $closure : $cbForeach;
+        $cbItem = ($cbForeach == null)? $closure : $cbItem;
+        $menu_tmp = array();
+        foreach($menus as $i => $item){
+            if((int)$item['parent'] == $idParent){
+                $menu_tmp[] = $item;
+                unset($menus[$i]);
+            }
+        }
+        if($menu_tmp){
+            foreach($menu_tmp as $item){
+                echo '<div class="parentDiv">';
+                $cbForeach($item);
+                echo '<div class="childrenDiv">';
+                self::show($menus, $item['id'], $cbForeach, $cbItem);
+                echo '</div>';
+                echo '</div>';
             }
         }
     }

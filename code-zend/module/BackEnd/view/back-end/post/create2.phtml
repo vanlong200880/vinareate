@@ -1,0 +1,491 @@
+<pre class="h1 highlight">create post</pre>
+<?php $actionUrl = $this->url("backend/post-create"); ?>
+<form method="POST" action="<?php echo $actionUrl; ?>"></form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <?php $pf = $this->postForm;
+            /** @var \Zend\Form\Form $pf */
+            $pf->prepare();
+            echo $this->form()->openTag($pf); ?>
+            <div id="step-1">
+                <div class="content-tab-step">
+                    <h1>Vị trí nhà</h1>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label><?php echo $pf->get("house_number")
+                                        ->getLabel();
+                                    echo $this->formElement($pf->get('house_number'));
+                                    echo $this->formElementErrors($pf->get('house_number')); ?>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo $pf->get("street")
+                                        ->getLabel();
+                                    echo $this->formElement($pf->get('street'));
+                                    echo $this->formElementErrors($pf->get('street')); ?>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label><?php echo $pf->get("zip_code")
+                                        ->getLabel();
+                                    echo $this->formElement($pf->get('zip_code'));
+                                    echo $this->formElementErrors($pf->get('zip_code')); ?>
+                                </label>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Chọn tỉnh/thành phố</label>
+                                    <select class="form-control"
+                                            name="provinceid">
+                                        <option selected disabled hidden
+                                                style="display: none">
+                                            -- Tỉnh/thành phố --
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Chọn quận/huyện</label>
+                                    <select class="form-control"
+                                            name="districtid">
+                                        <option selected disabled hidden
+                                                style="display: none">
+                                            -- Quận/Huyện--
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Chọn phường/xã</label>
+                                    <select class="form-control" name="wardid">
+                                        <option selected disabled hidden
+                                                style="display: none">
+                                            -- phường/xã--
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Chọn loại dư án</label>
+                                    <select class="form-control">
+                                        <option selected disabled hidden
+                                                style="display: none">
+                                            -- Dự án --
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group step-category">
+                                    <label>Danh mục
+                                        <select class="form-control"
+                                                name="category_id">
+                                            <option selected disabled hidden
+                                                    style="display: none">
+                                                -- Danh mục --
+                                            </option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>Thông tin liên hệ</h1>
+            <hr>
+            <div id="step-2">
+                <div class="content-tab-step step-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="fullname">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="company">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="email">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="phone">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>Thông tin nhà đất</h1>
+            <div id="step-3">
+                <div class="content-tab-step step-2 step-3">
+                    <div class="row">
+                        <div class="col-md-12"><h2>Thông tin giá</h2></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="price">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                       name="price_installment">
+                            </div>
+                        </div>
+                        <div class="col-md-12"><h2>Lịch sử thuế</h2></div>
+                        <div class="col-md-12 tax">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Năm</label>
+                                        <select
+                                            class="selectpicker form-control"
+                                            data-live-search="true">
+                                            <option data-tokens="1">2016
+                                            </option>
+                                            <option data-tokens="2">2015
+                                            </option>
+                                            <option data-tokens="3">2014
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12"><h2>Thông tin chi tiết</h2>
+                        </div>
+                        <div class="col-md-12 step-3-detail">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Phòng ngủ </label>
+                                        <select class="form-control"
+                                                name="bed_rooms">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Phòng khách</label>
+                                        <select class="form-control"
+                                                name="living_rooms">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Phòng ăn </label>
+                                        <select class="form-control"
+                                                name="dining_rooms">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Phòng làm việc </label>
+                                        <select class="form-control"
+                                                name="office_rooms">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Phòng thờ </label>
+                                        <select class="form-control"
+                                                name="worship_rooms">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Phòng giải trí </label>
+                                        <select class="form-control"
+                                                name="entertainment_rooms">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Ban công </label>
+                                        <select class="form-control"
+                                                name="balcony">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Hướng nhà </label>
+                                        <select class="form-control"
+                                                name="direction">
+                                            <option value="dong">Đông
+                                            </option>
+                                            <option value="tay">Tây</option>
+                                            <option value="nam">Nam</option>
+                                            <option value="bac">Bắc</option>
+
+                                            <option value="dong-nam">Đông
+                                                Nam
+                                            </option>
+                                            <option value="dong-bac">Đông
+                                                Bắc
+                                            </option>
+                                            <option value="tay-nam">Tây Nam
+                                            </option>
+                                            <option value="tay-bac">Tây-Bắc
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Số tầng </label>
+                                        <select class="form-control"
+                                                name="floors">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>năm xây dựng </label>
+                                        <input type="date"
+                                               class="form-control"
+                                               name="build_year">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Diện tích </label>
+                                        <input type="number"
+                                               class="form-control"
+                                               id="area_use">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1>Hình ảnh và video</h1>
+            <hr>
+            <div id="step-4">
+                <div class="content-tab-step step-2 step-3 step-4">
+                    <div class="row">
+                        <div class="col-md-12"><h2>Thông tin mô tả</h2>
+                        </div>
+                        <div class="col-md-12"><p>Bạn có thể tải lên một số
+                                lượng không giới hạn các bức ảnh cho
+                                danh sách nhà của bạn. Chọn các tập tin hình
+                                ảnh
+                                mà bạn muốn bằng cách nhấp vào
+                                nút bên dưới. Nếu bạn thích, bạn cũng có thể
+                                kéo
+                                các bức ảnh của bạn vào vùng
+                                thả dưới đây.</p></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="uploads">
+                                    <p>Kéo & Thả vào đây để tải ảnh<br>
+                                        hoặc Chọn file</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12"><h2>Video clip</h2></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Embedded Video</label>
+										<textarea class="form-control" rows="4"
+                                                  placeholder="<iframe></iframe>"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>Mô tả</h1>
+            <hr>
+            <div id="step-5">
+                <div class="content-tab-step step-2 step-3 step-4 step-5">
+                    <div class="row">
+                        <div class="col-md-12"><h2>Thông tin mô tả</h2>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label>Tiêu đề</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               name="name">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Mô tả ngắn</label>
+										<textarea class="form-control" rows="4"
+                                                  name="excerpt"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Nội dung</label>
+										<textarea class="form-control" rows="4"
+                                                  name="content"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label>Website</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               name="website">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12"><h2>UNIT FEATURES</h2></div>
+                        <div class="col-md-12">
+                            <div class="unit-features">
+                                <div class="row">
+                                    <div class="col-md-12"><h3><span>Tính năng bổ sung</span>
+                                        </h3></div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <checkbox name=""
+                                                      value=""></checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12"><h3><span>Máy móc gia dụng</span>
+                                        </h3></div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <checkbox name=""
+                                                      value=""></checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12"><h3><span>Nội thất bên ngoài</span>
+                                        </h3></div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <checkbox name=""
+                                                      value=""></checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12"><h3><span>Sưởi & Làm lạnh</span>
+                                        </h3></div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <checkbox name=""
+                                                      value=""></checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12"><h3><span>Sưởi & Làm lạnh</span>
+                                        </h3></div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <checkbox name=""
+                                                      value=""></checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12"><h3>
+                                            <span>Wiring</span></h3></div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <checkbox name=""
+                                                      value=""></checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php echo $this->formElement($pf->get("submit")); ?>
+            <?php echo $this->formRow($pf->get("loginCsrf"));
+            $this->form()->closeTag($pf); ?>
+        </div>
+    </div>
+</div>

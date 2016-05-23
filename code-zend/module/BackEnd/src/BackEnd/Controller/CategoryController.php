@@ -58,7 +58,6 @@ class CategoryController extends AbstractActionController{
                     $edititem=$this->placequery->saveData($arrayParam);
                     $this->flashMessenger()->addMessage("Sửa chuyên mục thành công"); 
                     return $this->redirect()->toRoute('backend/category');
-                    
                   }
             
                   
@@ -87,6 +86,11 @@ class CategoryController extends AbstractActionController{
                  $arrayParam['error'] = $validator->getMessagesError();
                 
              }else{
+//                 $title=$arrayParam['request']['nametitle'];
+//                 $urltitle= $this->serviceManager->get('ViewHelperManager')->get('Unicode')->make($title);
+////                 echo "<pre>";
+////                 print_r($urltitle);
+//                 die();
                 $result=$this->placequery->saveData($arrayParam);
                 $this->flashMessenger()->addMessage("Thêm Chuyên mục thành công ");
                 return $this->redirect()->toRoute('backend/category');

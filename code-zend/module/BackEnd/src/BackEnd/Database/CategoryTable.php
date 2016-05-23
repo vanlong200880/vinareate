@@ -30,10 +30,12 @@ class CategoryTable {
     /** @var  Sql $sql */
     protected $sql;
     protected $adapter;
+     protected $unicode;
 
     public function __construct($adapter) {
         $this->sql = new Sql($adapter);
         $this->adapter = $adapter;
+        $this->unicode=new \BackEnd\Filter\Text\Slug();
     }
 
     public function getAll($type = '', $col = '') {
@@ -43,7 +45,6 @@ class CategoryTable {
 //        if($type != '' && $sort != '')  $select->order(array("$type $sort"));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
-
         $resultSet = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
         $result->buffer();
         $result->next();
@@ -61,10 +62,12 @@ class CategoryTable {
     }
 
     public function saveData($arrayParam = '') {
+        
+       
         $title = $arrayParam['request']['nametitle'];
+        $slug=$this->unicode->filter($title);
         $metatitle = $arrayParam['request']['metatitle'];
         $metakeyword = $arrayParam['request']['metakeyword'];
-        strtolower($slug = str_replace(' ', '-', $arrayParam['request']['nametitle']));
         $description = $arrayParam['request']['description'];
         $metadescription = $arrayParam['request']['metadescription'];
         $numorder = $arrayParam['request']['numorder'];

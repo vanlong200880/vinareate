@@ -47,14 +47,5 @@ class Module{
             )
         );
     }
-//    public function getViewHelperConfig(){
-//        return array(
-//          'factories' =>array(
-//                  'Unicode' => function($sm){
-//                    $helper=new View\Helper\Unicode();
-//                    return $helper;
-//                  }
-//          ),  
-//        );
-//    }
+
 }

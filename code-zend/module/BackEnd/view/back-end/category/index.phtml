@@ -18,6 +18,7 @@
             <td>STT</td>
             <td>Id</td>
             <td>Tên Chuyên Mục</td>
+            <td>Slug</td>
             <td>Category</td>
             <td>Status</td>
             <td>Memu-order</td>
@@ -33,6 +34,7 @@
                 <td><?= $key + 1 ?></td>
                 <td><?= $item['id'] ?></td>
                 <td><?= $item['name'] ?></td>
+                <td><?= $item['slug'] ?></td>
                 <td><?php
                   if ($item['parent'] == 0)
                     echo "gốc";

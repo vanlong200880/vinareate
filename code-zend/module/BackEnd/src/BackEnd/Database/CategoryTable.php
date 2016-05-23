@@ -65,7 +65,8 @@ class CategoryTable {
         
        
         $title = $arrayParam['request']['nametitle'];
-        $slug=$this->unicode->filter($title);
+        $slug=$this->unicode->filter($arrayParam['request']['nameslug']);
+        if($slug == '') $slug=$this->unicode->filter($title);
         $metatitle = $arrayParam['request']['metatitle'];
         $metakeyword = $arrayParam['request']['metakeyword'];
         $description = $arrayParam['request']['description'];

@@ -18,6 +18,7 @@ return array(
             'BackEnd\Controller\PostFeature' => 'BackEnd\Factory\PostFeatureControllerFactory',
             'BackEnd\Controller\Test' => 'BackEnd\Factory\TestControllerFactory',
             'BackEnd\Controller\Auth' => 'BackEnd\Factory\AuthControllerFactory',
+            'BackEnd\Controller\Status' => 'BackEnd\Factory\PostStatusControllerFactory',
         )
     ),
     'router' => array(
@@ -90,12 +91,8 @@ return array(
                     'category' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/category[/][/action/:action][type/:type][/:id][/col/:col]',
+                            'route' => '/category[/][action/:action][type/:type][/:id][/col/:col]',
                             'constraints' => array(
-
-//                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-
-                                //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id' => '[0-9]+',
                                 'page' => '[0-9]+',
@@ -103,6 +100,22 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\Category',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'status' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/status[/][action/:action][type/:type][/:id][/col/:col]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\Status',
                                 'action' => 'index',
                             ),
                         ),
@@ -359,7 +372,6 @@ return array(
                     ),
                 ),
             ),
-
         ),
     ),
     'view_helpers' => array(
@@ -391,6 +403,7 @@ return array(
             'province_add_template' => __DIR__ . '/../view/back-end/province/add.phtml',
             'district_add_template' => __DIR__ . '/../view/back-end/district/add.phtml',
             'ward_add_template' => __DIR__ . '/../view/back-end/ward/add.phtml',
+            'category_add_template' => __DIR__ . '/../view/back-end/category/add.phtml',
             'test_pages' => __DIR__ . '/../view/pager.phtml',
             "msg-info" => __DIR__ . "/../view/child-view/msg.phtml",
             "post-feature-paginator" => __DIR__ . "/../view/child-view/post-feature-paginator.phtml",
@@ -426,7 +439,7 @@ return array(
                 $container = new \Zend\Session\Container("SessionError");
                 return $container;
             },
-            "init-capsule" => function($sm){
+            "init-capsule" => function($sm) {
                 $db = $sm->get("config")["db"];
                 $capsule = new Illuminate\Database\Capsule\Manager();
 
@@ -451,6 +464,7 @@ return array(
                 $capsule->bootEloquent();
                 return $capsule;
             }
-        ),
-    ),
-);
+                ),
+            ),
+        );
+        

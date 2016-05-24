@@ -1274,3 +1274,9 @@ footer#footer {
 @import "media/media";*/
 
 /*# sourceMappingURL=main.css.map */
+.parentDiv {
+  /*padding-left: 10px;*/
+}
+.childrenDiv {
+  padding-left: 10px;
+}

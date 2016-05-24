@@ -68,7 +68,9 @@ class PostFilter extends InputFilter{
                     'name' => Validator\Digits::class,
                     'options' => array(
                         'messages' => array(
+//                            Validator\Digits::STRING_EMPTY => "ban chua nhap gi het",
                             Validator\Digits::NOT_DIGITS => 'mã zip code là số'
+
                         )
                     ),
                     'break_chain_on_failure' => true
@@ -314,6 +316,5 @@ class PostFilter extends InputFilter{
                 ),
             )
         ));
-
     }
 }

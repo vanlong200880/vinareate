@@ -15,7 +15,7 @@ use Exception;
 use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Stdlib\ArrayUtils;
 
-class FormDeepCheckbox extends AbstractHelper{
+class FormDeepRadio extends AbstractHelper{
 
     protected $name;
 
@@ -30,9 +30,8 @@ class FormDeepCheckbox extends AbstractHelper{
 
     public function render(DeepCheckbox $element){
         $checkboxes = $element->getCheckboxes();
-        $name = $element->getName() . "[]";
         $cbForeach = function($item){
-            echo '<label class="checkbox-inline"><input type="checkbox" name="deepFeature[]" value="' .
+            echo '<label class="checkbox-inline"><input type="radio" name="postFeatures[]" value="' .
                 $item["id"] . '"';
             if(isset($item["checked"])){
                 echo "checked";
@@ -41,6 +40,22 @@ class FormDeepCheckbox extends AbstractHelper{
             echo $item["name"];
             echo '</label>';
         };
+        /**
+         * @param DeepCheckbox $element
+         */
+//        $functionScope = function($element){
+//            $name = $element->getName() . "[]";
+//            return function($item){
+//                echo '<label class="checkbox-inline"><input type="radio" name="' .
+//                    $name . '" value="' . $item["id"] . '"';
+//                if(isset($item["checked"])){
+//                    echo "checked";
+//                }
+//                echo ">";
+//                echo $item["name"];
+//                echo '</label>';
+//            };
+//        };
         MenuHierarchy::show($checkboxes, 0, $cbForeach);
     }
 

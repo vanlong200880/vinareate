@@ -2,6 +2,9 @@
 namespace BackEnd\UISupport;
 
 class MenuHierarchy{
+
+    static $tmp = array();
+
     static function showMenu($postFeature){
     }
 
@@ -54,11 +57,11 @@ class MenuHierarchy{
         }
     }
 
-    static function show($menus, $idParent = 0, $cbForeach, $cbItem){
+    static function show($menus, $idParent = 0, $cbForeach){
         $closure = function(){
         };
         $cbForeach = ($cbForeach == null)? $closure : $cbForeach;
-        $cbItem = ($cbForeach == null)? $closure : $cbItem;
+        //        $cbItem = ($cbForeach == null)? $closure : $cbItem;
         $menu_tmp = array();
         foreach($menus as $i => $item){
             if((int)$item['parent'] == $idParent){
@@ -71,7 +74,7 @@ class MenuHierarchy{
                 echo '<div class="parentDiv">';
                 $cbForeach($item);
                 echo '<div class="childrenDiv">';
-                self::show($menus, $item['id'], $cbForeach, $cbItem);
+                self::show($menus, $item['id'], $cbForeach);
                 echo '</div>';
                 echo '</div>';
             }

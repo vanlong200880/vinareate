@@ -1,6 +1,7 @@
 <?php
 namespace BackEnd\Controller;
 
+use BackEnd\Form\Element\DeepCheckbox;
 use BackEnd\Form\PostFilter;
 use BackEnd\Form\PostForm;
 use BackEnd\Model\District;
@@ -58,17 +59,34 @@ class PostController extends DatabaseController{
         if($request->isPost()){
             $postParams = $request->getPost();
             var_dump($postParams);
+
             $post = new Post();
+
             $postFilter = new PostFilter();
-            //            $postForm->setInputFilter($post->getInputFilter());
+
             $postForm->setInputFilter($postFilter);
             $postForm->setData($postParams);
-            //            $postFeatures = $postParams->get("postFeatures");
-            //            $postFeaturesArrayObject = new ArrayObject();
-            //            foreach($postFeatures as $key => $value){
-            //                $postFeaturesArrayObject[$key] = $value;
-            //            }
-            //            $postForm->bind($postFeaturesArrayObject);
+
+            /**
+             * check valid of form
+             */
+            if($postForm->isValid()){
+                /**
+                 * for debug purpose
+                 * dump data
+                 */
+                $post->category_id = 5;
+                $post->user_id = 1;
+                $post->post_status_id = 1;
+
+                $post->fill((array)$postParams);
+                $post->save();
+                return $this->redirect()->toUrl("/");
+            }
+
+            /**
+             * innject options for district-select
+             */
             $provinceId = $postParams->get("provinceid");
             $ditricts = District::where("provinceid", $provinceId)->get();
             $districtOptions = array();
@@ -87,9 +105,11 @@ class PostController extends DatabaseController{
             ));
             $districtSelect->setValueOptions($districtOptions);
 
-
+            /**
+             * inject options for ward-select
+             */
             $districtId = $postParams->get("districtid");
-            $wards= Ward::where("districtid", $districtId)->get();
+            $wards = Ward::where("districtid", $districtId)->get();
             $wardOptions = array();
             foreach($wards as $item){
                 $row = array();
@@ -105,28 +125,11 @@ class PostController extends DatabaseController{
                 "selected" => true
             ));
             $wardSelect->setValueOptions($wardOptions);
-
-            if($postForm->isValid()){
-                /**
-                 * for debug purpose
-                 * dump data
-                 */
-                $post->category_id = 5;
-                $post->user_id = 1;
-                $post->post_status_id = 1;
-
-                $post->fill((array)$postParams);
-                $post->save();
-                return $this->redirect()->toUrl("/");
-            }
         }
         /**
-         * inject province
-         *
-         * inject district by AJAX
-         * inject ward by AJAX
-         *
+         * inject options for province-select
          */
+
         $provinces = Province::all();
         $provinceOptions = array();
         foreach($provinces as $item){
@@ -137,19 +140,19 @@ class PostController extends DatabaseController{
         }
         /** @var Element\Select $proviceSelect */
         $proviceSelect = $postForm->get("provinceid");
-        $proviceSelect->setEmptyOption(array(
-            "label" => "--chọn tỉnh thành phố--",
-            "disabled" => true,
-            "selected" => true
-        ));
         $proviceSelect->setValueOptions($provinceOptions);
 
         /**
-         * inject feature
+         * inject checkbox for deep checkbox "feature"
          */
         $postFeatures = PostFeature::all();
-
-        $view->setVariable("postFeatures", $postFeatures);
+        /** @var DeepCheckbox $deepFeature */
+        $deepFeature = $postForm->get("deepFeature");
+        /**
+         * inject back checked feature (not a good solution),
+         * when data injected by PostForm through "setData"
+         */
+        $deepFeature->setCheckboxes($postFeatures);
 
         $view->setVariable("postForm", $postForm);
 

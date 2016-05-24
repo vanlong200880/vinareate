@@ -3,6 +3,7 @@ namespace BackEnd\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;
+use BackEnd\Form\Element as CustomElement;
 
 class PostForm extends Form{
     public function __construct($name){
@@ -10,20 +11,20 @@ class PostForm extends Form{
         $this->setAttribute('method', 'post');
         $this->setAttribute('autocomplete', 'off');
 
-//        $this->add(array(
-//            'type' => 'Zend\Form\Element\Csrf',
-//            'name' => 'loginCsrf',
-//            'options' => array(
-//                'csrf_options' => array(
-//                    'timeout' => 3600
-//                )
-//            )
-//        ));
+        //        $this->add(array(
+        //            'type' => Element\Csrf::class,
+        //            'name' => 'loginCsrf',
+        //            'options' => array(
+        //                'csrf_options' => array(
+        //                    'timeout' => 3600
+        //                )
+        //            )
+        //        ));
 
         $this->add(array(
+            'type' => Element\Submit::class,
             'name' => 'submit',
             'attributes' => array(
-                'type' => 'submit',
                 'value' => 'Save',
                 'class' => 'btn btn-success form-control'
             )
@@ -31,7 +32,7 @@ class PostForm extends Form{
 
         $this->add(array(
             'name' => 'house_number',
-            'type' => 'text',
+            'type' => Element\Text::class,
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -41,8 +42,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'street',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -52,8 +53,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'zip_code',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -63,8 +64,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'fullname',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -75,8 +76,8 @@ class PostForm extends Form{
 
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'company',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -87,8 +88,8 @@ class PostForm extends Form{
 
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'email',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -98,8 +99,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'phone',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -109,8 +110,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'price',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -120,8 +121,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'price_installment',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -131,8 +132,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'area_use',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -142,8 +143,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'name',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -153,8 +154,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'name',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -164,8 +165,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Textarea::class,
             'name' => 'excerpt',
-            'type' => 'textarea',
             'attributes' => array(
                 'class' => 'form-control',
                 'rows' => 4
@@ -176,8 +177,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Textarea::class,
             'name' => 'content',
-            'type' => 'textarea',
             'attributes' => array(
                 'class' => 'form-control',
                 'rows' => 4
@@ -188,8 +189,8 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
+            'type' => Element\Text::class,
             'name' => 'website',
-            'type' => 'text',
             'attributes' => array(
                 'class' => 'form-control',
             ),
@@ -201,37 +202,59 @@ class PostForm extends Form{
         $this->add(array(
             'type' => Element\Select::class,
             'name' => 'provinceid',
-            'attributes' =>  array(
+            'attributes' => array(
                 'id' => "provinceSelect",
                 'class' => 'form-control',
             ),
             'options' => array(
-                'label' => 'Chọn thành phố',
+                'label' => 'Chọn tỉnh thành',
+                'disable_inarray_validator' => true,
+                "empty_option" => "-- chọn tỉnh/thành --",
             ),
         ));
 
         $this->add(array(
             'type' => Element\Select::class,
             'name' => 'districtid',
-            'attributes' =>  array(
+            'attributes' => array(
                 'id' => "districtSelect",
                 'class' => 'form-control',
             ),
             'options' => array(
                 'label' => 'Chọn quận huyện',
+                'disable_inarray_validator' => true,
+                "empty_option" => "-- chọn quận/huyện --",
             ),
         ));
+
         $this->add(array(
             'type' => Element\Select::class,
             'name' => 'wardid',
-            'attributes' =>  array(
+            'attributes' => array(
                 'id' => "wardSelect",
                 'class' => 'form-control',
             ),
             'options' => array(
                 'label' => 'Chọn phường xã',
+                'disable_inarray_validator' => true,
+                "empty_option" => "-- chọn phường/xã --",
             ),
         ));
 
+        $this->add(array(
+            'type' => CustomElement\DeepCheckbox::class,
+            'name' => 'deepFeature',
+            'attributes' => array(
+                'class' => 'form-control',
+            )
+        ));
+
+        $this->add(array(
+            'type' => CustomElement\DeepCheckbox::class,
+            'name' => 'deepCategory',
+            'attributes' => array(
+                'class' => 'form-control',
+            )
+        ));
     }
 }

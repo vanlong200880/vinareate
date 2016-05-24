@@ -1,0 +1,42 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Thêm tình trạng</h3>
+
+            <?php
+            if (count($this->flash)) {
+                echo "<div class='alert alert-success'>";
+                foreach ($this->flash as $mess) {
+                    echo $mess;
+                }
+                echo "<div>";
+            }
+            ?>
+            <?php
+            $form=$this->form;
+            $form->prepare();
+            $form->setAttribute('action');
+            echo $this->form()->openTag($form);
+            echo "<div class='form-group'>";
+            echo $this->formLabel($form->get('type'));
+            echo $this->formElement($form->get('type'));
+            echo $this->formElementErrors($form->get('type'));
+            echo "</div>";
+            echo "<div class='form-group'>";
+            echo $this->formLabel($form->get('description'));
+            echo $this->formElement($form->get('description'));
+            echo "</div>";
+            echo "<div class='form-group'>";
+            echo $this->formLabel($form->get('price'));
+            echo $this->formElement($form->get('price'));
+            echo "</div>";
+             echo $this->formElement($form->get('submit'));
+            echo $this->form()->closeTag();
+            ?>
+<!--        <div class="col-md-12">
+            <a class="a-btn-submit" href="<?php echo $this->url('backend/status', array('action' => 'add')); ?>">ADD NEW</a>
+        </div>-->
+        </div>
+    </div>
+</div>

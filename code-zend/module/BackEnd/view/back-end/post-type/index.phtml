@@ -1,0 +1,52 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>danh sach tình trạng</h3>
+
+            <?php
+            if (count($this->flash)) {
+                echo "<div class='alert alert-success'>";
+                foreach ($this->flash as $mess) {
+                    echo $mess;
+                }
+                echo "<div>";
+            }
+            ?>
+
+            <table class="table table-striped">
+                <tr>
+                    <td>STT</td>
+                    <td><a href="<?= $this->url('backend/status',array('action'=>'index','type'=>'id','col'=>$sort)) ?>">ID</a></td>
+                    <td><a href="<?= $this->url('backend/status',array('action'=>'index','type'=>'name','col'=>$sort)) ?>">Tên trạng thái</a></td>
+
+                    <td>Edit</td>
+                    <td>Del</td>
+                </tr>
+                <?php
+                if($data){
+                    foreach ($data as $key=>$item) {
+                       
+                ?>
+                <tr>
+                    <td><?= $key+1 ?></td>
+                    <td><?= $item['id'] ?></td>
+                    <td><a href="<?php echo $this->url('backend/status', array('action' => 'district', 'id'=>$item['id'])); ?>"><?= $item['name'] ?></a></td>
+                    <td><a href = '<?= $this->url('backend/status',array('action'=>'edit','id'=>$item['id'])) ?>'>Edit</td>
+                    <td><a href = '<?= $this->url('backend/status',array('action'=>'del','id'=>$item['id'])) ?>'>Del</td>
+                </tr>
+                <?php
+                     }
+                }
+                ?>
+            </table>
+        <div class="col-md-12">
+            <a class="a-btn-submit" href="<?php echo $this->url('backend/status', array('action' => 'add')); ?>">ADD NEW</a>
+        </div>
+        </div>
+    </div>
+</div>
+<?php 
+    echo $this->paginationControl($this->data, 'Sliding', 'test_pages', array("route" => "pager"));
+?>
+

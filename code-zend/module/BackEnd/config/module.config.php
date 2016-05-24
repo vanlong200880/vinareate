@@ -19,6 +19,7 @@ return array(
             'BackEnd\Controller\Test' => 'BackEnd\Factory\TestControllerFactory',
             'BackEnd\Controller\Auth' => 'BackEnd\Factory\AuthControllerFactory',
             'BackEnd\Controller\Status' => 'BackEnd\Factory\PostStatusControllerFactory',
+            'BackEnd\Controller\Type' => 'BackEnd\Factory\PostTypeControllerFactory',
         )
     ),
     'router' => array(
@@ -116,6 +117,22 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Backend\Controller\Status',
+                                'action' => 'index',
+                            ),
+                        ),
+                    ),
+                    'type' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/type[/][action/:action][type/:type][/:id][/col/:col]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+',
+                                'page' => '[0-9]+',
+                                'col' => '.+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Backend\Controller\Type',
                                 'action' => 'index',
                             ),
                         ),
@@ -404,9 +421,11 @@ return array(
             'district_add_template' => __DIR__ . '/../view/back-end/district/add.phtml',
             'ward_add_template' => __DIR__ . '/../view/back-end/ward/add.phtml',
             'category_add_template' => __DIR__ . '/../view/back-end/category/add.phtml',
+            "post-status" => __DIR__ . "/../view/back-end/post-status/add.phtml",
             'test_pages' => __DIR__ . '/../view/pager.phtml',
             "msg-info" => __DIR__ . "/../view/child-view/msg.phtml",
             "post-feature-paginator" => __DIR__ . "/../view/child-view/post-feature-paginator.phtml",
+            
         ),
         // TemplatePathStack configuration
         // module/view script path pairs

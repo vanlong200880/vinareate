@@ -2,14 +2,15 @@
 
 namespace BackEnd\Controller;
 
-use BackEnd\Database\PostStatusTable;
+use BackEnd\Database\PostTypeTable;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Db\Adapter\Adapter;
 use Zend\View\Model\JsonModel;
 use BackEnd\Form\ValidatorProvince;
+use BackEnd\Form\PostTypeForm;
 
-class PostStatusController extends AbstractActionController {
+class PostTypeController extends AbstractActionController {
 
     protected $serviceManager;
     protected $placequery;
@@ -18,7 +19,7 @@ class PostStatusController extends AbstractActionController {
         $this->serviceManager = $sm;
         $configDb = $this->serviceManager->get('config')["db"];
         $adapter = new Adapter($configDb);
-        $this->placequery = new PostStatusTable($adapter);
+        $this->placequery = new PostTypeTable($adapter);
     }
 
     public function indexAction() {
@@ -39,35 +40,41 @@ class PostStatusController extends AbstractActionController {
         $paginator->setItemCountPerPage(4);
         $flash=$this->flashMessenger()->getMessages();
         $viewmodel->setVariable('data', $paginator);
-        $viewmodel->setVariable('flash', $flash);
-        
+        $viewmodel->setVariable('flash', $flash);        
+        $viewmodel->setVariable('form', $form);        
         return array(
             'data' => $paginator,
             'sort'  => $col,
             'flash' => $flash,
+            'form' => $form,
         );
     }
 
     public function addAction() {
+        $view = new ViewModel();
+        $form=new PostTypeForm();
         $request = $this->getRequest();
         $postParams = $request->getPost();
         $arrayParam['request'] = $postParams->toArray();
         if ($request->isPost()) {
-            $view = new JsonModel();
-            $validator = new ValidatorProvince($arrayParam, null, $this->serviceManager);
-//            if ($validator->checkNameDuplicate($arrayParam, $this->serviceManager) || $validator->isError() == true) {
-//                $arrayParam['error'] = $validator->getMessagesError();
-//            } else {
-                $result = $this->placequery->saveData($arrayParam);
-//            //$this->flashMessenger()->addMessage("thanh cong");
-                return $this->redirect()->toRoute('backend/status');
-//            }
+             $data=$this->params()->fromPost();
+              $form->setData($data);
+             if($form->isValid()){
+//                 $datainput=$form->getData();
+                 $result = $this->placequery->saveData($arrayParam);
+                $this->flashMessenger()->addMessage("thanh cong");
+                return $this->redirect()->toRoute('backend/type');
+             }
         }
         $data['arrayParam'] = $arrayParam;
         $data['title'] = 'Thêm trạng thái';
         $data['nameController'] = 'Trạng Thái';
-        $view = new ViewModel($data);
-        return $view;
+       // $view->setVariable('data', $data); 
+        $view->setVariable('form', $form); 
+        return array(
+            //data' => $data,
+            'form' => $form,
+        );
     }
     public function editAction(){
         $view = new ViewModel();

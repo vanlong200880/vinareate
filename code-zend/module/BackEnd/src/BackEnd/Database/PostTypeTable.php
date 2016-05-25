@@ -10,8 +10,8 @@ use Zend\Db\Sql\Where;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Db\Sql\Expression;
 
-class PostStatusTable{
-    const STATUS_TABLE = "post_status";
+class PostTypeTable{
+    const TYPE_TABLE = "post_type";
     
         /** @var  Sql $sql */
     protected $sql;
@@ -21,7 +21,7 @@ class PostStatusTable{
 
     public function getAll($type='',$sort='') {
               $select = $this->sql->select();
-        $select->columns(array('*'))->from(self::STATUS_TABLE);
+        $select->columns(array('*'))->from(self::TYPE_TABLE);
         if($type != '' && $sort != '')  $select->order(array("$type $sort"));
         $statement = $this->sql->prepareStatementForSqlObject($select);
         $result = $statement->execute();
@@ -32,26 +32,31 @@ class PostStatusTable{
     }
 
     public function  saveData($arrayParam=''){
-        $name = $arrayParam["request"]["namestatus"];
+        $name = $arrayParam["request"]["type"];
+        $description = $arrayParam["request"]["description"];
+        $price = $arrayParam["request"]["price"];
+
         if(isset($arrayParam['id']) == true && $arrayParam['id'] != ''){
-            $query=$this->sql->update(self::STATUS_TABLE);
-            $query->set(array('name'=>$name));
+            $query=$this->sql->update(self::TYPE_TABLE);
+            $query->set(array('name'=>$name,'description'=>$description,'price'=>$price));
             $query->where(array('id'=>$arrayParam['id']));            
         }
         if(isset($arrayParam["id"])==false){
         $query=$this->sql->insert();
-        $query->into(self::STATUS_TABLE);
-        $query->columns(array("name"));
-        $query->values(array($name));
+        $query->into(self::TYPE_TABLE);
+        $query->columns(array("name,description,price"));
+        $query->values(array($name,$description,$price));
         }
-        $statement = $this->sql->prepareStatementForSqlObject($query);
+        //$statement = $this->sql->prepareStatementForSqlObject($query);
+        var_dump($this->sql->getSqlStringForSqlObject($query));
+        die;
         $result = $statement->execute();
 //        $resultSet = ArrayUtils::iteratorToArray($result);
         return $result;    
     }
     public function getItemById($id=''){
         $select=$this->sql->select();
-        $select->from(self::STATUS_TABLE);
+        $select->from(self::TYPE_TABLE);
         $select->where(array('id'=>$id));
          $statement=$this->sql->prepareStatementForSqlObject($select);
         $result=$statement->execute();
@@ -60,7 +65,7 @@ class PostStatusTable{
     }
     public function delItemById($id=''){
         $delete=$this->sql->delete();
-        $delete->from(self::STATUS_TABLE);
+        $delete->from(self::TYPE_TABLE);
         $delete->where(array('id'=>$id));
         $statement=$this->sql->prepareStatementForSqlObject($delete);
         $result=$statement->execute();

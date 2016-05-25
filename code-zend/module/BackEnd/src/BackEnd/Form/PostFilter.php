@@ -221,22 +221,23 @@ class PostFilter extends InputFilter{
 
         $this->add(array(
             'name' => 'area_use',
-            'required' => true,
+//            'required' => true,
             'filters' => $filters,
             'validators' => array(
-                array(
-                    'name' => Validator\NotEmpty::class,
-                    'options' => array(
-                        'messages' => array(
-                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập diện tích sử dụng'
-                        )
-                    ),
-                    'break_chain_on_failure' => true
-                ),
+//                array(
+//                    'name' => Validator\NotEmpty::class,
+//                    'options' => array(
+//                        'messages' => array(
+//                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập diện tích sử dụng'
+//                        )
+//                    ),
+//                    'break_chain_on_failure' => true
+//                ),
                 array(
                     'name' => Validator\Digits::class,
                     'options' => array(
                         'messages' => array(
+                            Validator\Digits::STRING_EMPTY => "bạn chưa nhập diện tích sử dụng ",
                             Validator\Digits::NOT_DIGITS => 'bạn chỉ cần nhập số, đơn vị tính: m2'
                         )
                     ),

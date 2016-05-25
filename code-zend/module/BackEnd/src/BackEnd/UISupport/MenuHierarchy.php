@@ -37,8 +37,7 @@ class MenuHierarchy{
             foreach($menu_tmp as $item){
                 echo '<div style="padding-left: 50px">';
                 echo '<form method="POST" action="/backend/deep-feature/match">
-                    <input type="hidden" name="featureId" value="' .
-                    $item["id"] . '">
+                    <input type="hidden" name="featureId" value="' . $item["id"] . '">
                     <input type="submit" name="action" value="edit" class="btn btn-default">
                     <input type="submit" name="action" value="delete" class="btn btn-default">
                 </form>';
@@ -79,5 +78,24 @@ class MenuHierarchy{
                 echo '</div>';
             }
         }
+    }
+
+    static function reArrange($menus, $idParent = 0, $count = 1, $hasChild = false){
+        foreach($menus as $i => $item){
+            if($item["parent"] == $idParent){
+                $hasChild = true;
+                $item["class"] = "level-" . $count;
+                $ref = &self::$tmp[];
+                $ref = $item;
+//                self::$tmp[] = $item;
+                unset($menus[$i]);
+                //call tiep de tim ra may thang con cua no
+                $xyz = self::reArrange($menus, $item["value"], ($count + 1), false);
+                if($xyz){
+                    $ref["disabled"] = true;
+                }
+            }
+        }
+        return $hasChild;
     }
 }

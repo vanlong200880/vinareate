@@ -394,6 +394,7 @@ return array(
     'view_helpers' => array(
         'invokables' => array(
             'formDeepCheckbox' => BackEnd\View\Helper\FormDeepCheckbox::class,
+            'formUniSelect' => BackEnd\View\Helper\FormUniSelect::class,
         ),
         'factories' => array(
             'Requesthelper' => 'BackEnd\View\Helper\Factory\RequestHelperFactory',

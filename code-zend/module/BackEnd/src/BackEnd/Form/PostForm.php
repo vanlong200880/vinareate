@@ -1,9 +1,9 @@
 <?php
 namespace BackEnd\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
 use BackEnd\Form\Element as CustomElement;
+use Zend\Form\Element;
+use Zend\Form\Form;
 
 class PostForm extends Form{
     public function __construct($name){
@@ -132,7 +132,7 @@ class PostForm extends Form{
         ));
 
         $this->add(array(
-            'type' => Element\Text::class,
+            'type' => Element\Number::class,
             'name' => 'area_use',
             'attributes' => array(
                 'class' => 'form-control',
@@ -204,7 +204,7 @@ class PostForm extends Form{
             'name' => 'provinceid',
             'attributes' => array(
                 'id' => "provinceSelect",
-                'class' => 'form-control',
+                'class' => 'form-control selectpicker',
             ),
             'options' => array(
                 'label' => 'Chọn tỉnh thành',
@@ -255,6 +255,20 @@ class PostForm extends Form{
             'attributes' => array(
                 'class' => 'form-control',
             )
+        ));
+
+        $this->add(array(
+            'type' => Element\Select::class,
+            'name' => 'category_id',
+            'attributes' => array(
+                'id' => "categorySelect",
+                'class' => 'form-control selectpicker',
+            ),
+            'options' => array(
+                'label' => 'Chọn loại dự án',
+                'disable_inarray_validator' => true,
+                "empty_option" => "-- chọn loại dự án --",
+            ),
         ));
     }
 }

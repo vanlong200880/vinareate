@@ -4,15 +4,18 @@ namespace BackEnd\Controller;
 use BackEnd\Form\Element\DeepCheckbox;
 use BackEnd\Form\PostFilter;
 use BackEnd\Form\PostForm;
+use BackEnd\Model\Category;
 use BackEnd\Model\District;
 use BackEnd\Model\Post;
 use BackEnd\Model\PostFeature;
 use BackEnd\Model\Province;
 use BackEnd\Model\Ward;
+use BackEnd\UISupport\MenuHierarchy;
 use Zend\Form\Element;
 use Zend\Http\Request;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator;
+use Zend\View\Helper\Navigation\Menu;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -28,6 +31,8 @@ use Zend\View\Model\ViewModel;
  */
 class PostController extends DatabaseController{
     protected $serviceManager;
+
+    private $tmp;
 
     /**
      * PostController constructor.
@@ -73,15 +78,22 @@ class PostController extends DatabaseController{
              */
             $isDigitValid = true;
             $digitValidMsg = "";
+
             $digitValidator = new  Validator\Digits();
             $digitValidator->setMessage("bạn phải nhập số tiền", Validator\Digits::STRING_EMPTY);
             $digitValidator->setMessage("chỉ nhập số, đơn vị tính VND", Validator\Digits::NOT_DIGITS);
+
             $taxHistory = $postParams->get("taxHistory");
-            foreach($taxHistory as $record){
-                if(!$digitValidator->isValid($record[0]) || !$digitValidator->isValid($record[1])){
-                    $isDigitValid = false;
-                    //only get the first one
-                    $digitValidMsg = array_values($digitValidator->getMessages())[0];
+            //check bcs, user may not input anything >>> taxHistory not exist
+            //$taxHistory now handle null value
+
+            if(is_array($taxHistory)){
+                foreach($taxHistory as $record){
+                    if(!$digitValidator->isValid($record[0]) || !$digitValidator->isValid($record[1])){
+                        $isDigitValid = false;
+                        //only get the first one
+                        $digitValidMsg = array_values($digitValidator->getMessages())[0];
+                    }
                 }
             }
 
@@ -95,7 +107,7 @@ class PostController extends DatabaseController{
                  * for debug purpose
                  * dump data
                  */
-                $post->category_id = 5;
+//                $post->category_id = 5;
                 $post->user_id = 1;
                 $post->post_status_id = 1;
 
@@ -108,59 +120,28 @@ class PostController extends DatabaseController{
              * innject options for district-select
              */
             $provinceId = $postParams->get("provinceid");
-            $ditricts = District::where("provinceid", $provinceId)->get();
-            $districtOptions = array();
-            foreach($ditricts as $item){
-                $row = array();
-                $row["value"] = $item["districtid"];
-                $row["label"] = $item["name"];
-                $districtOptions[] = $row;
-            }
+            $ditricts = District::where("provinceid", $provinceId)->select("districtid AS value", "name AS label")->get();
             /** @var Element\Select $districtSelect */
             $districtSelect = $postForm->get("districtid");
-            $districtSelect->setEmptyOption(array(
-                "label" => "--chọn tỉnh thành phố--",
-                "disabled" => true,
-                "selected" => true
-            ));
-            $districtSelect->setValueOptions($districtOptions);
+            $districtSelect->setValueOptions($ditricts->toArray());
 
             /**
              * inject options for ward-select
              */
             $districtId = $postParams->get("districtid");
-            $wards = Ward::where("districtid", $districtId)->get();
-            $wardOptions = array();
-            foreach($wards as $item){
-                $row = array();
-                $row["value"] = $item["wardid"];
-                $row["label"] = $item["name"];
-                $wardOptions[] = $row;
-            }
+            $wards = Ward::where("districtid", $districtId)->select("wardid AS value", "name AS label")->get();
             /** @var Element\Select $wardSelect */
             $wardSelect = $postForm->get("wardid");
-            $wardSelect->setEmptyOption(array(
-                "label" => "--chọn tỉnh phường xã--",
-                "disabled" => true,
-                "selected" => true
-            ));
-            $wardSelect->setValueOptions($wardOptions);
+            $wardSelect->setValueOptions($wards->toArray());
         }
         /**
          * inject options for province-select
          */
 
-        $provinces = Province::all();
-        $provinceOptions = array();
-        foreach($provinces as $item){
-            $row = array();
-            $row["value"] = $item["provinceid"];
-            $row["label"] = $item["name"];
-            $provinceOptions[] = $row;
-        }
+        $provinces = Province::select("provinceid AS value", "name AS label")->get();
         /** @var Element\Select $proviceSelect */
         $proviceSelect = $postForm->get("provinceid");
-        $proviceSelect->setValueOptions($provinceOptions);
+        $proviceSelect->setValueOptions($provinces->toArray());
 
         /**
          * inject checkbox for deep checkbox "feature"
@@ -174,7 +155,39 @@ class PostController extends DatabaseController{
          */
         $deepFeature->setCheckboxes($postFeatures);
 
+        /**
+         * inject category select box hierarchy
+         */
+        $categories = Category::select("id AS value", "name AS label", "parent")->get();
+        //reset before loop
+//        $a = array();
+//        $this->tmp = &$a;
+        MenuHierarchy::$tmp = array();
+        MenuHierarchy::reArrange($categories->toArray(), 0, 1, false);
+//        var_dump($this->tmp);
+//        var_dump($a);
+        /** @var Element\Select $categorySelect */
+        $categorySelect = $postForm->get("category_id");
+        $categorySelect->setValueOptions(MenuHierarchy::$tmp);
+
         $view->setVariable("postForm", $postForm);
+
+//        $data = array(
+//            array("id" => 1, "parent" => 0),
+//            array("id" => 2, "parent" => 0),
+//            array("id" => 3, "parent" => 0),
+//            array("id" => 4, "parent" => 0),
+//            array("id" => 5, "parent" => 1),
+//            array("id" => 6, "parent" => 1),
+//            array("id" => 7, "parent" => 2),
+//            array("id" => 8, "parent" => 3),
+//            array("id" => 9, "parent" => 4),
+//            array("id" => 10, "parent" => 4),
+//        );
+
+//        MenuHierarchy::$tmp = array();
+//        MenuHierarchy::reArrange($data, 0, 1);
+//        $store = MenuHierarchy::$tmp;
 
         return $view;
     }

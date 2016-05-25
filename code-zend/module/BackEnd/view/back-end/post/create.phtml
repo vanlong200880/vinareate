@@ -32,7 +32,9 @@
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("provinceid")->getLabel();
-                                    echo $this->formSelect($pf->get("provinceid")); ?>
+//                                    echo $this->formSelect($pf->get("provinceid"));
+                                    echo $this->formUniSelect($pf->get("provinceid"));
+                                    ?>
                                 </label>
                             </div>
 
@@ -51,7 +53,11 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <?php //echo $this->formDeepCheckbox($pf->get("deepCategory")); ?>
+                                <?php /** @var Zend\Form\Element\Select $wardtSelect */
+                                $categorySelect = $pf->get("category_id"); ?>
+                                <label><?php echo $pf->get("category_id")->getLabel();
+                                    echo $this->formUniSelect($categorySelect); ?>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -286,35 +292,41 @@
             <h1>Hình ảnh và video</h1>
             <hr>
             <div id="step-4">
-                <div class="content-tab-step step-2 step-3 step-4">
-                    <div class="row">
-                        <div class="col-md-12"><h2>Thông tin mô tả</h2>
+                <div class="row">
+                    <div class="col-md-12"><h2>Thông tin mô tả</h2></div>
+                    <div class="col-md-12"><p>Bạn có thể tải lên một số lượng không giới hạn các bức ảnh cho
+                            danh sách nhà của bạn. Chọn các tập tin hình ảnh mà bạn muốn bằng cách nhấp vào
+                            nút bên dưới. Nếu bạn thích, bạn cũng có thể kéo các bức ảnh của bạn vào vùng
+                            thả dưới đây.</p></div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div id="uploadImage">
+                                <div id="dragDiv">
+                                    <div class="uploads">
+                                        <p>Kéo & Thả vào đây để tải ảnh<br>
+                                            hoặc Chọn file</p>
+                                    </div>
+                                    <input type="file" id="inputFile" name="imageFiles[]"
+                                           multiple="multiple">
+                                </div>
+                                <div id="previewImageDiv"></div>
+                            </div>
                         </div>
-                        <div class="col-md-12"><p>Bạn có thể tải lên một số
-                                lượng không giới hạn các bức ảnh cho
-                                danh sách nhà của bạn. Chọn các tập tin hình
-                                ảnh
-                                mà bạn muốn bằng cách nhấp vào
-                                nút bên dưới. Nếu bạn thích, bạn cũng có thể
-                                kéo
-                                các bức ảnh của bạn vào vùng
-                                thả dưới đây.</p></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="uploads">
-                                    <p>Kéo & Thả vào đây để tải ảnh<br>
-                                        hoặc Chọn file</p>
+
+                    </div>
+                    <div class="col-md-12"><h2>Video clip</h2></div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Embedded Video</label>
+                            <div style="position: relative">
+                                <input id="youtubeUrl" type="text" name="youtubeUrl" value=""
+                                       placeholder="Dán link youtube vào đây" class="form-control">
+                                <div id="effect" class="btn btn-primary"
+                                     style="display: none; position: absolute; right: 0; bottom: 0">nhấn
+                                    enter
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="col-md-12"><h2>Video clip</h2></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Embedded Video</label>
-										<textarea class="form-control" rows="4"
-                                                  placeholder="<iframe></iframe>"></textarea>
-                            </div>
+                            <div id="embedCode"></div>
                         </div>
                     </div>
                 </div>
@@ -357,14 +369,6 @@
                             <?php echo $this->formDeepCheckbox($pf->get("deepFeature")); ?>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-9">
-                    <input name="tax[2016][]" type="number" value="" placeholder="Số tiền">
-                </div>
-                <div class="col-md-3">
-                    <input name="tax[2016][]" type="text" value="2016" readonly>
                 </div>
             </div>
             <?php echo $this->formElement($pf->get("submit")); ?>
@@ -550,5 +554,154 @@
             });
         };
         taxComponent.bindEventHanlder();
+
+        var step4ItemsId = {
+            item: {
+                item: {
+                    uploadImage: "uploadImage",
+                    embedCode: "embedCode"
+                },
+                itemInput: {
+                    youtubeUrl: "youtubeUrl"
+                }
+            }
+        };
+        var step4 = new Step("step4", "step-4", step4ItemsId);
+        step4.init();
+        /**
+         * handle custom item "dragDiv"
+         */
+        var uploadImage = step4.getItem(step4ItemsId.item.item.uploadImage);
+        /**
+         * bind event for dragDiv
+         */
+        var uploadImageNestedItemsId = {
+            dragDiv: "dragDiv",
+            inputFile: "inputFile",
+            previewImageDiv: "previewImageDiv"
+        };
+        uploadImage.files = [];
+        uploadImage.render = function(nestedItemsId){
+            var preview = function(files, previewImageDiv){
+                for(var i in files){
+                    if(files.hasOwnProperty(i)){
+                        var file = files[i];
+                        var reader = new FileReader();
+                        reader.onload = function(e){
+                            //get image source
+                            var imageSource = e.target.result;
+                            //create new  image uploaded
+                            var image = $("<img>");
+                            //add src, id to image uploaded
+                            //image has real size >>> on "load" get size WORK
+                            image.css({
+                                'max-width': '100%',
+                                height: 100
+                            });
+                            image.attr("src", imageSource);
+                            previewImageDiv.append(image);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            };
+            var dragDiv = uploadImage.find("#" + nestedItemsId.dragDiv);
+            var inputFile = uploadImage.find("#" + nestedItemsId.inputFile);
+            var previewImageDiv = uploadImage.find("#" + nestedItemsId.previewImageDiv);
+            dragDiv.on("dragover", function(e){
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            dragDiv.on("drop", function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                var originalEvent = e.originalEvent;
+//                    console.log(e);
+                // fetch FileList object
+                var files = originalEvent.target.files || originalEvent.dataTransfer.files;
+                uploadImage.files.push.apply(uploadImage.files, files);
+//                    console.log(uploadImage.files);
+                console.log(uploadImage.getData());
+                preview(files, previewImageDiv);
+            });
+            inputFile.on("change", function(){
+                var files = inputFile.get(0).files;
+                uploadImage.files.push.apply(uploadImage.files, files);
+//                    console.log(uploadImage.files);
+                console.log(uploadImage.getData());
+                preview(files, previewImageDiv);
+            });
+        };
+//            uploadImage.render(uploadImageNestedItemsId);
+        uploadImage.getData = function(){
+            var r = {};
+            r[this.name] = this.files;
+            return r;
+        };
+        /**
+         * handle "uploadImage" setData
+         * for user preview their posted POST
+         */
+        uploadImage.setData = function(){
+        };
+        /**
+         * handle "embedCode"
+         */
+        var embedCode = step4.getItem(step4ItemsId.item.item.embedCode);
+        embedCode.render = function(url){
+            var getId = function(url){
+                var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var match = url.match(regExp);
+
+                if(match && match[2].length == 11){
+                    return match[2];
+                }else{
+                    return 'error';
+                }
+            };
+            console.log(url);
+            var videoId = getId(url);
+            embedCode.videoId = videoId;
+            console.log(videoId);
+            var frame = $("<iframe>");
+            var src = "https://www.youtube.com/embed/" + videoId;
+            frame.attr("src", src);
+            frame.attr("allowfullscreen", true);
+            /**
+             * only allow 1 video
+             * empty embedCode first
+             */
+            embedCode.empty();
+            embedCode.append(frame);
+        };
+        embedCode.getData = function(){
+            var r = {};
+            r[this.name] = embedCode.videoId;
+            return r;
+        };
+        var youtubeUrl = step4.getItem(step4ItemsId.item.itemInput.youtubeUrl);
+//            console.log(youtubeUrl);
+        youtubeUrl.on("focus", function(){
+//            $("#effect").fadeIn("fast");
+        });
+        youtubeUrl.on("change", function(){
+            console.log("youtubeUrl on change");
+            //funny effect hard code
+            embedCode.render(youtubeUrl.val());
+//            $("#effect").fadeOut("fast");
+        });
+        step4.render = function(){
+            //after dynamic add feature to CUSTOM items
+            //render them all in here
+            uploadImage.render(uploadImageNestedItemsId);
+        };
+        step4.render();
     })(jQuery);
+    $(document).ready(function() {
+        $("form").on("keypress", function(e){
+            if(e.keyCode == 13){
+                e.preventDefault();
+            }
+        });
+    });
 </script>

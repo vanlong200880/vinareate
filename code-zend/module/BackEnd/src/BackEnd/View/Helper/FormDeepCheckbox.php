@@ -21,8 +21,7 @@ class FormDeepCheckbox extends AbstractHelper{
 
     public function __invoke(DeepCheckbox $element = null){
         if(!$element instanceof DeepCheckbox){
-            throw new Exception(sprintf("%s need %s", get_class($this),
-                DeepCheckbox::class));
+            throw new Exception(sprintf("%s need %s", get_class($this), DeepCheckbox::class));
         }
         $this->render($element);
     }
@@ -31,9 +30,9 @@ class FormDeepCheckbox extends AbstractHelper{
     public function render(DeepCheckbox $element){
         $checkboxes = $element->getCheckboxes();
         $name = $element->getName() . "[]";
-        $cbForeach = function($item){
-            echo '<label class="checkbox-inline"><input type="checkbox" name="deepFeature[]" value="' .
-                $item["id"] . '"';
+        $cbForeach = function($item) use ($name){
+            echo '<label class="checkbox-inline"><input type="checkbox" name="' . $name . '" value="' . $item["id"] .
+                '"';
             if(isset($item["checked"])){
                 echo "checked";
             }

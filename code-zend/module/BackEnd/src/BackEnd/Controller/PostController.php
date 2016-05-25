@@ -12,6 +12,7 @@ use BackEnd\Model\Ward;
 use Zend\Form\Element;
 use Zend\Http\Request;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Validator;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -68,9 +69,28 @@ class PostController extends DatabaseController{
             $postForm->setData($postParams);
 
             /**
+             * check valid for dynamic input
+             */
+            $isDigitValid = true;
+            $digitValidMsg = "";
+            $digitValidator = new  Validator\Digits();
+            $digitValidator->setMessage("bạn phải nhập số tiền", Validator\Digits::STRING_EMPTY);
+            $digitValidator->setMessage("chỉ nhập số, đơn vị tính VND", Validator\Digits::NOT_DIGITS);
+            $taxHistory = $postParams->get("taxHistory");
+            foreach($taxHistory as $record){
+                if(!$digitValidator->isValid($record[0]) || !$digitValidator->isValid($record[1])){
+                    $isDigitValid = false;
+                    //only get the first one
+                    $digitValidMsg = array_values($digitValidator->getMessages())[0];
+                }
+            }
+
+            $view->setVariable("digitValidMsg", $digitValidMsg);
+
+            /**
              * check valid of form
              */
-            if($postForm->isValid()){
+            if($postForm->isValid() && $isDigitValid){
                 /**
                  * for debug purpose
                  * dump data

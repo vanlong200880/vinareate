@@ -13,29 +13,25 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label><?php echo $pf->get("house_number")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("house_number")->getLabel();
                                     echo $this->formElement($pf->get('house_number'));
                                     echo $this->formElementErrors($pf->get('house_number')); ?>
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("street")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("street")->getLabel();
                                     echo $this->formElement($pf->get('street'));
                                     echo $this->formElementErrors($pf->get('street')); ?>
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("zip_code")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("zip_code")->getLabel();
                                     echo $this->formElement($pf->get('zip_code'));
                                     echo $this->formElementErrors($pf->get('zip_code')); ?>
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("provinceid")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("provinceid")->getLabel();
                                     echo $this->formSelect($pf->get("provinceid")); ?>
                                 </label>
                             </div>
@@ -43,16 +39,14 @@
                             <div class="form-group">
                                 <?php /** @var Zend\Form\Element\Select $districtSelect */
                                 $districtSelect = $pf->get("districtid"); ?>
-                                <label><?php echo $pf->get("districtid")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("districtid")->getLabel();
                                     echo $this->formSelect($districtSelect); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <?php /** @var Zend\Form\Element\Select $wardtSelect */
                                 $wardtSelect = $pf->get("wardid"); ?>
-                                <label><?php echo $pf->get("wardid")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("wardid")->getLabel();
                                     echo $this->formSelect($wardtSelect); ?>
                                 </label>
                             </div>
@@ -70,15 +64,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label><?php echo $pf->get("fullname")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("fullname")->getLabel();
                                     echo $this->formElement($pf->get('fullname'));
                                     echo $this->formElementErrors($pf->get('fullname')); ?>
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("company")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("company")->getLabel();
                                     echo $this->formElement($pf->get('company'));
                                     echo $this->formElementErrors($pf->get('company')); ?>
                                 </label>
@@ -111,29 +103,10 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("price_installment")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("price_installment")->getLabel();
                                     echo $this->formElement($pf->get('price_installment'));
                                     echo $this->formElementErrors($pf->get('price_installment')); ?>
                                 </label>
-                            </div>
-                            <h2>Lịch sử thuế</h2>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Năm</label>
-                                        <select
-                                            class="selectpicker form-control"
-                                            data-live-search="true">
-                                            <option data-tokens="1">2016
-                                            </option>
-                                            <option data-tokens="2">2015
-                                            </option>
-                                            <option data-tokens="3">2014
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                             <h2>Thông tin chi tiết</h2>
                             <div class="col-md-4">
@@ -264,11 +237,46 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label><?php echo $pf->get("area_use")
-                                            ->getLabel();
+                                    <label><?php echo $pf->get("area_use")->getLabel();
                                         echo $this->formElement($pf->get('area_use'));
                                         echo $this->formElementErrors($pf->get('area_use')); ?>
                                     </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="taxHistoryComponent">
+                <div class="row">
+                    <h2>Lịch sử thuế</h2>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Năm</label>
+                                    <select class="form-control" id="yearSelect">
+                                        <option selected disabled hidden style="display: none">
+                                            -- Năm --
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <?php if($this->digitValidMsg != ""){ ?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $this->digitValidMsg; ?>
+                                    </div>
+                                <?php } ?>
+                                <div class="row">
+                                    <div class="col-md-12"><label>Số tiền đóng</label></div>
+                                </div>
+                                <div class="row" id="taxHistory">
                                 </div>
                             </div>
                         </div>
@@ -325,23 +333,20 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("excerpt")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("excerpt")->getLabel();
                                     echo $this->formElement($pf->get("excerpt"));
                                     echo $this->formElementErrors($pf->get("excerpt")); ?>
                                 </label>
                                 <?php echo $this->formElementErrors($pf->get("excerpt")); ?>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("content")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("content")->getLabel();
                                     echo $this->formElement($pf->get("content"));
                                     echo $this->formElementErrors($pf->get("content")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
-                                <label><?php echo $pf->get("website")
-                                        ->getLabel();
+                                <label><?php echo $pf->get("website")->getLabel();
                                     echo $this->formElement($pf->get("website"));
                                     echo $this->formElementErrors($pf->get("website")); ?>
                                 </label>
@@ -352,6 +357,14 @@
                             <?php echo $this->formDeepCheckbox($pf->get("deepFeature")); ?>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <input name="tax[2016][]" type="number" value="" placeholder="Số tiền">
+                </div>
+                <div class="col-md-3">
+                    <input name="tax[2016][]" type="text" value="2016" readonly>
                 </div>
             </div>
             <?php echo $this->formElement($pf->get("submit")); ?>
@@ -421,5 +434,121 @@
             });
         };
         step.bindEventHanlder();
+
+        var taxComponentItemIds = {
+            item: {
+                item: {
+                    taxHistory: "taxHistory",
+                    buildYear: "buildYear"
+                },
+                itemSelectPicker: {
+                    yearSelect: "yearSelect"
+                }
+            }
+        };
+        var taxComponent = new Step("step3", "taxHistoryComponent", taxComponentItemIds);
+        taxComponent.init();
+        /**
+         * HANDLE UNCOMMON ITEM
+         */
+        /**
+         * handle getData for taxHistory
+         * how to get out value from input/span,...
+         * bcs taxHistory is a CUSTOM
+         * not all step have it
+         */
+        var taxHistory = taxComponent.getItem(taxComponentItemIds.item.item.taxHistory);
+        /**
+         * custom item "tax history"
+         * dynamic implements it here
+         * we can do in step, but bcs not frequently used
+         * >>> write it here
+         * 2 most important NEED implement
+         * getData
+         * setData
+         */
+        taxHistory.getData = function(){
+            var r = {};
+            var records = [];
+            taxHistory.find(".taxRecord").each(function(){
+                var record = [];
+                var houseTax = $(this).find("#houseTax").val();
+                var year = $(this).find("#yearSelected").html();
+                record.push(year, houseTax);
+                records.push(record);
+            });
+            r[taxHistory.name] = records;
+            return r;
+        };
+        taxHistory.setData = function(){
+            /**
+             * handle this function when we need
+             * set back to review/edit
+             */
+        };
+        /**
+         * handle "buildYear"
+         * get year, then conver to miliseconds
+         * from Unix launched date
+         */
+        var buildYearItem = taxComponent.getItem(taxComponentItemIds.item.item.buildYear);
+        buildYearItem.getData = function(){
+            //convert date >>> int
+            var r = {};
+            var buildYear = new Date(buildYearItem.val());
+            r[buildYearItem.name] = buildYear.getTime();
+            return r;
+        };
+        buildYearItem.setData = function(milliseconds){
+            //convert int >>> date
+            var buildYear = new Date(milliseconds);
+            buildYearItem.val(buildYear.toISOString().substring(0, 10))
+        };
+        taxComponent.bindEventHanlder = function(){
+            var yearSelectPicker = taxComponent.getItem(taxComponentItemIds.item.itemSelectPicker.yearSelect);
+            /**
+             * when a year selected
+             * taxHistory will append more row
+             * for user input data
+             */
+            var taxHistory = taxComponent.getItem(taxComponentItemIds.item.item.taxHistory);
+            var taxRecordSample = $(
+                '<div class="row"> <div class="col-md-9"> <input type="number" placeholder="Số tiền"> </div> <div class="col-md-3"> <input type="text" class="yearSelected" readonly> </div> </div>');
+            var yearSelectedSet = [];
+            yearSelectPicker.on("change", function(){
+                var yearSelected = yearSelectPicker.getSelectedOption().val();
+                var picked = false;
+                /**
+                 * if user has clicked on a year
+                 * we have created a record sample for him
+                 * prevent him from create more
+                 */
+                for(var i in yearSelectedSet){
+                    if(yearSelectedSet.hasOwnProperty(i)){
+                        if(yearSelected == yearSelectedSet[i]){
+                            picked = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(!picked){
+                    var taxRecord = taxRecordSample.clone();
+                    /**
+                     * @warn hard code
+                     * when find $("#<name>") like below
+                     */
+                    var name = "taxHistory[" + yearSelected + "][]";
+                    taxRecord.find("input").each(function(){
+                        $(this).attr("name", name);
+                    });
+                    taxRecord.find(".yearSelected").val(yearSelected);
+                    taxHistory.append(taxRecord);
+                }
+                yearSelectedSet.push(yearSelected);
+
+            });
+        };
+        taxComponent.bindEventHanlder();
     })(jQuery);
 </script>

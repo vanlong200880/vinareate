@@ -1,6 +1,7 @@
 <?php
 namespace BackEnd\Model;
 
+use DateTime;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
@@ -10,6 +11,7 @@ use Zend\Form\Element;
 class Post extends IlluminateModel implements InputFilterAwareInterface{
     protected $fillable = array(
         "name",
+        "slug",
         "excerpt",
         "content",
         "price",
@@ -378,5 +380,46 @@ class Post extends IlluminateModel implements InputFilterAwareInterface{
         }
 
         return $this->inputFilter;
+    }
+
+//    public function setNameAttribute($name){
+//        $this->attributes["name"] = "hoanganh" . $name;
+//    }
+
+//    public function setSlugAttribute(){
+//        $this->attributes["slug"] = "hoang-anh";
+//    }
+
+    public function save(){
+        if(isset($this->attributes["name"])){
+            $this->attributes["slug"] = "hoang-anh";
+        }
+//        $this->attributes["id"] = 100;
+        parent::save();
+    }
+
+//    public function fill(array $attributes){
+//        if(isset($attributes["name"])){
+//            $this->slug = "hoang-anh";
+//        }
+//        parent::fill($attributes);
+//    }
+
+    public function setBuildYearAttribute($buildYear){
+        /**
+         * build year at format 2016-05-26
+         * convert him to milisecond 149238479..
+         */
+//        $a = strtotime($buildYear);
+        $this->attributes["build_year"] = strtotime($buildYear);
+    }
+
+    public function getBuildYearAttribute($buildYear){
+        /**
+         * buildYear from database now at format 148347598..
+         * we need 2016-05-26
+         */
+        $dateTime = new DateTime("@$buildYear");
+        return $dateTime->format("Y-m-d");
     }
 }

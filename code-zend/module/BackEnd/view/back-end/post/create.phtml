@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("provinceid")->getLabel();
-//                                    echo $this->formSelect($pf->get("provinceid"));
+                                    //                                    echo $this->formSelect($pf->get("provinceid"));
                                     echo $this->formUniSelect($pf->get("provinceid"));
                                     ?>
                                 </label>
@@ -306,7 +306,7 @@
                                         <p>Kéo & Thả vào đây để tải ảnh<br>
                                             hoặc Chọn file</p>
                                     </div>
-                                    <input type="file" id="inputFile" name="imageFiles[]"
+                                    <input type="file" id="inputFiles" name="uploadImage[]"
                                            multiple="multiple">
                                 </div>
                                 <div id="previewImageDiv"></div>
@@ -696,12 +696,68 @@
             uploadImage.render(uploadImageNestedItemsId);
         };
         step4.render();
-    })(jQuery);
-    $(document).ready(function() {
         $("form").on("keypress", function(e){
             if(e.keyCode == 13){
                 e.preventDefault();
             }
+        }).on("submit", function(e){
+//            e.preventDefault();
+
+//            var uploadForm = new FormData();
+            var uploadImages = step4.getItem(step4ItemsId.item.item.uploadImage).getData()["uploadImage"];
+            var files = $("#inputFiles")[0].files;
+            var lastI = Object.keys(files)[Object.keys(files).length - 1];
+//            console.log("lastI", lastI);
+//            console.log($("#inputFiles"));
+//            console.log($("#inputFiles")[0].files[0]);
+            for(var i in uploadImages){
+                if(uploadImages.hasOwnProperty(i)){
+                    files[parseInt(lastI, 10) + 1 + parseInt(i, 10)] = uploadImages[i];
+                }
+            }
+//            console.log(uploadImages);
+//            $("#inputFiles")[0].files[1] = uploadImages[0];
+//            console.log($("#inputFiles")[0].files);
+            console.log("files-manipulated", files);
+//            $("#uploadImage").
+            return true;
+//            return false;
         });
+    })(jQuery);
+    $(document).ready(function(){
+
+
+//        $("form").on("submit", function(e){
+//            e.preventDefault();
+////            console.log($(this).serializeArray());
+//            var oReq = new XMLHttpRequest();
+//            oReq.open("post", "/backend/post/create");
+////            oReq.send(JSON.stringify($(this).serializeArray()));
+////            oReq.send($(this).serialize());
+//            var a = {name: "anh"};
+//            oReq.send(JSON.stringify(a));
+//            oReq.onload = function(){
+//                console.log(oReq.response);
+//            };
+//
+//        });
+//        $("form").submit(function(e) {
+//            var data = $(this).serialize();
+//
+//            var url = "/backend/post/create"; // the script where you handle the form input.
+//
+//            $.ajax({
+//                type: "POST",
+//                url: url,
+//                data: $("form").serialize(), // serializes the form's elements.
+//                success: function(response)
+//                {
+//                    console.log(response); // show response from the php script.
+//                    //base on post_id, save img/tax history
+//                }
+//            });
+//
+//            e.preventDefault(); // avoid to execute the actual submit of the form.
+//        });
     });
 </script>

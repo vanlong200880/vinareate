@@ -10,6 +10,7 @@ class PostForm extends Form{
         parent::__construct($name);
         $this->setAttribute('method', 'post');
         $this->setAttribute('autocomplete', 'off');
+        $this->setAttribute('enctype', 'multipart/form-data');
 
         //        $this->add(array(
         //            'type' => Element\Csrf::class,

@@ -8,6 +8,9 @@ use BackEnd\Model\Category;
 use BackEnd\Model\District;
 use BackEnd\Model\Post;
 use BackEnd\Model\PostFeature;
+use BackEnd\Model\PostFeatureDetail;
+use BackEnd\Model\PostImage;
+use BackEnd\Model\PostTaxHistory;
 use BackEnd\Model\Province;
 use BackEnd\Model\Ward;
 use BackEnd\UISupport\MenuHierarchy;
@@ -15,7 +18,6 @@ use Zend\Form\Element;
 use Zend\Http\Request;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator;
-use Zend\View\Helper\Navigation\Menu;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -65,6 +67,8 @@ class PostController extends DatabaseController{
         if($request->isPost()){
             $postParams = $request->getPost();
             var_dump($postParams);
+//            return new JsonModel(array("name" => "anh"));
+//            return new JsonModel($postParams);
 
             $post = new Post();
 
@@ -113,7 +117,37 @@ class PostController extends DatabaseController{
 
                 $post->fill((array)$postParams);
                 $post->save();
+
+                /**
+                 * after success save post (basic info)
+                 * handle map post-feature
+                 * handle map post-tax
+                 */
+                //map post-feaure
+                $deepFeatures = $postParams->get("deepFeature");
+                if(is_array($deepFeatures)){
+                    foreach($deepFeatures as $deepFeatureId){
+                        $postFeatureDetail = new PostFeatureDetail();
+                        $postFeatureDetail->post_id = $post->id;
+                        $postFeatureDetail->post_features_id = $deepFeatureId;
+                        $postFeatureDetail->save();
+                    }
+                }
+                //map post-tax
+                if(is_array($taxHistory)){
+                    foreach($taxHistory as $record){
+                        $postTaxHistory = new PostTaxHistory();
+                        $postTaxHistory->post_id = $post->id;
+                        $postTaxHistory->price = $record[0];
+                        $postTaxHistory->year = $record[1];
+                        $postTaxHistory->save();
+                    }
+                }
+
+                $this->saveImage($post->user_id, $post->id);
+
                 return $this->redirect()->toUrl("/");
+//                return new JsonModel(array("post_id" => $post->id, "deepFeature" => $postParams->get("deepFeature"), "taxHistory" => $postParams->get("taxHistory")));
             }
 
             /**
@@ -192,5 +226,78 @@ class PostController extends DatabaseController{
         return $view;
     }
 
+    private function saveImage($userId, $postId){
+        $postImage = new PostImage();
+        $postImageColumns = array(
+            "name",
+            "type",
+            "size",
+            "path",
+            "post_id"
+        );
+        $postImageValues = array();
+        /**
+         * hanlde make directory
+         * bcs $userId / $postId not exist
+         * only data/images exist
+         */
+        $outputDir = "data/images/" . $userId . "/" . $postId . "/";
+        if(!mkdir($outputDir, 0700)){
+            mkdir($outputDir, 0700);
+        }
+        $inputFileName = "uploadImage";
+        $ret = array();
+        if(isset($_FILES[$inputFileName])){
+            $files = $this->diverse_array($_FILES[$inputFileName]);
+            foreach($files as $file){
+                $fileName = $file["name"];
+                move_uploaded_file($file["tmp_name"], $outputDir . $fileName);
+                $postImageValues[] = $fileName;
+                $postImageValues[] = $file["type"];
+                $postImageValues[] = $file["size"];
+                $postImageValues[] = $outputDir . $fileName;
+                $postImageValues[] = $postId;
+                $ret[] = $fileName;
+                $a = array_combine($postImageColumns, $postImageValues);
+                $postImage->fill(array_combine($postImageColumns, $postImageValues));
+                $postImage->save();
+            }
+            //            if(!is_array($files["name"])){
+            //                $fileName = $files["name"];
+            //                move_uploaded_file($files["tmp_name"], $outputDir . $fileName);
+            //                $postImageValues[] = $fileName;
+            //                $postImageValues[] = $files["type"];
+            //                $postImageValues[] = $files["size"];
+            //                $postImageValues[] = $outputDir . $fileName;
+            //                $postImageValues[] = $postId;
+            //                $ret[] = $fileName;
+            //                $postImage->insert($postImageColumns, $postImageValues);
+            //            }else{
+            //                $fileCount = count($files["name"]);
+            //                for($i = 0; $i < $fileCount; $i++){
+            //                    $fileName = $files["name"][$i];
+            //                    move_uploaded_file($files["tmp_name"][$i], $outputDir . $fileName);
+            //                    $postImageValues[] = $fileName;
+            //                    $postImageValues[] = $files["type"][$i];
+            //                    $postImageValues[] = $files["size"][$i];
+            //                    $postImageValues[] = $outputDir . $fileName;
+            //                    $postImageValues[] = $postId;
+            //                    $postImage->insert($postImageColumns, $postImageValues);
+            //                    $ret[] = $fileName;
+            //                }
+            //
+            //            }
+        }
+        return $ret;
+    }
 
+    private function diverse_array($vector){
+        $result = array();
+        foreach($vector as $key1 => $value1){
+            foreach($value1 as $key2 => $value2){
+                $result[$key2][$key1] = $value2;
+            }
+        }
+        return $result;
+    }
 }

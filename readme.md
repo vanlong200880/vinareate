@@ -12,3 +12,4 @@ review on Youtube, change-log
 + [illuminate database](https://www.youtube.com/watch?v=QcZA5cGjX4A)
 + [login, comment](https://www.youtube.com/watch?v=iGncu0xnR88)
 + [mobile detect](https://www.youtube.com/watch?v=TDyJ2ZP7Yxw)
++ [create-post, Zend Form](https://www.youtube.com/watch?v=jwXCU8luWUs)

@@ -196,13 +196,13 @@ class PostController extends DatabaseController{
         //reset before loop
 //        $a = array();
 //        $this->tmp = &$a;
-        MenuHierarchy::$tmp = array();
-        MenuHierarchy::reArrange($categories->toArray(), 0, 1, false);
+//        MenuHierarchy::$tmp = array();
+        $data  = MenuHierarchy::reArrange($categories->toArray(), 0, 1, false);
 //        var_dump($this->tmp);
 //        var_dump($a);
         /** @var Element\Select $categorySelect */
         $categorySelect = $postForm->get("category_id");
-        $categorySelect->setValueOptions(MenuHierarchy::$tmp);
+        $categorySelect->setValueOptions($data);
 
         $view->setVariable("postForm", $postForm);
 

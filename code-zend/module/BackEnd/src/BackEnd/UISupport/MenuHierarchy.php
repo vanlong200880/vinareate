@@ -81,6 +81,12 @@ class MenuHierarchy{
     }
 
     static function reArrange($menus, $idParent = 0, $count = 1, $hasChild = false){
+        self::$tmp = array();
+        self::reArrangeLoop($menus, $idParent, $count, $hasChild);
+        return self::$tmp;
+    }
+
+    static function reArrangeLoop($menus, $idParent = 0, $count = 1, $hasChild = false){
         foreach($menus as $i => $item){
             if($item["parent"] == $idParent){
                 $hasChild = true;
@@ -90,7 +96,7 @@ class MenuHierarchy{
 //                self::$tmp[] = $item;
                 unset($menus[$i]);
                 //call tiep de tim ra may thang con cua no
-                $xyz = self::reArrange($menus, $item["value"], ($count + 1), false);
+                $xyz = self::reArrangeLoop($menus, $item["value"], ($count + 1), false);
                 if($xyz){
                     $ref["disabled"] = true;
                 }

@@ -395,6 +395,7 @@ return array(
         'invokables' => array(
             'formDeepCheckbox' => BackEnd\View\Helper\FormDeepCheckbox::class,
             'formUniSelect' => BackEnd\View\Helper\FormUniSelect::class,
+            'formUniElementErrors' => BackEnd\View\Helper\FormUniElementErrors::class,
         ),
         'factories' => array(
             'Requesthelper' => 'BackEnd\View\Helper\Factory\RequestHelperFactory',

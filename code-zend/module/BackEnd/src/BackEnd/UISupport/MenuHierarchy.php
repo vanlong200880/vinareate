@@ -104,4 +104,32 @@ class MenuHierarchy{
         }
         return $hasChild;
     }
+
+    static function reArrange2($menus, $parent, $count = 1){
+        self::$tmp = array();
+        self::reArrangeLoop2($menus, $parent, $count);
+        return self::$tmp;
+    }
+
+    static function reArrangeLoop2($menus, $parent, $count = 1){
+//        $ref = &self::$tmp[];
+
+        foreach($menus as $i => $item){
+            if($item["parent"] == $parent["id"]){
+//                $hasChild = true;
+                $item["class"] = "level-" . $count;
+//                $parent["child"][] = $item;
+//                $ref = &self::$tmp[];
+//                $ref = $item;
+//                self::$tmp[] = $item;
+                unset($menus[$i]);
+                //call tiep de tim ra may thang con cua no
+                $xyz = self::reArrangeLoop2($menus, $item, ($count + 1));
+                $parent["child"][] = $xyz;
+            }
+        }
+        return $parent;
+    }
+
+
 }

@@ -15,24 +15,26 @@
                             <div class="form-group">
                                 <label><?php echo $pf->get("house_number")->getLabel();
                                     echo $this->formElement($pf->get('house_number'));
-                                    echo $this->formElementErrors($pf->get('house_number')); ?>
+                                    echo $this->formUniElementErrors($pf->get('house_number'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("street")->getLabel();
                                     echo $this->formElement($pf->get('street'));
-                                    echo $this->formElementErrors($pf->get('street')); ?>
+                                    echo $this->formUniElementErrors($pf->get('street'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("zip_code")->getLabel();
                                     echo $this->formElement($pf->get('zip_code'));
-                                    echo $this->formElementErrors($pf->get('zip_code')); ?>
+                                    echo $this->formUniElementErrors($pf->get('zip_code'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("provinceid")->getLabel();
-                                    //                                    echo $this->formSelect($pf->get("provinceid"));
                                     echo $this->formUniSelect($pf->get("provinceid"));
                                     ?>
                                 </label>
@@ -72,25 +74,29 @@
                             <div class="form-group">
                                 <label><?php echo $pf->get("fullname")->getLabel();
                                     echo $this->formElement($pf->get('fullname'));
-                                    echo $this->formElementErrors($pf->get('fullname')); ?>
+                                    echo $this->formUniElementErrors($pf->get('fullname'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("company")->getLabel();
                                     echo $this->formElement($pf->get('company'));
-                                    echo $this->formElementErrors($pf->get('company')); ?>
+                                    echo $this->formUniElementErrors($pf->get('company'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("email")->getLabel();
                                     echo $this->formElement($pf->get('email'));
-                                    echo $this->formElementErrors($pf->get('email')); ?>
+                                    echo $this->formUniElementErrors($pf->get('email'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("phone")->getLabel();
                                     echo $this->formElement($pf->get('phone'));
-                                    echo $this->formElementErrors($pf->get('phone')); ?>
+                                    echo $this->formUniElementErrors($pf->get('phone'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                         </div>
@@ -105,13 +111,15 @@
                             <div class="form-group">
                                 <label><?php echo $pf->get("price")->getLabel();
                                     echo $this->formElement($pf->get('price'));
-                                    echo $this->formElementErrors($pf->get('price')); ?>
+                                    echo $this->formUniElementErrors($pf->get('price'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("price_installment")->getLabel();
                                     echo $this->formElement($pf->get('price_installment'));
-                                    echo $this->formElementErrors($pf->get('price_installment')); ?>
+                                    echo $this->formUniElementErrors($pf->get('price_installment'),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <h2>Thông tin chi tiết</h2>
@@ -234,10 +242,9 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>năm xây dựng </label>
-                                    <input type="date"
-                                           class="form-control"
-                                           name="build_year">
+                                    <label><?php echo $pf->get("build_year")->getLabel(); ?>
+                                        <?php echo $this->formElement($pf->get("build_year")); ?>
+                                    </label>
                                 </div>
                             </div>
 
@@ -245,7 +252,8 @@
                                 <div class="form-group">
                                     <label><?php echo $pf->get("area_use")->getLabel();
                                         echo $this->formElement($pf->get('area_use'));
-                                        echo $this->formElementErrors($pf->get('area_use')); ?>
+                                        echo $this->formUniElementErrors($pf->get('area_use'),
+                                            array("class" => "text-danger")); ?>
                                     </label>
                                 </div>
                             </div>
@@ -300,19 +308,31 @@
                             thả dưới đây.</p></div>
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label>chọn ảnh đại diện</label>
+                            <input type="file" name="thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <div id="uploadImage">
                                 <div id="dragDiv">
                                     <div class="uploads">
                                         <p>Kéo & Thả vào đây để tải ảnh<br>
                                             hoặc Chọn file</p>
                                     </div>
-                                    <input type="file" id="inputFiles" name="uploadImage[]"
-                                           multiple="multiple">
+                                    <input type="file" id="inputFiles" name="galery[]"
+                                           multiple>
                                 </div>
                                 <div id="previewImageDiv"></div>
                             </div>
                         </div>
 
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>chọn bản vẽ</label>
+                            <input type="file" name="architect[]" multiple>
+                        </div>
                     </div>
                     <div class="col-md-12"><h2>Video clip</h2></div>
                     <div class="col-md-12">
@@ -341,26 +361,27 @@
                             <div class="form-group">
                                 <label><?php echo $pf->get("name")->getLabel();
                                     echo $this->formElement($pf->get("name"));
-                                    echo $this->formElementErrors($pf->get("name")); ?>
+                                    echo $this->formUniElementErrors($pf->get("name"),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("excerpt")->getLabel();
                                     echo $this->formElement($pf->get("excerpt"));
-                                    echo $this->formElementErrors($pf->get("excerpt")); ?>
+                                    echo $this->formUniElementErrors($pf->get("excerpt"),
+                                        array("class" => "text-danger")); ?>
                                 </label>
-                                <?php echo $this->formElementErrors($pf->get("excerpt")); ?>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("content")->getLabel();
                                     echo $this->formElement($pf->get("content"));
-                                    echo $this->formElementErrors($pf->get("content")); ?>
+                                    echo $this->formUniElementErrors($pf->get("content"),
+                                        array("class" => "text-danger")); ?>
                                 </label>
                             </div>
                             <div class="form-group">
                                 <label><?php echo $pf->get("website")->getLabel();
-                                    echo $this->formElement($pf->get("website"));
-                                    echo $this->formElementErrors($pf->get("website")); ?>
+                                    echo $this->formElement($pf->get("website")); ?>
                                 </label>
                             </div>
                         </div>

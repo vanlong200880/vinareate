@@ -32,6 +32,10 @@ use Zend\View\Model\ViewModel;
  * @package BackEnd\Controller
  */
 class PostController extends DatabaseController{
+    const IMAGE_STYLE_THUMNAIL = "thumbnail";
+    const IMAGE_STYLE_GALERY = "galery";
+    const IMAGE_STYLE_ARCHITECT = "architect";
+
     protected $serviceManager;
 
     private $tmp;
@@ -143,8 +147,10 @@ class PostController extends DatabaseController{
                         $postTaxHistory->save();
                     }
                 }
-
-                $this->saveImage($post->user_id, $post->id);
+                $a = $_FILES;
+                $this->saveImage($post, self::IMAGE_STYLE_THUMNAIL);
+                $this->saveImage($post, self::IMAGE_STYLE_GALERY);
+                $this->saveImage($post, self::IMAGE_STYLE_ARCHITECT);
 
                 return $this->redirect()->toUrl("/");
 //                return new JsonModel(array("post_id" => $post->id, "deepFeature" => $postParams->get("deepFeature"), "taxHistory" => $postParams->get("taxHistory")));
@@ -206,6 +212,10 @@ class PostController extends DatabaseController{
 
         $view->setVariable("postForm", $postForm);
 
+//        $result = MenuHierarchy::reArrange2($categories->toArray(), ["id" => 0, "name" => "root"], 1);
+//        var_dump($result);
+
+
 //        $data = array(
 //            array("id" => 1, "parent" => 0),
 //            array("id" => 2, "parent" => 0),
@@ -226,78 +236,45 @@ class PostController extends DatabaseController{
         return $view;
     }
 
-    private function saveImage($userId, $postId){
+    private function saveImage($post, $style){
         $postImage = new PostImage();
-        $postImageColumns = array(
-            "name",
-            "type",
-            "size",
-            "path",
-            "post_id"
-        );
-        $postImageValues = array();
         /**
          * hanlde make directory
          * bcs $userId / $postId not exist
          * only data/images exist
          */
-        $outputDir = "data/images/" . $userId . "/" . $postId . "/";
-        if(!mkdir($outputDir, 0700)){
+        $outputDir = "data/images/" . $post->user_id . "/" . $post->id . "/";
+        if(!file_exists($outputDir)){
             mkdir($outputDir, 0700);
         }
-        $inputFileName = "uploadImage";
-        $ret = array();
-        if(isset($_FILES[$inputFileName])){
-            $files = $this->diverse_array($_FILES[$inputFileName]);
-            foreach($files as $file){
-                $fileName = $file["name"];
-                move_uploaded_file($file["tmp_name"], $outputDir . $fileName);
-                $postImageValues[] = $fileName;
-                $postImageValues[] = $file["type"];
-                $postImageValues[] = $file["size"];
-                $postImageValues[] = $outputDir . $fileName;
-                $postImageValues[] = $postId;
-                $ret[] = $fileName;
-                $a = array_combine($postImageColumns, $postImageValues);
-                $postImage->fill(array_combine($postImageColumns, $postImageValues));
-                $postImage->save();
-            }
-            //            if(!is_array($files["name"])){
-            //                $fileName = $files["name"];
-            //                move_uploaded_file($files["tmp_name"], $outputDir . $fileName);
-            //                $postImageValues[] = $fileName;
-            //                $postImageValues[] = $files["type"];
-            //                $postImageValues[] = $files["size"];
-            //                $postImageValues[] = $outputDir . $fileName;
-            //                $postImageValues[] = $postId;
-            //                $ret[] = $fileName;
-            //                $postImage->insert($postImageColumns, $postImageValues);
-            //            }else{
-            //                $fileCount = count($files["name"]);
-            //                for($i = 0; $i < $fileCount; $i++){
-            //                    $fileName = $files["name"][$i];
-            //                    move_uploaded_file($files["tmp_name"][$i], $outputDir . $fileName);
-            //                    $postImageValues[] = $fileName;
-            //                    $postImageValues[] = $files["type"][$i];
-            //                    $postImageValues[] = $files["size"][$i];
-            //                    $postImageValues[] = $outputDir . $fileName;
-            //                    $postImageValues[] = $postId;
-            //                    $postImage->insert($postImageColumns, $postImageValues);
-            //                    $ret[] = $fileName;
-            //                }
-            //
-            //            }
-        }
-        return $ret;
+//        if(isset($_FILES[$style])){
+//            $files = $this->diverse_array($_FILES[$style]);
+        $file = $_FILES[$style];
+//            if(is_array($files)){
+//                foreach($files as $file){
+                    $fileName = $file["name"];
+                    move_uploaded_file($file["tmp_name"], $outputDir . $fileName);
+
+
+                    $postImage->name = $fileName;
+                    $postImage->type = $file["type"];
+                    $postImage->size = $file["size"];
+                    $postImage->path = $outputDir . $fileName;
+                    $postImage->post_id = $post->id;
+                    $postImage->style = $style;
+                    $postImage->save();
+//                }
+//            }
+//        }
     }
 
-    private function diverse_array($vector){
-        $result = array();
-        foreach($vector as $key1 => $value1){
-            foreach($value1 as $key2 => $value2){
-                $result[$key2][$key1] = $value2;
-            }
-        }
-        return $result;
-    }
+//    private function diverse_array($vector){
+//        $result = array();
+//        foreach($vector as $key1 => $value1){
+//            foreach($value1 as $key2 => $value2){
+//                $result[$key2][$key1] = $value2;
+//            }
+//        }
+//        return $result;
+//    }
 }

@@ -87,7 +87,7 @@ class PostFilter extends InputFilter{
                     'name' => Validator\NotEmpty::class,
                     'options' => array(
                         'messages' => array(
-                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập mã zip code'
+                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập họ tên'
                         )
                     ),
                     'break_chain_on_failure' => true
@@ -105,7 +105,7 @@ class PostFilter extends InputFilter{
                     'name' => Validator\NotEmpty::class,
                     'options' => array(
                         'messages' => array(
-                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập mã zip code'
+                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập tên công ty'
                         )
                     ),
                     'break_chain_on_failure' => true
@@ -221,23 +221,32 @@ class PostFilter extends InputFilter{
 
         $this->add(array(
             'name' => 'area_use',
-//            'required' => true,
+            'required' => true,
             'filters' => $filters,
             'validators' => array(
-//                array(
-//                    'name' => Validator\NotEmpty::class,
-//                    'options' => array(
-//                        'messages' => array(
-//                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập diện tích sử dụng'
-//                        )
-//                    ),
-//                    'break_chain_on_failure' => true
-//                ),
+                array(
+                    "name" => Validator\Step::class,
+                    "options" => array(
+                        "messages" => array(
+                            Validator\Step::INVALID => "bạn chưa nhập diện tích sử dụng"
+                        )
+                    ),
+                    'break_chain_on_failure' => true
+                ),
+                array(
+                    'name' => Validator\NotEmpty::class,
+                    'options' => array(
+                        'messages' => array(
+                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập diện tích sử dụng'
+                        )
+                    ),
+                    'break_chain_on_failure' => true
+                ),
                 array(
                     'name' => Validator\Digits::class,
                     'options' => array(
                         'messages' => array(
-                            Validator\Digits::STRING_EMPTY => "bạn chưa nhập diện tích sử dụng ",
+//                            Validator\Digits::STRING_EMPTY => "bạn chưa nhập diện tích sử dụng ",
                             Validator\Digits::NOT_DIGITS => 'bạn chỉ cần nhập số, đơn vị tính: m2'
                         )
                     ),
@@ -255,7 +264,7 @@ class PostFilter extends InputFilter{
                     'name' => Validator\NotEmpty::class,
                     'options' => array(
                         'messages' => array(
-                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập diện tích sử dụng'
+                            Validator\NotEmpty::IS_EMPTY => 'bạn chưa nhập tên bài đăng'
                         )
                     ),
                     'break_chain_on_failure' => true

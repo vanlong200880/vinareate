@@ -271,5 +271,16 @@ class PostForm extends Form{
                 "empty_option" => "-- chọn loại dự án --",
             ),
         ));
+
+        $this->add(array(
+            'type' => Element\Date::class,
+            'name' => 'build_year',
+            'attributes' => array(
+                'class' => 'form-control',
+            ),
+            'options' => array(
+                'label' => 'năm xây dựng',
+            ),
+        ));
     }
 }

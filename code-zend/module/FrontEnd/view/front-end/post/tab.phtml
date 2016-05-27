@@ -855,7 +855,7 @@
                     $("#" + "rowSteps").css({display: 'block'});
                     $("a[aria-controls='step-1']").click();
                     //start render step1
-                    step1.render();
+//                    step1.render();
                 });
 
 
@@ -973,6 +973,7 @@
 //                    console.log(v);
 //                })
             };
+            step1.render();
             step1.bindEventHanlder = function(){
                 var btnSubmit = step1.component.find("#" + step1.itemsId.event.btnSubmit);
                 btnSubmit.on("click", function(){

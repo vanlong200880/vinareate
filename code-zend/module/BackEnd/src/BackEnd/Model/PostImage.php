@@ -9,6 +9,7 @@ class PostImage extends IlluminateModel{
         "type",
         "size",
         "path",
-        "post_id"
+        "post_id",
+        "style"
     );
 }

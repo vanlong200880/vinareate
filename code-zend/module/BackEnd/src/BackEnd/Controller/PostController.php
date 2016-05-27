@@ -1,6 +1,7 @@
 <?php
 namespace BackEnd\Controller;
 
+use ArrayObject;
 use BackEnd\Form\Element\DeepCheckbox;
 use BackEnd\Form\PostFilter;
 use BackEnd\Form\PostForm;
@@ -107,6 +108,17 @@ class PostController extends DatabaseController{
 
             $view->setVariable("digitValidMsg", $digitValidMsg);
 
+//            $post = [
+//                "id" => 98,
+//                "user_id" => 1
+//            ];
+//            $object = new ArrayObject($post);
+//            // now the clever bit
+//            $object->setFlags(ArrayObject::ARRAY_AS_PROPS);
+//            $this->saveImage($object, self::IMAGE_STYLE_THUMNAIL);
+//            $this->saveImage($object, self::IMAGE_STYLE_GALERY);
+//            $this->saveImage($object, self::IMAGE_STYLE_ARCHITECT);
+
             /**
              * check valid of form
              */
@@ -147,7 +159,7 @@ class PostController extends DatabaseController{
                         $postTaxHistory->save();
                     }
                 }
-                $a = $_FILES;
+//                $a = $_FILES;
                 $this->saveImage($post, self::IMAGE_STYLE_THUMNAIL);
                 $this->saveImage($post, self::IMAGE_STYLE_GALERY);
                 $this->saveImage($post, self::IMAGE_STYLE_ARCHITECT);
@@ -160,7 +172,8 @@ class PostController extends DatabaseController{
              * innject options for district-select
              */
             $provinceId = $postParams->get("provinceid");
-            $ditricts = District::where("provinceid", $provinceId)->select("districtid AS value", "name AS label")->get();
+            $ditricts =
+                District::where("provinceid", $provinceId)->select("districtid AS value", "name AS label")->get();
             /** @var Element\Select $districtSelect */
             $districtSelect = $postForm->get("districtid");
             $districtSelect->setValueOptions($ditricts->toArray());
@@ -203,7 +216,7 @@ class PostController extends DatabaseController{
 //        $a = array();
 //        $this->tmp = &$a;
 //        MenuHierarchy::$tmp = array();
-        $data  = MenuHierarchy::reArrange($categories->toArray(), 0, 1, false);
+        $data = MenuHierarchy::reArrange($categories->toArray(), 0, 1, false);
 //        var_dump($this->tmp);
 //        var_dump($a);
         /** @var Element\Select $categorySelect */
@@ -243,38 +256,93 @@ class PostController extends DatabaseController{
          * bcs $userId / $postId not exist
          * only data/images exist
          */
-        $outputDir = "data/images/" . $post->user_id . "/" . $post->id . "/";
-        if(!file_exists($outputDir)){
-            mkdir($outputDir, 0700);
+        $outputDir = "data/images/" . $post->user_id . "/" . $post->id . "/" . $style . "/";
+        if(!is_dir($outputDir) && !file_exists($outputDir)){
+            mkdir($outputDir, 0777, true);
         }
+//        mkdir("data/images/1/fuck/", 0700);
+//        mkdir("data/images/1/98/thumbnail", 0700);
+//        mkdir($outputDir);
 //        if(isset($_FILES[$style])){
 //            $files = $this->diverse_array($_FILES[$style]);
-        $file = $_FILES[$style];
-//            if(is_array($files)){
-//                foreach($files as $file){
-                    $fileName = $file["name"];
-                    move_uploaded_file($file["tmp_name"], $outputDir . $fileName);
+        $files = $_FILES[$style];
+        /**
+         * BCS mutiple-file ≠ single-file
+         * Snap shot of single-file
+         * array(
+         *  "thumbnail" => array(
+         *      "name" =>
+         *      "type" =>
+         *      "size" =>
+         *  )
+         *
+         * Snap shot of multile-file
+         * array(
+         *  "galery" => array(
+         *      "name" => array(
+         *          "0" =>
+         *          "1" =>
+         *      "type" => array(
+         *          "0" =>
+         *          "1" =>
+         *  )
+         */
+        /**
+         * diverse array
+         */
+        $diverseFiles = array();
+        foreach($files as $key => $values){
+            /**
+             * if $value1 not an ARRAY
+             * means we hanlde single-file
+             * no need diverse
+             */
+            if(!is_array($values)){
+                $diverseFiles[] = $files;
+                break;
+            }
+            foreach ($values as $i => $value) {
+                $diverseFiles[$i][$key] = $value;
+            }
+        }
+
+        /**
+         * event single-file/mutiplef-file
+         * has same snap shot
+         * array(
+         *  array(),
+         *  array(),
+         *  array()
+         * )
+         *
+         */
+
+        foreach($diverseFiles as $file){
+            $fileNameWithExt = $file["name"];
+
+            /**
+             * check if file path already exist
+             */
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $tmpName = $fileName;
+            $extension = pathinfo($fileNameWithExt, PATHINFO_EXTENSION);
+
+            $i = 0;
+            while(file_exists($outputDir . $fileName . "." . $extension)){
+                $fileName = (string)$tmpName . $i;
+                $fileNameWithExt = $fileName . "." . $extension;
+                $i++;
+            }
+            move_uploaded_file($file["tmp_name"], $outputDir . $fileNameWithExt);
 
 
-                    $postImage->name = $fileName;
-                    $postImage->type = $file["type"];
-                    $postImage->size = $file["size"];
-                    $postImage->path = $outputDir . $fileName;
-                    $postImage->post_id = $post->id;
-                    $postImage->style = $style;
-                    $postImage->save();
-//                }
-//            }
-//        }
+            $postImage->name = $fileNameWithExt;
+            $postImage->type = $file["type"];
+            $postImage->size = $file["size"];
+            $postImage->path = $outputDir . $fileNameWithExt;
+            $postImage->post_id = $post->id;
+            $postImage->style = $style;
+            $postImage->save();
+        }
     }
-
-//    private function diverse_array($vector){
-//        $result = array();
-//        foreach($vector as $key1 => $value1){
-//            foreach($value1 as $key2 => $value2){
-//                $result[$key2][$key1] = $value2;
-//            }
-//        }
-//        return $result;
-//    }
 }

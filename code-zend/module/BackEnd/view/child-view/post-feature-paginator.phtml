@@ -4,31 +4,29 @@
     <?php $urlParams = array(
         "controller" => $this->controller,
         "action" => $this->action,
-        "page" => $this->previous,
         "order_by" => $this->orderBy,
-        "order" => $this->order,
-        "searchTerm" => ""
-    ); ?>
+        "order" => $this->order
+    );
 
-    <?php if(isset($this->searchTerm)){
-        $urlParams["searchTerm"] = $this->searchTerm;
-    } ?>
-
-    <?php $url = $this->url($this->route, $urlParams) . $urlParams["searchTerm"]; ?>
+    $requestGetParams = "";
+    if(isset($this->requestGetParams)){
+        $requestGetParams = $this->requestGetParams;
+    }
+    ?>
 
     <ul class="pagination">
         <?php if(!isset($this->previous)){
             $this->previous = $this->first;
         } ?>
         <?php $urlParams["page"] = $this->previous; ?>
-        <li><a href="<?php echo $url; ?>">
+        <li><a href="<?php echo $this->url($this->route, $urlParams) . $requestGetParams; ?>">
                 &lt
             </a>
         </li>
         <?php foreach($this->pagesInRange as $page){ ?>
             <?php $urlParams["page"] = $page; ?>
             <li>
-                <a href="<?php echo $url; ?>">
+                <a href="<?php echo $this->url($this->route, $urlParams) . $requestGetParams; ?>">
                     <?php echo $page; ?>
                 </a>
             </li>
@@ -38,7 +36,7 @@
         } ?>
         <?php $urlParams["page"] = $this->next; ?>
         <li>
-            <a href="<?php echo $url; ?>">
+            <a href="<?php echo $this->url($this->route, $urlParams) . $requestGetParams; ?>">
                 &gt
             </a>
         </li>

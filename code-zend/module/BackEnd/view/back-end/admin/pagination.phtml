@@ -25,9 +25,10 @@ $urlParams = array(
     "action" => $this->action,
     "orderBy" => $this->orderBy,
     "order" => $this->order,
+    "requestGetParams" => $this->requestGetParams
 );
 if(isset($this->searchTerm)){
-    $urlParams["searchTerm"] = $this->searchTerm;
+    $urlParams["requestGetParams"] = $this->requestGetParams;
 }
 echo $this->paginationControl($this->paginator, 'Sliding', 'post-feature-paginator', $urlParams);
 

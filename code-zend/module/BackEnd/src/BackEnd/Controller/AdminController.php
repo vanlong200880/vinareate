@@ -1,13 +1,14 @@
 <?php
 namespace BackEnd\Controller;
 
+use BackEnd\Model\District;
+use BackEnd\Model\PostFeature;
+use BackEnd\Paginator\UniQuery;
+use Illuminate\Database\Capsule\Manager as Capsule;
 use Zend\Db\Adapter\Adapter;
-use Zend\Db\Sql\Predicate\Like;
-use Zend\Db\Sql\Select;
 use Zend\Filter\Word;
 use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\ViewModel;
@@ -19,6 +20,7 @@ class AdminController extends AbstractActionController{
 
     public function __construct(ServiceManager $serviceManager){
         $this->serviceManager = $serviceManager;
+
         $this->viewModel = new ViewModel();
 
         $this->serviceManager->get("init-capsule");
@@ -65,34 +67,63 @@ class AdminController extends AbstractActionController{
          * build options for query
          */
         $options = array(
-            "order_by" => $orderBy,
-            "order" => $order
+            UniQuery::ORDER_BY => $orderBy,
+            UniQuery::ORDER => $order
         );
         $searchTerm = $request->getQuery("search_term");
         if(!is_null($searchTerm)){
-            $options["search_term"] = $searchTerm;
-            $this->viewModel->setVariable("searchTerm", "?search_term=" . $searchTerm);
+            $options[UniQuery::SEARCH_TERM] = $searchTerm;
+            $requestGetParams = sprintf("?%s=%s", UniQuery::SEARCH_TERM, $searchTerm);
+            $this->viewModel->setVariable("requestGetParams", $requestGetParams);
         }
         /**
          * inject adapter
          */
         /** @var Adapter $adapter */
-        $adapter = $this->serviceManager->get("adapter");
-
-        $query = new Select("post_features");
-        $query->where(new Like("name", "%" . $searchTerm . "%"));
-        $query->order($orderBy . " " . $order);
-
-        $dbSelect = new DbSelect($query, $adapter, null, null);
-        $paginator = new Paginator($dbSelect);
+//        $adapter = $this->serviceManager->get("adapter");
+//
+//        $query = new Select("post_features");
+//        $query->where(new Like("name", "%" . $searchTerm . "%"));
+//        $query->order($orderBy . " " . $order);
+//
+//        $dbSelect = new DbSelect($query, $adapter, null, null);
+//        $paginator = new Paginator($dbSelect);
+//
+//        $paginator->setItemCountPerPage(self::LIMIT);
+//
+//        $paginator->setCurrentPageNumber($pageId);
+//
+//        var_dump($paginator->getItemsByPage($pageId));
+//        $modelQuery = new PostFeature();
+        $modelQuery = PostFeature::query();
+//        $modelQuery = PostFeature::with("district")->query();
+//        $modelQuery->where("id", ">", 10);
+//        $query = Capsule::table('post_features');
+//        $paginator = new Paginator(new UniQuery($query, $options));
+        $paginator = new Paginator(new UniQuery($modelQuery, $options));
 
         $paginator->setItemCountPerPage(self::LIMIT);
 
         $paginator->setCurrentPageNumber($pageId);
 
-        var_dump($paginator->getItemsByPage($pageId));
-
         $this->viewModel->setVariable("paginator", $paginator);
+
+        foreach($paginator->getItemsByPage($pageId) as $item){
+            var_dump($item->name);
+        }
+//        var_dump(($paginator->getItemsByPage($pageId)->first()->name));
+
+//        $urlParams = array(
+//            'route' => 'test-regex-router/step',
+//            "controller" => $controllerName,
+//            "action" => $action,
+//            UniQuery::ORDER_BY => $orderBy,
+//            UniQuery::ORDER => $order,
+//        );
+//        $pages = get_object_vars($paginator->getPages());
+//
+//        $pages = array_merge($pages, $urlParams);
+
         return $this->viewModel;
     }
 

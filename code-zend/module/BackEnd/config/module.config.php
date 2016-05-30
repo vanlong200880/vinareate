@@ -5,8 +5,8 @@ return array(
         'invokables' => array(
             'BackEnd\Controller\Index' => 'BackEnd\Controller\IndexController',
             //'BackEnd\Controller\District' => 'BackEnd\Controller\DistrictController',
-            'BackEnd\Controller\IlluminateDatabase' => 'BackEnd\Controller\IlluminateDatabaseController',
-//            'BackEnd\Controller\PostImages'=>'BackEnd\Controller\PostImagesController',
+//            'BackEnd\Controller\IlluminateDatabase' => 'BackEnd\Controller\IlluminateDatabaseController',
+            //            'BackEnd\Controller\PostImages'=>'BackEnd\Controller\PostImagesController',
         ),
         "factories" => array(
             'BackEnd\Controller\Province' => 'BackEnd\Factory\ProvinceControllerFactory',
@@ -20,6 +20,18 @@ return array(
             'BackEnd\Controller\Auth' => 'BackEnd\Factory\AuthControllerFactory',
             'BackEnd\Controller\Status' => 'BackEnd\Factory\PostStatusControllerFactory',
             'BackEnd\Controller\Type' => 'BackEnd\Factory\PostTypeControllerFactory',
+            'BackEnd\Controller\RegexRouter' => function($sm){
+                $real = $sm->getServiceLocator();
+                return new \BackEnd\Controller\RegexRouterController($real);
+            },
+            'BackEnd\Controller\Admin' => function($sm){
+                $real = $sm->getServiceLocator();
+                return new \BackEnd\Controller\AdminController($real);
+            },
+            'BackEnd\Controller\IlluminateDatabase' => function($sm){
+                $real = $sm->getServiceLocator();
+                return new \BackEnd\Controller\IlluminateDatabaseController($real);
+            }
         )
     ),
     'router' => array(
@@ -36,26 +48,6 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    //                     'default' => array(
-                    //                        'type'    => 'Segment',
-                    //                        'options' => array(
-                    //                            'route'    => '/[:controller][/:action][/type/:type][/id/:id][/page/:page][/title/:title][/redirect/:redirect][/ntype/:ntype][/col/:col]',
-                    //                            'constraints' => array(
-                    //                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    //                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    //                                'id'     => '[0-9]+',
-                    //                                'page'     => '[0-9]+',
-                    //                                'title'     => '.+',
-                    //                                'type'     => '[a-zA-Z0-9_-]*',
-                    //                                'col'     => '.+',
-                    //                                'redirect' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    //                                'ntype'    	=> '[0-9]+',
-                    //                            ),
-                    //                            'defaults' => array(
-                    //                            ),
-                    //                        ),
-                    //                    ),
-
                     'province' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -366,7 +358,7 @@ return array(
             'test-user-comment' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/test/post[/:id]',
+                    'route' => '/test/comment[/:id]',
                     'constraints' => array(
                         'id' => '[0-9]+',
                     ),
@@ -389,6 +381,42 @@ return array(
                     ),
                 ),
             ),
+            'test-pagination' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/test/comment[/:id]',
+                    'constraints' => array(
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Backend\Controller\Test',
+                        'action' => 'userComment',
+                    ),
+                ),
+            ),
+            'test-regex-router' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/test',
+                    "defaults" => array(
+                        "__NAMESPACE__" => 'Backend\Controller',
+                    )
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'step' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:controller][/:action][/page/:page]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '[0-9]+',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         ),
     ),
     'view_helpers' => array(
@@ -399,6 +427,9 @@ return array(
         ),
         'factories' => array(
             'Requesthelper' => 'BackEnd\View\Helper\Factory\RequestHelperFactory',
+            "uniUrl" => function($sm){
+                return new BackEnd\View\Helper\UniUrl($sm);
+            },
         )
     ),
     // ViewManager configuration
@@ -427,7 +458,7 @@ return array(
             'test_pages' => __DIR__ . '/../view/pager.phtml',
             "msg-info" => __DIR__ . "/../view/child-view/msg.phtml",
             "post-feature-paginator" => __DIR__ . "/../view/child-view/post-feature-paginator.phtml",
-            
+
         ),
         // TemplatePathStack configuration
         // module/view script path pairs
@@ -442,17 +473,17 @@ return array(
             'ViewJsonStrategy',
             // register JSON renderer strategy
             'ViewFeedStrategy',
-        // register Feed renderer strategy
+            // register Feed renderer strategy
         ),
     ),
     'service_manager' => array(
         'factories' => array(
-            'adapter' => function($sm) {
+            'adapter' => function($sm){
                 /** @var \Zend\ServiceManager\ServiceManager $sm */
                 $config = $sm->get('config');
                 return new \Zend\Db\Adapter\Adapter($config['db']);
             },
-            "SessionError" => function() {
+            "SessionError" => function(){
                 $sessionManger = new \Zend\Session\SessionManager();
                 $sessionStorage = new \Zend\Session\Storage\SessionArrayStorage();
                 $sessionManger->setStorage($sessionStorage);
@@ -460,7 +491,7 @@ return array(
                 $container = new \Zend\Session\Container("SessionError");
                 return $container;
             },
-            "init-capsule" => function($sm) {
+            "init-capsule" => function($sm){
                 $db = $sm->get("config")["db"];
                 $capsule = new Illuminate\Database\Capsule\Manager();
 
@@ -485,7 +516,7 @@ return array(
                 $capsule->bootEloquent();
                 return $capsule;
             }
-                ),
-            ),
-        );
+        ),
+    ),
+);
         

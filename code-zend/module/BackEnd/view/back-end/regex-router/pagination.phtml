@@ -1,0 +1,9 @@
+<h1>pagination</h1>
+<?php
+/** @var PHPRenderer $this */
+use Zend\View\Renderer\PhpRenderer;
+/** @var \BackEnd\View\Helper\UniUrl $uniUrl */
+//$this->getRouteMatch();
+//$uniUrl = $this->uniUrl();
+echo $this->paginationControl($this->paginator, 'Sliding', 'post-feature-paginator',
+    array('route' => 'test-regex-router/step', "controller" => $this->controller, "action" => $this->action)); ?>

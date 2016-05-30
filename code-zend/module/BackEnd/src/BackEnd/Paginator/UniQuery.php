@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent;
 use Zend\Paginator\Adapter\AdapterInterface;
 
 class UniQuery implements AdapterInterface{
-    const ID = "id";
     const ORDER_BY = "order_by";
     const ORDER = "order";
     const SEARCH_COLUMN = "search_column";
     const SEARCH_TERM = "search_term";
-    const SEARCH_TEMPLATE = "search_template";
 
     protected $query;
     protected $options;
@@ -34,7 +32,6 @@ class UniQuery implements AdapterInterface{
             self::ORDER_BY => "id",
             self::ORDER => "ASC",
             self::SEARCH_COLUMN => "name",
-            self::SEARCH_TEMPLATE => "%%s%"
         );
 
         /**
@@ -86,7 +83,7 @@ class UniQuery implements AdapterInterface{
             return $this->rowCount;
         }
 
-        $this->rowCount = $this->query->count(self::ID);
+        $this->rowCount = $this->query->count();
 
         return $this->rowCount;
     }

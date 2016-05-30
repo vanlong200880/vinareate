@@ -3,6 +3,7 @@ namespace BackEnd\Controller;
 
 use BackEnd\Model\District;
 use BackEnd\Model\PostFeature;
+use BackEnd\Model\Province;
 use BackEnd\Paginator\UniQuery;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Zend\Db\Adapter\Adapter;
@@ -100,7 +101,13 @@ class AdminController extends AbstractActionController{
 //        $modelQuery->where("id", ">", 10);
 //        $query = Capsule::table('post_features');
 //        $paginator = new Paginator(new UniQuery($query, $options));
+//        $modelQuery->join("post_feature_detail", "post_features.id", "=", "post_feature_detail.post_features_id")
+//            ->select("post_features.*");
+
+//        $query = Capsule::table(Capsule::raw("(" . $modelQuery->toSql() . ") as T"));
+
         $paginator = new Paginator(new UniQuery($modelQuery, $options));
+//        $paginator = new Paginator(new UniQuery($query, $options));
 
         $paginator->setItemCountPerPage(self::LIMIT);
 

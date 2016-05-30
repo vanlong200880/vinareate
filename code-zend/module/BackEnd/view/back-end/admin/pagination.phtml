@@ -1,9 +1,37 @@
 <h1>pagination</h1>
+<div class="row">
+    <div class="col-md-12">
+        <span class="btn-primary">id</span>
+        <a class="btn fa fa-sort-desc"></a>
+        <a class="btn fa fa-sort-asc"></a>
+    </div>
+</div>
+<form method="GET">
+    <label>search by name
+        <input type="text" name="search_term">
+    </label>
+</form>
+
 <?php
 /** @var PHPRenderer $this */
 use Zend\View\Renderer\PhpRenderer;
+
 /** @var \BackEnd\View\Helper\UniUrl $uniUrl */
 //$this->getRouteMatch();
 //$uniUrl = $this->uniUrl();
-echo $this->paginationControl($this->paginator, 'Sliding', 'post-feature-paginator',
-    array('route' => 'test-regex-router/step', "controller" => $this->controller, "action" => $this->action)); ?>
+$urlParams = array(
+    'route' => 'test-regex-router/step',
+    "controller" => $this->controller,
+    "action" => $this->action,
+    "orderBy" => $this->orderBy,
+    "order" => $this->order,
+);
+if(isset($this->searchTerm)){
+    $urlParams["searchTerm"] = $this->searchTerm;
+}
+echo $this->paginationControl($this->paginator, 'Sliding', 'post-feature-paginator', $urlParams);
+
+//if(isset($this->orderBy)){
+//
+//}
+

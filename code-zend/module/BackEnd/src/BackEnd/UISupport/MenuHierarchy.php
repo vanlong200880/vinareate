@@ -8,12 +8,12 @@ class MenuHierarchy{
     static function showMenu($postFeature){
     }
 
-    /*
- * Hàm hiển thị danh sách menu dạng list
- * Tham số truyền vào:
- *  - $menus: danh sách menu
- *  - $id_parent: mặc định, không cần truyền vào
- */
+    /**
+     * Hàm hiển thị danh sách menu dạng list
+     * Tham số truyền vào:
+     *  - $menus: danh sách menu
+     *  - $id_parent: mặc định, không cần truyền vào
+     */
     static function showMenuLi($menus, $id_parent = 0){
         # BƯỚC 1: LỌC DANH SÁCH MENU VÀ CHỌN RA NHỮNG MENU CÓ ID_PARENT = $id_parent
 

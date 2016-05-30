@@ -1,17 +1,34 @@
 <?php if($this->pageCount){ ?>
     <?php //var_dump($this->url("test-config", array("page" => 1))); ?>
     <?php //var_dump($this->url("backend/post-feature-paginator", array("page" => 2))); ?>
+    <?php $urlParams = array(
+        "controller" => $this->controller,
+        "action" => $this->action,
+        "page" => $this->previous,
+        "order_by" => $this->orderBy,
+        "order" => $this->order,
+        "searchTerm" => ""
+    ); ?>
+
+    <?php if(isset($this->searchTerm)){
+        $urlParams["searchTerm"] = $this->searchTerm;
+    } ?>
+
+    <?php $url = $this->url($this->route, $urlParams) . $urlParams["searchTerm"]; ?>
+
     <ul class="pagination">
         <?php if(!isset($this->previous)){
             $this->previous = $this->first;
         } ?>
-        <li><a href="<?php echo $this->url($this->route, array("controller" => $this->controller, "action" => $this->action, "page" => $this->previous)); ?>">
+        <?php $urlParams["page"] = $this->previous; ?>
+        <li><a href="<?php echo $url; ?>">
                 &lt
             </a>
         </li>
         <?php foreach($this->pagesInRange as $page){ ?>
+            <?php $urlParams["page"] = $page; ?>
             <li>
-                <a href="<?php echo $this->url($this->route, array("controller" => $this->controller, "action" => $this->action, "page" => $page)); ?>">
+                <a href="<?php echo $url; ?>">
                     <?php echo $page; ?>
                 </a>
             </li>
@@ -19,8 +36,9 @@
         <?php if(!isset($this->next)){
             $this->next = $this->last;
         } ?>
+        <?php $urlParams["page"] = $this->next; ?>
         <li>
-            <a href="<?php echo $this->url($this->route, array("controller" => $this->controller, "action" => $this->action, "page" => $this->next)); ?>">
+            <a href="<?php echo $url; ?>">
                 &gt
             </a>
         </li>

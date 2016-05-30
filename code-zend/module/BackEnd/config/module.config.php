@@ -407,7 +407,7 @@ return array(
                     'step' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '/[:controller][/:action][/page/:page]',
+                            'route' => '/[:controller][/:action][/page/:page][/order_by/:order_by][/order/:order]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',

@@ -98,56 +98,56 @@ class IlluminateDatabaseController extends AbstractActionController{
 //
 //        $jsonModel->setVariable("b", $provinces2);
 
-        $deepFeatures = PostFeature::with("feature")->get();
-
-        var_dump($deepFeatures);
-
-        foreach($deepFeatures as $parentFeature){
-            var_dump("[+]" . $parentFeature->name);
-            $items = $parentFeature->feature;
-            foreach($items as $item){
-                var_dump("[--]" . $item->name);
-//                var_dump($item->name);
-            }
-        }
-
-        $deepCategories = Category::with("category")->get();
-
-        foreach($deepCategories as $parentCategory){
-            var_dump("[+]" . $parentCategory->name);
-            $items = $parentCategory->category;
-            foreach($items as $item){
-                var_dump("[--]" . $item->name);
-            }
-        }
+//        $deepFeatures = PostFeature::with("feature")->get();
+//
+//        var_dump($deepFeatures);
+//
+//        foreach($deepFeatures as $parentFeature){
+//            var_dump("[+]" . $parentFeature->name);
+//            $items = $parentFeature->feature;
+//            foreach($items as $item){
+//                var_dump("[--]" . $item->name);
+////                var_dump($item->name);
+//            }
+//        }
+//
+//        $deepCategories = Category::with("category")->get();
+//
+//        foreach($deepCategories as $parentCategory){
+//            var_dump("[+]" . $parentCategory->name);
+//            $items = $parentCategory->category;
+//            foreach($items as $item){
+//                var_dump("[--]" . $item->name);
+//            }
+//        }
 
 //        return $jsonModel;
 
-//        $withQuery = PostFeatureDetail::with("feature")->where("id", "<", 3)->get();
-//        $withQuery = PostFeatureDetail::with(array(
-//            "feature" => function(Relation $hasMany){
-////                var_dump($hasMany->getQuery()->toSql());
-//                $query = $hasMany->getQuery();
-//                $query->select("*");
-//                $query->where("id", ">", 6);
-//                var_dump($query->toSql());
-////                return $query;
-//            }
-//        ))->where("id", "<", 3)->get();
-////        var_dump($withQuery);
-//        foreach($withQuery as $with){
-//            $name = "null";
-////            var_dump($with->feature->first());
-//            if($with->feature->first()){
-//                $name = $with->feature->first()->name;
-//            }
-//            var_dump($name);
-////            var_dump($with->featureX->name);
-////            var_dump($with->featureX->first());
-////            var_dump($with->featureX->getAttributes());
-////            var_dump($with->post_id, $with->id, $with->feature->first());
-////            var_dump($with->feature->first()->name);
-//        }
+        $withQuery = PostFeatureDetail::with("feature")->where("id", "<", 3)->get();
+        $withQuery = PostFeatureDetail::with(array(
+            "feature" => function(Relation $hasMany){
+//                var_dump($hasMany->getQuery()->toSql());
+                $query = $hasMany->getQuery();
+                $query->select("*");
+                $query->where("id", ">", 6);
+                var_dump($query->toSql());
+//                return $query;
+            }
+        ))->where("id", "<", 3)->get();
+//        var_dump($withQuery);
+        foreach($withQuery as $with){
+            $name = "null";
+//            var_dump($with->feature->first());
+            if($with->feature->first()){
+                $name = $with->feature->first()->name;
+            }
+            var_dump($name);
+//            var_dump($with->featureX->name);
+//            var_dump($with->featureX->first());
+//            var_dump($with->featureX->getAttributes());
+//            var_dump($with->post_id, $with->id, $with->feature->first());
+//            var_dump($with->feature->first()->name);
+        }
 
         return new ViewModel();
     }

@@ -168,6 +168,18 @@ class IlluminateDatabaseController extends AbstractActionController{
             var_dump($item->id);
         }
 
+        $subQuery =  $nestedQuery = PostFeatureDetail::whereIn("id", function(Query\Builder $query){
+            $query->from("post")
+                ->where("id", "<", 10)
+                ->select("id");
+        })->getQuery();
+
+        $countQuery = Capsule::table( Capsule::raw("({$subQuery->toSql()}) as sub") )
+            ->mergeBindings($subQuery); //you need to get underlying Query Builder
+        $numberOfRows = $countQuery->count();
+
+        var_dump(sprintf("numbser of rows: %s", $numberOfRows));
+
         return new ViewModel();
     }
 }

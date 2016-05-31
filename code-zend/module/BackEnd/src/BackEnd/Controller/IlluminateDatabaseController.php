@@ -149,6 +149,25 @@ class IlluminateDatabaseController extends AbstractActionController{
 //            var_dump($with->feature->first()->name);
         }
 
+        $nestedQuery = PostFeatureDetail::whereIn("id", function(Query\Builder $query){
+            $query->from("post")
+                ->where("id", "<", 10)
+                ->select("id");
+        })->get();
+
+        $nestedQuery2 = PostFeatureDetail::where("id", "in", function(Query\Builder $query){
+            $query->from("post")
+                ->where("id", "<", 10)
+                ->select("id");
+        })->get();
+
+        var_dump($nestedQuery);
+        var_dump($nestedQuery2);
+
+        foreach($nestedQuery as $item){
+            var_dump($item->id);
+        }
+
         return new ViewModel();
     }
 }

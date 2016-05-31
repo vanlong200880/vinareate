@@ -1,11 +1,8 @@
 <?php
 namespace BackEnd\Controller;
 
-use BackEnd\Model\District;
 use BackEnd\Model\PostFeature;
-use BackEnd\Model\Province;
 use BackEnd\Paginator\UniQuery;
-use Illuminate\Database\Capsule\Manager as Capsule;
 use Zend\Db\Adapter\Adapter;
 use Zend\Filter\Word;
 use Zend\Http\Request;
@@ -13,11 +10,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Model\ViewModel;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class AdminController extends AbstractActionController{
     protected $serviceManager;
     protected $viewModel;
-    const LIMIT = 5;
+    const LIMIT = 10;
 
     public function __construct(ServiceManager $serviceManager){
         $this->serviceManager = $serviceManager;
@@ -69,7 +67,8 @@ class AdminController extends AbstractActionController{
          */
         $options = array(
             UniQuery::ORDER_BY => $orderBy,
-            UniQuery::ORDER => $order
+            UniQuery::ORDER => $order,
+//            UniQuery::SEARCH_COLUMN => "province.name"
         );
         $searchTerm = $request->getQuery("search_term");
         if(!is_null($searchTerm)){
@@ -98,8 +97,19 @@ class AdminController extends AbstractActionController{
 //        $modelQuery = new PostFeature();
         $modelQuery = PostFeature::query();
 //        $modelQuery = PostFeature::with("district")->query();
-//        $modelQuery->where("id", ">", 10);
-//        $query = Capsule::table('post_features');
+        $modelQuery->where("id", ">", 4);
+        $query = Capsule::table('post_features');
+        $query->where("id", ">", 10);
+        $query2 =  Capsule::table('province')
+            ->leftJoin('district', 'province.provinceid', '=', 'district.provinceid')
+//            ->select('province.*', Capsule::raw('count(district.districtid) as count'))
+            ->selectRaw("province.*, count(districtid) as countA")
+            ->groupBy('province.provinceid');
+//        var_dump($query2->toSql());
+//        var_dump($query2->count());
+//        $query3 = Capsule::table('province');
+//        var_dump($query3->count());
+//        $options[UniQuery::SEARCH_COLUMN] = "province.name";
 //        $paginator = new Paginator(new UniQuery($query, $options));
 //        $modelQuery->join("post_feature_detail", "post_features.id", "=", "post_feature_detail.post_features_id")
 //            ->select("post_features.*");
@@ -109,14 +119,20 @@ class AdminController extends AbstractActionController{
         $paginator = new Paginator(new UniQuery($modelQuery, $options));
 //        $paginator = new Paginator(new UniQuery($query, $options));
 
+//        $paginator = new Paginator(new UniQuery($query2, $options));
+
         $paginator->setItemCountPerPage(self::LIMIT);
 
         $paginator->setCurrentPageNumber($pageId);
 
+        var_dump($paginator->getTotalItemCount());
+
         $this->viewModel->setVariable("paginator", $paginator);
 
         foreach($paginator->getItemsByPage($pageId) as $item){
-            var_dump($item->name);
+                var_dump($item->name);
+//            var_dump($item->name. ", " . $item->count);
+//            var_dump($item->name. ", " . $item->countA);
         }
 //        var_dump(($paginator->getItemsByPage($pageId)->first()->name));
 

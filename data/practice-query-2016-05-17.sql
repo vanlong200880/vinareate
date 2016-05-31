@@ -14,3 +14,11 @@ SELECT * FROM (SELECT * FROM province LIMIT 10 OFFSET 5) AS T ORDER BY T.name AS
 
 /* Count */
 SELECT COUNT(*) FROM post_features;
+
+/* Delete */
+DELETE FROM post WHERE post.id = 109;
+/* Delete cascade
+ * when create table, declare "ON DELETE CASCADE"
+ * >base on Foreign Key, when DELETE called
+ * automatically other stuff
+ */

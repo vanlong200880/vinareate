@@ -4,6 +4,8 @@ namespace BackEnd\Paginator;
 use Illuminate\Database\Query;
 use Illuminate\Database\Eloquent;
 use Zend\Paginator\Adapter\AdapterInterface;
+use Illuminate\Database\Capsule\Manager as Capsule;
+use Zend\Paginator\Adapter\DbSelect;
 
 class UniQuery implements AdapterInterface{
     const ORDER_BY = "order_by";
@@ -17,10 +19,17 @@ class UniQuery implements AdapterInterface{
 
     /**
      * UniQuery constructor.
-     * @param Query\Builder|Eloquent\Model|Eloquent\Builder $query
+     * @param Query\Builder|Eloquent\Builder $query
      * @param array $options
      */
     public function __construct($query, $options = array()){
+        /**
+         * query from Eloquent\Model is Eloquent\Builder
+         * which wrap Query\Builder inside
+         */
+        if($query instanceof Eloquent\Builder){
+            $query = $query->getQuery();
+        }
 
         $this->query = $query;
 
@@ -48,10 +57,10 @@ class UniQuery implements AdapterInterface{
         $this->query->orderBy($this->options["order_by"], $this->options["order"]);
 
         if(isset($this->options[self::SEARCH_TERM])){
-            $like = "%" . $this->options[self::SEARCH_TERM] . "%";
+            $like = '%' . $this->options[self::SEARCH_TERM] . '%';
             $this->query->where($this->options[self::SEARCH_COLUMN], "like", $like);
         }
-        $sql = $this->query->toSql();
+//        $sql = $this->query->toSql();
     }
 
     /**
@@ -64,7 +73,7 @@ class UniQuery implements AdapterInterface{
     public function getItems($offset, $itemCountPerPage){
         $query = clone $this->query;
 
-        $query->skip($offset)->limit($itemCountPerPage);
+        $query->offset($offset)->limit($itemCountPerPage);
 
         return $query->get();
     }
@@ -83,8 +92,22 @@ class UniQuery implements AdapterInterface{
             return $this->rowCount;
         }
 
-        $this->rowCount = $this->query->count();
+//        $query = clone $this->query;
+
+//        $subQuery = "(" . $query->toSql() . ") as T";
+        $subQuery = clone $this->query;
+
+        $countQuery = Capsule::table( Capsule::raw("({$subQuery->toSql()}) as sub") )
+            ->mergeBindings($subQuery); //you need to get underlying Query Builder
+
+//        $sql = $countQuery->toSql();
+//        $countQuery = Capsule::table(Capsule::raw($subQuery))->selectRaw("count(1) as count");
+//        var_dump($countQuery->toSql());
+//        $numberOfRow = $countQuery->first();
+//        $this->rowCount = $numberOfRow->aggregate;
+        $this->rowCount = $countQuery->count();
 
         return $this->rowCount;
+//        return $this->query->count();
     }
 }
